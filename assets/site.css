@@ -12,7 +12,7 @@ h1,h2,h3{font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.9;
 .hollow{color:transparent;-webkit-text-stroke:1.5px var(--fg);font-style:normal}
 .red{color:var(--red);font-style:normal}
 .lead{color:var(--dim);font-size:1.1rem;max-width:46ch}
-.noise{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(4) infinite}
+.noise{position:fixed;inset:-10%;z-index:60;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(4) infinite}
 @keyframes grain{25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-3%)}75%{transform:translate(-2%,-1%)}}
 .skip{position:absolute;left:-999px;top:0;background:var(--red);color:#000;padding:.5rem 1rem;z-index:100}
 .skip:focus{left:0}
