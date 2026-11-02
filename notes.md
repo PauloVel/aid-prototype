@@ -107,8 +107,7 @@ buttons.
 ## Motion rules
 
 - Slow and heavy: 1s cubic-bezier(.2,.7,.2,1) reveals, 40–48s rotations.
-- The homepage poster sequence (`.seq`) is scroll-driven: sticky 100svh stage, crossfading
-  images, one word per slide, 01/04 counter. Reduced motion gets a static image.
+- The homepage poster series (`.seq`) is scroll-driven: a pinned 100svh stage where the posters slide sideways, uncropped, with a caption under each, a progress line and a 01/04 counter, ending on a "Shop all" tile. Reduced motion gets a plain horizontal scroll.
 - Videos: `preload="none"`, `data-src`, play only while on screen.
 - Custom cursor: fine pointers only, `prefers-reduced-motion` respected, hidden on touch.
 

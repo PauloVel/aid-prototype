@@ -145,18 +145,6 @@ h1,h2,h3{font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.9;
 .disc:hover .media img{filter:none;transform:scale(1.03)}
 
 /* scroll-driven poster sequence — sticky stage, images crossfade with scroll */
-.seq{position:relative;height:380vh;border-bottom:1px solid var(--rule)}
-.seq-sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.seq img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.06);filter:saturate(1.05) contrast(1.05) brightness(.82);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
-.seq img.on{opacity:1;transform:scale(1)}
-.seq::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,.9) 5%,transparent 55%);pointer-events:none;z-index:1}
-.seq-ui{position:absolute;left:var(--pad);right:var(--pad);bottom:3rem;z-index:2;text-shadow:0 2px 40px rgba(5,5,5,.6)}
-.seq-ui .kicker{color:var(--fg);opacity:.8}
-.seq-words{position:relative;height:clamp(3.2rem,11vw,11rem)}
-.seq-word{position:absolute;left:0;bottom:0;font-size:clamp(3.2rem,11vw,11rem);letter-spacing:-.01em;opacity:0;transform:translateY(24px);transition:opacity .5s,transform .6s cubic-bezier(.16,1,.3,1)}
-.seq-word.on{opacity:1;transform:none}
-.seq-count{position:absolute;right:0;bottom:.4rem;font-size:.75rem;letter-spacing:.3em;color:var(--dim)}
-.seq-word .hollow{-webkit-text-stroke-color:var(--fg)}
 
 /* product stage — the posters presented like product, in 3D */
 .pstage{position:relative;overflow:hidden}
@@ -277,8 +265,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--red)}
  html{scroll-behavior:auto}
  .rv{opacity:1;transform:none}
  .hero-title{background:none;color:var(--fg);-webkit-text-fill-color:var(--fg)}
- .seq{height:auto}
- .seq-sticky{position:relative;height:88svh}
 }
 
 /* ---- shop: collection, product, cart (maps to main-collection / main-product / main-cart) ---- */
@@ -467,3 +453,22 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
  .wk-frame{order:1;width:min(56svh,80vw)}
 }
 @media(prefers-reduced-motion:reduce){.wk-bg,.wk-frame{opacity:1;transform:none!important}}
+
+/* poster series: pinned stage, posters slide sideways as you scroll (uncropped) */
+.seq{position:relative;height:340vh;border-bottom:1px solid var(--rule)}
+.seq-sticky{position:sticky;top:0;height:100svh;overflow:hidden;display:flex;align-items:center}
+.seq-k{position:absolute;top:5.5rem;left:var(--pad);z-index:2}
+.seq-track{display:flex;align-items:center;gap:clamp(3rem,8vw,9rem);padding:0 var(--pad);will-change:transform}
+.seq-item{flex:none;position:relative;margin:0}
+.seq-item a{display:block}
+.seq-item img{display:block;height:clamp(16rem,52svh,42rem);width:auto;max-width:none}
+.seq-item figcaption{display:flex;align-items:baseline;gap:1.2rem;margin-top:1.4rem}
+.seq-n{font-size:.75rem;letter-spacing:.3em;color:var(--red)}
+.seq-word{font-size:clamp(2.2rem,4.6vw,4.6rem);letter-spacing:-.01em;white-space:nowrap;line-height:.9}
+.seq-end{flex:none;display:grid;place-items:center;height:clamp(16rem,52svh,42rem);aspect-ratio:3/4;border:1px solid var(--rule);font-size:clamp(1.6rem,3vw,3rem);line-height:1.1;text-transform:uppercase;font-family:Anton,sans-serif;transition:background .3s,color .3s,border-color .3s}
+.seq-end:hover{background:var(--red);border-color:var(--red);color:#050505}
+.seq-foot{position:absolute;left:var(--pad);right:var(--pad);bottom:2.2rem;display:flex;align-items:center;gap:1.5rem;font-size:.75rem;letter-spacing:.3em;color:var(--dim)}
+.seq-bar{flex:1;height:1px;background:var(--rule);position:relative}
+.seq-bar i{position:absolute;left:0;top:-1px;height:3px;width:100%;background:var(--red);transform-origin:0 50%;transform:scaleX(0)}
+@media(max-width:900px){.seq{height:300vh}.seq-item img,.seq-end{height:46svh}}
+@media(prefers-reduced-motion:reduce){.seq{height:auto}.seq-sticky{position:relative;height:auto;padding:6rem 0 4rem;display:block}.seq-k{position:static;padding:0 var(--pad) 2rem}.seq-track{overflow-x:auto;transform:none!important}.seq-foot{display:none}}
