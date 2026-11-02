@@ -30,7 +30,18 @@
 <main id="main">
 <section class="phead"><p class="kicker">Posters / The store</p><h1>Shop</h1><p class="lead">Athlete energy for walls that don't whisper. Printed big. Shipped fast.</p></section>
 <div class="shop-note" role="list"><p role="listitem"><b>Museum-grade print</b> · 200gsm matte</p><p role="listitem"><b>Ships in 3 days</b> · worldwide</p><p role="listitem"><b>Secure checkout</b> · by Shopify</p></div>
+<section class="drop" aria-labelledby="dropt">
+<!-- COMMUNITY: drop = a Shopify collection with a metafield for edition size; remaining = inventory_quantity -->
+<div class="pbg" aria-hidden="true">03</div>
+<div class="drop-in">
+ <div class="rv"><p class="kicker">Drop 03 / Live</p><h2 id="dropt">100 of each.<br><em class="red">Then gone.</em></h2><p class="lead">Adrenaline. Four posters, numbered by hand, never reprinted. Own one before it is a story.</p>
+  <div class="meter" role="img" aria-label="62 of 100 left"><span style="width:38%"></span></div><p class="fine">62 of 100 left</p>
+  <div class="btns"><a class="btn" href="product.html">Shop the drop</a><a class="btn" href="#join">Get the next one first</a></div></div>
+ <a class="rv drop-img" href="product.html"><img src="assets/adr_bike.webp" alt="Adrenaline Bike, Drop 03" width="736" height="981"></a>
+</div>
+</section>
 <section class="sec" aria-label="Posters">
+<h2 class="sr">All posters</h2>
 <!-- SHOPIFY: sections/main-collection.liquid. Filters = collection tags, sort = collection.sort_by, cards = product-card snippet -->
 <div class="sbar">
 <div class="filters" role="group" aria-label="Filter posters"><button type="button" data-f="all" aria-pressed="true">All</button><button type="button" data-f="adrenaline" aria-pressed="false">Adrenaline</button><button type="button" data-f="angelistic" aria-pressed="false">Angelistic</button><button type="button" data-f="singles" aria-pressed="false">Singles</button></div>
@@ -60,7 +71,20 @@
 </a><a class="card rv" href="product.html" data-cat="singles" data-price="38" data-order="7">
  <div class="img"><img src="assets/DOGG.webp" alt="For Crazy People poster" width="736" height="856" loading="lazy"></div>
  <div class="meta"><div class="tag"><span>Singles</span><span>Poster</span></div><h3>For Crazy People</h3><div class="buy"><span class="price">From $38.00</span><span class="go"><span>View poster</span></span></div></div>
+</a><a class="card rv" href="product.html" data-cat="adrenaline" data-price="38" data-order="8">
+ <div class="img"><img src="assets/adr_summit.webp" alt="Adrenaline — Summit poster" width="736" height="734" loading="lazy"></div>
+ <div class="meta"><div class="tag"><span>Adrenaline</span><span>Poster</span></div><h3>Adrenaline — Summit</h3><div class="buy"><span class="price">From $38.00</span><span class="go"><span>View poster</span></span></div></div>
 </a></div>
+</section>
+<section class="sec wall" aria-labelledby="wallt">
+<!-- COMMUNITY: replace tiles with customer photos (Instagram feed or a Shopify metaobject list). Placeholder art for now. -->
+<div class="shead rv"><div><p class="kicker">The community</p><h2 id="wallt">On your wall</h2></div><p class="lead">Tag @abrasivetmt. We repost the loudest.</p></div>
+<div class="wallgrid"><figure class="tile rv"><img src="assets/adr_storm.webp" alt="Placeholder: customer wall with the Storm poster" width="787" height="1400" loading="lazy"></figure><figure class="tile rv"><img src="assets/aid_Ojo.webp" alt="Placeholder: customer wall with the Ojo poster" width="736" height="736" loading="lazy"></figure><figure class="tile rv"><img src="assets/aid_OtroAngel.webp" alt="Placeholder: customer wall with the Angelistic poster" width="736" height="919" loading="lazy"></figure><figure class="tile rv"><img src="assets/adr_jet.webp" alt="Placeholder: customer wall with the Jet poster" width="736" height="1308" loading="lazy"></figure><figure class="tile rv"><img src="assets/aid_Elelegido.webp" alt="Placeholder: customer wall with the El Elegido poster" width="900" height="1125" loading="lazy"></figure><a class="tile cta rv" href="https://www.instagram.com/abrasivetmt" rel="noopener"><span class="kicker">Your turn</span><strong>Tag<br>@abrasivetmt</strong><span class="fine">Show us the wall</span></a></div>
+</section>
+<section class="sec join" id="join" aria-labelledby="joint">
+<!-- COMMUNITY: Shopify customer form (form 'customer', contact[tags] = newsletter) -->
+<div class="rv"><p class="kicker">Drops / First access</p><h2 id="joint">Join the<br><em class="hollow">next drop.</em></h2></div>
+<form id="joinf" class="rv" novalidate><label>Email<input type="email" name="email" autocomplete="email" required placeholder="you@email.com"></label><button class="btn" type="submit">Get first access</button><p class="fine" id="join-note" role="status"></p><p class="fine">One email per drop. No noise.</p></form>
 </section>
 <section class="bb"><p class="kicker">Need it on a wall at scale?</p><h2>Brand <em class="hollow">walls.</em></h2><p class="lead">Custom prints, bulk orders and campaign posters for companies.</p><div class="btns"><a class="btn" href="contact.html">Talk to us</a></div></section>
 </main>

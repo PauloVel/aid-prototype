@@ -212,4 +212,12 @@
     cartEl.addEventListener('click',function(e){var r=e.target.closest('.rm');if(r){r.closest('.line').remove();calc()}});
     calc();
   }
+
+  // join the next drop (demo; Shopify customer form replaces this)
+  var jf=document.getElementById('joinf');
+  if(jf)jf.addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=document.getElementById('join-note'),v=jf.querySelector('input[type=email]');
+    n.textContent=v.checkValidity()&&v.value?'You are in. First access to the next drop.':'Enter a valid email.';
+  });
 })();

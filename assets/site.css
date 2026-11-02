@@ -383,3 +383,38 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
  .line{grid-template-columns:5rem 1fr}
  .line .tot{grid-column:2;text-align:left}
 }
+
+/* ---- audit fixes ---- */
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media(scripting:none){.rv{opacity:1;transform:none}}
+.filters button{min-height:2.75rem}
+.burger{min-height:2.75rem;min-width:2.75rem}
+.line .rm{min-height:2.75rem;padding:0 .25rem}
+.badge,.opts small,.facts dt{font-size:.7rem}
+
+/* ---- community: drops, wall, join ---- */
+.drop{position:relative;overflow:hidden;border-bottom:1px solid var(--rule);padding:clamp(5rem,10vw,9rem) var(--pad)}
+.drop .pbg{font-size:clamp(14rem,50vw,48rem);justify-content:flex-end;padding-right:2vw}
+.drop-in{position:relative;display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+.drop h2{font-size:clamp(3.5rem,9vw,9rem);margin:1rem 0 1.5rem}
+.drop-img{justify-self:center;width:min(100%,380px);border:1px solid var(--rule);box-shadow:0 40px 80px rgba(0,0,0,.6);overflow:hidden}
+.drop-img img{width:100%;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.drop-img:hover img{transform:scale(1.04)}
+.meter{height:6px;border:1px solid var(--rule);margin:2rem 0 .75rem;max-width:32rem}
+.meter span{display:block;height:100%;background:var(--red)}
+.wallgrid{column-count:3;column-gap:1px;border:1px solid var(--rule)}
+.tile{break-inside:avoid;margin:0 0 1px;overflow:hidden;background:#111}
+.tile img{width:100%;height:auto;filter:saturate(1.05) contrast(1.05);transition:transform 1.2s cubic-bezier(.2,.7,.2,1),filter .5s}
+.tile:hover img{transform:scale(1.04);filter:saturate(1.2) contrast(1.1)}
+.tile.cta{display:flex;flex-direction:column;justify-content:space-between;gap:2rem;padding:2rem;min-height:18rem;background:var(--bg);transition:background .3s,color .3s}
+.tile.cta strong{font-family:'Anton';font-weight:400;font-size:clamp(1.8rem,3.2vw,3.2rem);line-height:.95;text-transform:uppercase;overflow-wrap:anywhere}
+.tile.cta:hover{background:var(--red);color:#050505}
+.tile.cta:hover .kicker,.tile.cta:hover .fine{color:#050505}
+.join{display:grid;grid-template-columns:1.2fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:end}
+.join h2{font-size:clamp(3.5rem,9vw,9rem);margin-top:1rem}
+.join form{align-content:end}
+@media(max-width:900px){
+ .drop-in,.join{grid-template-columns:1fr}
+ .wallgrid{column-count:2}
+}
