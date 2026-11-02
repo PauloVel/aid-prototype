@@ -521,33 +521,23 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .disc.green .media::after{content:"";position:absolute;inset:0;background:#18a845;mix-blend-mode:color;pointer-events:none;transition:opacity .6s}
 .disc.green:hover .media img{filter:grayscale(1) contrast(1.1)}
 
-/* studio palettes — ATHLETE: black + red blocks, hard contrast. OUTDOOR: black + white + green.
-   Letters are never red here: red is a fill, green/white carry the type. */
+/* studio — ONE aesthetic: outdoor. Black, white, green. No red on this page. Letters are white or black only. */
 .studio{--green:#2bd96b}
 .studio main .kicker,.studio .sd-rows .n,.studio .sd-give .n,.studio .disc .n{color:var(--fg)}
 .studio .sd-hero .l2{-webkit-text-stroke-color:var(--fg)}
 .studio .sd-hero:hover .l2{color:var(--fg)}
 .studio .sd-hero .btn::before{background:var(--green)}
 .studio .sd-hero .btn:hover{color:#050505;border-color:var(--green)}
-/* athlete rows: red block, black type, white numbers */
-/* who rows: each is one fixed aesthetic, not a hover choice */
-.studio .sd-rows li,.studio .sd-rows li:hover{border-top:0;color:#050505;position:relative;isolation:isolate;overflow:hidden}
-.studio .sd-rows li .n,.studio .sd-rows li p{color:#050505;font-weight:500}
-.studio .sd-rows li.ath{background:var(--red)}
-.studio .sd-rows li.risk{background:#050505;color:var(--fg);box-shadow:inset 1.2rem 0 0 var(--red)}
-.studio .sd-rows li.risk .n,.studio .sd-rows li.risk p{color:var(--fg)}
-.studio .sd-rows li.out{background:#0f7a2e url(assets/BK_passage.jpg) center/cover;background-blend-mode:multiply}
-.studio .sd-rows li.out .n,.studio .sd-rows li.out p,.studio .sd-rows li.out h2{color:var(--fg)}
-.studio .sd-rows li:hover{background-color:inherit}
-.studio .sd-rows li.ath:hover{background:var(--red)}
-.studio .sd-rows li.risk:hover{background:#050505}
-.studio .sd-rows li.out:hover{background:#0f7a2e url(assets/BK_passage.jpg) center/cover;background-blend-mode:multiply}
-/* athlete band: solid red, black type */
-.studio .sd-give.ath{background:var(--red);color:#050505;border-color:#050505}
-.studio .sd-give.ath>div{border-color:#050505}
-.studio .sd-give.ath .n,.studio .sd-give.ath p{color:#050505}
-.studio .sd-give.ath p{font-weight:500}
-/* disc panels: white kickers, green on outdoor panels, red only as a bar */
-.studio .disc .cost{border-left-color:var(--red)}
-.studio .disc.green .cost{border-left-color:var(--green)}
+/* who rows: identical, a green bar is the only colour */
+.studio .sd-rows li{border-top:1px solid var(--rule);box-shadow:inset 1.2rem 0 0 var(--green);padding-left:calc(var(--pad) + 1.2rem)}
+.studio .sd-rows li:first-child{border-top:3px solid var(--fg)}
+.studio .sd-rows li:hover{background:none;color:var(--fg)}
+.studio .sd-rows li:hover .n,.studio .sd-rows li:hover p{color:inherit}
+.studio .sd-rows p{color:var(--dim)}
+/* give band: white block, black type */
+.studio .sd-give{background:var(--fg);color:#050505;border-color:#050505}
+.studio .sd-give>div{border-color:#050505}
+.studio .sd-give .n,.studio .sd-give p{color:#050505}
+.studio .sd-give p{font-weight:500}
+.studio .disc .cost{border-left-color:var(--green)}
 .studio .next:hover h2{color:var(--fg)}
