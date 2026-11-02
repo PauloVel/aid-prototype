@@ -544,7 +544,7 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .sd-way h2{font-size:clamp(5rem,19vw,22rem);letter-spacing:-.02em;line-height:.82;margin-left:-.03em}
 .sd-way .k{grid-column:2;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--fg)}
 .sd-way .c{grid-column:2;color:var(--fg);opacity:.8;border-left:2px solid var(--green);padding-left:1rem}
-.sd-way h2{grid-row:2;grid-column:1}
-.sd-way .k{grid-row:2;align-self:start}
-.sd-way .c{grid-row:2;align-self:end}
+.sd-way h2{grid-row:2/4;grid-column:1}
+.sd-way .k{grid-row:2;align-self:end}
+.sd-way .c{grid-row:3;align-self:end}
 @media(max-width:800px){.sd-way-in{grid-template-columns:1fr}.sd-way .k,.sd-way .c,.sd-way h2{grid-column:1;grid-row:auto}.sd-way .k{margin-top:1rem}}
