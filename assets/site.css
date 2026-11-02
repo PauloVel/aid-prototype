@@ -530,9 +530,18 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .studio .sd-hero .btn::before{background:var(--green)}
 .studio .sd-hero .btn:hover{color:#050505;border-color:var(--green)}
 /* athlete rows: red block, black type, white numbers */
-.studio .sd-rows li:hover{background:var(--red);color:#050505}
-.studio .sd-rows li:hover .n,.studio .sd-rows li:hover p{color:#050505}
-.studio .sd-rows li.out:hover{background:var(--green)}
+/* who rows: each is one fixed aesthetic, not a hover choice */
+.studio .sd-rows li,.studio .sd-rows li:hover{border-top:0;color:#050505;position:relative;isolation:isolate;overflow:hidden}
+.studio .sd-rows li .n,.studio .sd-rows li p{color:#050505;font-weight:500}
+.studio .sd-rows li.ath{background:var(--red)}
+.studio .sd-rows li.risk{background:#050505;color:var(--fg);box-shadow:inset 1.2rem 0 0 var(--red)}
+.studio .sd-rows li.risk .n,.studio .sd-rows li.risk p{color:var(--fg)}
+.studio .sd-rows li.out{background:#0f7a2e url(assets/BK_passage.jpg) center/cover;background-blend-mode:multiply}
+.studio .sd-rows li.out .n,.studio .sd-rows li.out p,.studio .sd-rows li.out h2{color:var(--fg)}
+.studio .sd-rows li:hover{background-color:inherit}
+.studio .sd-rows li.ath:hover{background:var(--red)}
+.studio .sd-rows li.risk:hover{background:#050505}
+.studio .sd-rows li.out:hover{background:#0f7a2e url(assets/BK_passage.jpg) center/cover;background-blend-mode:multiply}
 /* athlete band: solid red, black type */
 .studio .sd-give.ath{background:var(--red);color:#050505;border-color:#050505}
 .studio .sd-give.ath>div{border-color:#050505}
