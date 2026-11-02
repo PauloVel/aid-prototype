@@ -425,3 +425,12 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .subnav a{padding:.5rem 0}
 .subnav a:hover,.subnav a[aria-current]{color:var(--fg)}
 .subnav a[aria-current]{border-bottom:1px solid var(--red)}
+
+/* homepage: fans first */
+.hero-meta .btns{margin-top:.75rem}
+.hero-meta .btn{background:rgba(5,5,5,.35)}
+.big-line{font-family:'Anton';font-size:clamp(3rem,8vw,8rem);line-height:.92;text-transform:uppercase;margin:1rem 0 1.5rem}
+.frames{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);overflow:hidden}
+.frames img{width:100%;height:100%;object-fit:cover;aspect-ratio:16/10;transition:transform 1.2s cubic-bezier(.2,.7,.2,1),filter .5s;filter:saturate(1.05) contrast(1.05)}
+.frames:hover img{filter:saturate(1.2) contrast(1.1)}
+.studio-band h2{font-size:clamp(2.5rem,6vw,6rem);margin:1rem 0 1.25rem}
