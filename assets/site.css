@@ -520,3 +520,29 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .disc.green .media img{filter:grayscale(1) contrast(1.1);mix-blend-mode:luminosity;opacity:.95}
 .disc.green .media::after{content:"";position:absolute;inset:0;background:#18a845;mix-blend-mode:color;pointer-events:none;transition:opacity .6s}
 .disc.green:hover .media img{filter:grayscale(1) contrast(1.1)}
+
+/* studio palettes — ATHLETE: black + red blocks, hard contrast. OUTDOOR: black + white + green.
+   Letters are never red here: red is a fill, green/white carry the type. */
+.studio{--green:#2bd96b}
+.studio .kicker,.studio .subnav span,.studio .sd-rows .n,.studio .sd-give .n,.studio .disc .n{color:var(--green)}
+.studio .nav a:hover,.studio .nav a[aria-current],.studio .subnav a[aria-current]{color:var(--green);border-color:var(--green)}
+.studio .sd-hero .l2{-webkit-text-stroke-color:var(--fg)}
+.studio .sd-hero:hover .l2{color:var(--green);-webkit-text-stroke-color:var(--green)}
+.studio .sd-hero .btn::before{background:var(--green)}
+.studio .sd-hero .btn:hover{color:#050505;border-color:var(--green)}
+/* athlete rows: red block, black type, white numbers */
+.studio .sd-rows li:hover{background:var(--red);color:#050505}
+.studio .sd-rows li:hover .n,.studio .sd-rows li:hover p{color:#050505}
+.studio .sd-rows li.out:hover{background:var(--green)}
+/* athlete band: solid red, black type */
+.studio .sd-give.ath{background:var(--red);color:#050505;border-color:#050505}
+.studio .sd-give.ath>div{border-color:#050505}
+.studio .sd-give.ath .n,.studio .sd-give.ath p{color:#050505}
+.studio .sd-give.ath p{font-weight:500}
+/* disc panels: white kickers, green on outdoor panels, red only as a bar */
+.studio .disc .cost{border-left-color:var(--red)}
+.studio .disc.green .cost{border-left-color:var(--green)}
+.studio .disc.green .kicker{color:var(--green)}
+.studio .disc:not(.green) .kicker{color:var(--fg)}
+.studio .next:hover h2{color:var(--green)}
+.studio :focus-visible{outline-color:var(--green)}
