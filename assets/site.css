@@ -418,3 +418,10 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
  .drop-in,.join{grid-template-columns:1fr}
  .wallgrid{column-count:2}
 }
+
+/* studio sub-menu */
+.subnav{position:absolute;top:4.2rem;left:var(--pad);right:var(--pad);z-index:40;display:flex;gap:1.5rem;flex-wrap:wrap;align-items:center;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.subnav span{color:var(--red)}
+.subnav a{padding:.5rem 0}
+.subnav a:hover,.subnav a[aria-current]{color:var(--fg)}
+.subnav a[aria-current]{border-bottom:1px solid var(--red)}
