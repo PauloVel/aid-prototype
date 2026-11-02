@@ -472,3 +472,37 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .seq-bar i{position:absolute;left:0;top:-1px;height:3px;width:100%;background:var(--red);transform-origin:0 50%;transform:scaleX(0)}
 @media(max-width:900px){.seq{height:300vh}.seq-item img,.seq-end{height:46svh}}
 @media(prefers-reduced-motion:reduce){.seq{height:auto}.seq-sticky{position:relative;height:auto;padding:6rem 0 4rem;display:block}.seq-k{position:static;padding:0 var(--pad) 2rem}.seq-track{overflow-x:auto;transform:none!important}.seq-foot{display:none}}
+
+/* studio page — loud, wall-to-wall type */
+.sd-hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;gap:1.5rem;padding:8rem var(--pad) clamp(2rem,5vw,4rem);border-bottom:1px solid var(--rule);overflow:hidden}
+.sd-hero h1{display:flex;flex-direction:column;font-size:clamp(6rem,27vw,30rem);letter-spacing:-.03em;line-height:.8;margin-left:-.03em}
+.sd-hero .l2{font-size:.62em;-webkit-text-stroke:2px var(--fg);transition:color .4s}
+.sd-hero:hover .l2{color:var(--red);-webkit-text-stroke-color:var(--red)}
+.sd-hero-row{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;margin-top:2rem}
+.sd-hero .lead{font-size:clamp(1.1rem,2vw,1.6rem);color:var(--fg);max-width:40ch}
+.sd-k{padding:2rem var(--pad) 0}
+.sd-ways{padding-bottom:2rem;border-top:1px solid var(--rule);padding-top:3rem}
+.sd-who{border-bottom:1px solid var(--rule)}
+.sd-rows li{display:grid;grid-template-columns:4rem 1fr minmax(0,34ch);gap:1.5rem;align-items:center;padding:clamp(1.5rem,3vw,2.5rem) var(--pad);border-top:3px solid var(--fg);transition:background .25s,color .25s}
+.sd-rows li:not(:first-child){border-top:1px solid var(--rule)}
+.sd-rows h2{font-size:clamp(3.5rem,13vw,13rem);line-height:.85;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.sd-rows .n{font-size:.8rem;letter-spacing:.3em;color:var(--red)}
+.sd-rows p{color:var(--dim);font-size:1.05rem}
+.sd-rows li:hover{background:var(--red);color:#050505}
+.sd-rows li:hover h2{transform:translateX(1.5rem)}
+.sd-rows li:hover p,.sd-rows li:hover .n{color:#050505}
+.sd-give{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--rule)}
+.sd-give>div{padding:clamp(3rem,7vw,6rem) var(--pad);border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:1.25rem}
+.sd-give>div:last-child{border-right:0}
+.sd-give .n{color:var(--red);font-size:.8rem;letter-spacing:.3em}
+.sd-give h3{font-size:clamp(2.5rem,5vw,5rem)}
+.sd-give p{color:var(--dim);max-width:30ch}
+.sd-stmt{min-height:70svh;display:grid;place-items:center;padding:var(--pad);border-bottom:1px solid var(--rule);text-align:center}
+.sd-stmt h2{font-size:clamp(4.5rem,18vw,22rem);letter-spacing:-.02em;line-height:.85}
+@media(max-width:800px){
+ .sd-rows li{grid-template-columns:2.5rem 1fr}
+ .sd-rows p{grid-column:2}
+ .sd-give{grid-template-columns:1fr}
+ .sd-give>div{border-right:0;border-bottom:1px solid var(--rule)}
+}
+@media(prefers-reduced-motion:reduce){.sd-rows h2,.sd-hero .l2{transition:none}}
