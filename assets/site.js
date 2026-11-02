@@ -147,4 +147,69 @@
       setTimeout(function(){location.href=form.dataset.evrabo},900);
     }
   });
+
+  // ---- shop (demo behaviour; Shopify replaces all of this with real cart/variant objects) ----
+  var money=function(n){return '$'+n.toFixed(2)};
+  var countEls=document.querySelectorAll('[data-cart-count]');
+  var setCount=function(n){countEls.forEach(function(el){el.textContent=n})};
+
+  // collection sort
+  var sortSel=document.getElementById('sort');
+  if(sortSel)sortSel.addEventListener('change',function(){
+    var g=document.querySelector('.grid'),cs=[].slice.call(g.querySelectorAll('.card')),k=sortSel.value;
+    cs.sort(function(a,b){
+      if(k==='low')return a.dataset.price-b.dataset.price;
+      if(k==='high')return b.dataset.price-a.dataset.price;
+      return a.dataset.order-b.dataset.order;
+    }).forEach(function(c){g.appendChild(c)});
+  });
+
+  // product gallery + variant price + add to cart
+  var pm=document.getElementById('pdpmain'),pt=document.querySelectorAll('.pdp-thumbs button');
+  pt.forEach(function(btn){btn.addEventListener('click',function(){
+    pt.forEach(function(x){x.setAttribute('aria-pressed',x===btn)});
+    var src=btn.dataset.full;
+    if(pm&&pm.getAttribute('src')!==src){pm.style.opacity=0;setTimeout(function(){pm.src=src;pm.alt=btn.dataset.alt||pm.alt;pm.style.opacity=1},200)}
+  })});
+  var atc=document.getElementById('atc');
+  if(atc){
+    var pr=document.getElementById('price'),ab=document.getElementById('atc-btn'),an=document.getElementById('atc-note'),added=0;
+    var upd2=function(){var v=atc.querySelector('input[name=size]:checked');if(v&&pr)pr.textContent=money(+v.dataset.price)};
+    atc.addEventListener('change',upd2);upd2();
+    atc.addEventListener('submit',function(e){
+      e.preventDefault();
+      added+=+atc.querySelector('input[name=qty]').value;
+      setCount(added);
+      an.innerHTML='Added. <a href="cart.html">View cart</a>';
+    });
+  }
+
+  // quantity steppers (product + cart)
+  document.querySelectorAll('.qty').forEach(function(q){
+    var inp=q.querySelector('input');
+    q.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){
+      inp.value=Math.max(1,Math.min(99,(+inp.value||1)+(b.dataset.d==='+'?1:-1)));
+      inp.dispatchEvent(new Event('change',{bubbles:true}));
+    })});
+  });
+
+  // cart totals, remove, empty state
+  var cartEl=document.getElementById('cart');
+  if(cartEl){
+    var calc=function(){
+      var sub=0,n=0;
+      cartEl.querySelectorAll('.line').forEach(function(l){
+        var q=Math.max(1,+l.querySelector('input').value||1),t=q*l.dataset.price;
+        l.querySelector('.tot').textContent=money(t);sub+=t;n+=q;
+      });
+      document.getElementById('sub').textContent=money(sub);
+      document.getElementById('total').textContent=money(sub);
+      setCount(n);
+      var none=!cartEl.querySelector('.line');
+      cartEl.hidden=none;document.getElementById('empty').hidden=!none;
+    };
+    cartEl.addEventListener('change',calc);
+    cartEl.addEventListener('click',function(e){var r=e.target.closest('.rm');if(r){r.closest('.line').remove();calc()}});
+    calc();
+  }
 })();
