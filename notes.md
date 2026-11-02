@@ -21,8 +21,8 @@ social icons row, no sitemap dump, **no logo** — the giant word is the signatu
 - **Never write "community"** (or "join us", "be part of", "follow us" as a headline). It reads
   like begging for followers. Show what the person came for first (posters, Abrasive films,
   the athletes), then offer ways in as quiet actions: Watch, Follow, Next drop first.
-- The fan side is called **Abrasive** (the content), the store is **Shop**, the business side
-  is **Studio**. These are the only names in the main nav.
+- The fan content is called **Abrasive** (not in the menu), the store is **Shop**, the business side
+  is **Studio**. Only Shop and Studio (plus Cart) are in the main nav.
 
 ## Who it is for
 
@@ -32,7 +32,7 @@ social media and may buy posters. The design studio is the second door: professi
 
 ## Navigation
 
-Main nav: **Shop · Abrasive · Studio · Cart**. Studio pages (Design, Work, Build, Contact and
+Main nav: **Shop · Studio · Cart**. Abrasive is reached from the homepage, the footer and Instagram, not the menu. Studio pages (Design, Work, Build, Contact and
 the project pages) share a small sub-menu under the header. Do not add more top-level items.
 
 ## Homepage order (current, supersedes the story below where they conflict)
