@@ -81,12 +81,12 @@
 </a></div>
 </section>
 <section class="sec wall" aria-labelledby="wallt">
-<!-- COMMUNITY: replace tiles with customer photos (Instagram feed or a Shopify metaobject list). Placeholder art for now. -->
+<!-- SHOPIFY: the drop list is stored in Shopify Customers (no separate database). Theme: {% form 'customer', class: 'join' %} with <input type="hidden" name="contact[tags]" value="drop-list"> and <input type="email" name="contact[email]">; success = form.posted_successfully?, errors = form.errors. Export or email the list from Admin > Customers filtered by tag drop-list. -->
 <div class="shead rv"><div><p class="kicker">On the walls</p><h2 id="wallt">On your wall</h2></div></div>
 <div class="wallgrid"><figure class="tile rv"><img src="assets/adr_storm.webp" alt="Placeholder: customer wall with the Storm poster" width="787" height="1400" loading="lazy"></figure><figure class="tile rv"><img src="assets/aid_Ojo.webp" alt="Placeholder: customer wall with the Ojo poster" width="736" height="736" loading="lazy"></figure><figure class="tile rv"><img src="assets/aid_OtroAngel.webp" alt="Placeholder: customer wall with the Angelistic poster" width="736" height="919" loading="lazy"></figure><figure class="tile rv"><img src="assets/adr_jet.webp" alt="Placeholder: customer wall with the Jet poster" width="736" height="1308" loading="lazy"></figure><figure class="tile rv"><img src="assets/aid_Elelegido.webp" alt="Placeholder: customer wall with the El Elegido poster" width="900" height="1125" loading="lazy"></figure><figure class="tile rv"><img src="assets/adr_bike.webp" alt="Placeholder: customer wall with the Bike poster" width="736" height="981" loading="lazy"></figure></div>
 </section>
 <section class="sec join" id="join" aria-labelledby="joint">
-<!-- COMMUNITY: Shopify customer form (form 'customer', contact[tags] = newsletter) -->
+<!-- SHOPIFY: the drop list is stored in Shopify Customers (no separate database). Theme: {% form 'customer', class: 'join' %} with <input type="hidden" name="contact[tags]" value="drop-list"> and <input type="email" name="contact[email]">; success = form.posted_successfully?, errors = form.errors. Export or email the list from Admin > Customers filtered by tag drop-list. -->
 <div class="rv"><p class="kicker">Drops / First access</p><h2 id="joint">Join the<br><em class="hollow">next drop.</em></h2></div>
 <form id="joinf" class="rv" novalidate><label>Email<input type="email" name="email" autocomplete="email" required placeholder="you@email.com"></label><button class="btn" type="submit">Get first access</button><p class="fine" id="join-note" role="status"></p><p class="fine">One email per drop. No noise.</p></form>
 </section>

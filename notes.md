@@ -111,3 +111,10 @@ buttons.
   images, one word per slide, 01/04 counter. Reduced motion gets a static image.
 - Videos: `preload="none"`, `data-src`, play only while on screen.
 - Custom cursor: fine pointers only, `prefers-reduced-motion` respected, hidden on touch.
+
+## Drop list (waitlist) storage
+
+- No separate database. The "Join the next drop" form becomes a Shopify customer form and the
+  emails are saved in Shopify Customers, tagged `drop-list`, with marketing consent.
+- Filter by that tag in Admin > Customers to export or email the list (Shopify Email, Klaviyo).
+- The static prototype only validates the email; nothing is stored until the theme conversion.
