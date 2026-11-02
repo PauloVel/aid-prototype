@@ -15,6 +15,32 @@ The footer is the closing signature of every page. Its anatomy (`.foot` in `asse
 Why it works: one giant statement, one quiet utility row. Nothing else. No newsletter, no
 social icons row, no sitemap dump, **no logo** — the giant word is the signature.
 
+## Copy rules (the words we never use)
+
+- **Never write "B2B"** or anything that pitches the studio to clients.
+- **Never write "community"** (or "join us", "be part of", "follow us" as a headline). It reads
+  like begging for followers. Show what the person came for first (posters, Abrasive films,
+  the athletes), then offer ways in as quiet actions: Watch, Follow, Next drop first.
+- The fan side is called **Abrasive** (the content), the store is **Shop**, the business side
+  is **Studio**. These are the only names in the main nav.
+
+## Who it is for
+
+AID is primarily for athletes, risk-takers, outdoor and adrenaline people who arrive from
+social media and may buy posters. The design studio is the second door: professionals find
+**Studio** on their own, so the homepage does not sell to them.
+
+## Navigation
+
+Main nav: **Shop · Abrasive · Studio · Cart**. Studio pages (Design, Work, Build, Contact and
+the project pages) share a small sub-menu under the header. Do not add more top-level items.
+
+## Homepage order (current, supersedes the story below where they conflict)
+
+Hero (Shop the posters / Watch Abrasive) -> The posters (3D stage) -> Abrasive -> poster
+sequence -> a short Studio band. The old "What we design" list, selected work and Brand+Build
+blocks live on the Studio pages, not the homepage.
+
 ## Homepage story
 
 Reference: [Analogue](https://madebyanalogue.co.uk) — the work is the argument. No pitching.
