@@ -30,15 +30,19 @@
 <main id="main">
 <section class="phead"><p class="kicker">Posters / The store</p><h1>Shop</h1><p class="lead">Athlete energy for walls that don't whisper. Printed big. Shipped fast.</p></section>
 <div class="shop-note" role="list"><p role="listitem"><b>Museum-grade print</b> · 200gsm matte</p><p role="listitem"><b>Ships in 3 days</b> · worldwide</p><p role="listitem"><b>Secure checkout</b> · by Shopify</p></div>
-<section class="drop" aria-labelledby="dropt">
-<!-- COMMUNITY: drop = a Shopify collection with a metafield for edition size; remaining = inventory_quantity -->
-<div class="pbg" aria-hidden="true">03</div>
-<div class="drop-in">
- <div class="rv"><p class="kicker">Drop 03 / Live</p><h2 id="dropt">100 of each.<br><em class="red">Then gone.</em></h2><p class="lead">Adrenaline. Four posters, numbered by hand, never reprinted. Own one before it is a story.</p>
-  <div class="meter" role="img" aria-label="62 of 100 left"><span style="width:38%"></span></div><p class="fine">62 of 100 left</p>
-  <div class="btns"><a class="btn" href="product.html">Shop the drop</a><a class="btn" href="#join">Get the next one first</a></div></div>
- <a class="rv drop-img" href="product.html"><img src="assets/adr_bike.webp" alt="Adrenaline Bike, Drop 03" width="736" height="981"></a>
-</div>
+<section class="wk" id="pick" aria-labelledby="wkt">
+<!-- SHOPIFY: pick of the week = one product from a collection with handle "pick-of-the-week" (collections['pick-of-the-week'].products.first). Edition = metafield, remaining = inventory_quantity -->
+<div class="wk-bg" aria-hidden="true"><img src="assets/adr_bike.webp" alt="" width="736" height="981"></div>
+<div class="wk-head"><p class="kicker">Pick of the week / Nov 02</p><h2 id="wkt">Adrenaline<br><em class="hollow">Bike</em></h2><p class="fine">Drop 03 · Edition of 100 · 62 left</p></div>
+<div class="wk-frame"><a href="product.html" aria-label="Adrenaline Bike, view poster"><img src="assets/adr_bike.webp" alt="Adrenaline Bike poster" width="736" height="981"></a></div>
+<form class="wk-buy" data-wk-buy>
+ <fieldset class="wk-sizes"><legend class="sr">Size</legend>
+  <label><input type="radio" name="wk-size" value="A3" data-price="38" checked><span>A3</span></label><label><input type="radio" name="wk-size" value="A2" data-price="58"><span>A2</span></label><label><input type="radio" name="wk-size" value="A1" data-price="84"><span>A1</span></label>
+ </fieldset>
+ <div class="wk-row"><span class="price" data-wk-price>$38.00</span><button class="btn" type="submit">Add to cart</button></div>
+ <p class="fine" data-wk-note role="status"></p>
+ <a class="wk-details" href="product.html">Details</a>
+</form>
 </section>
 <section class="sec" aria-label="Posters">
 <h2 class="sr">All posters</h2>

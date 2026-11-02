@@ -220,4 +220,19 @@
     var n=document.getElementById('join-note'),v=jf.querySelector('input[type=email]');
     n.textContent=v.checkValidity()&&v.value?'You are in. First access to the next drop.':'Enter a valid email.';
   });
+
+  // pick of the week: scene activates on view, frame tilts with the pointer, size changes price
+  var wk=document.querySelector('.wk');
+  if(wk){
+    new IntersectionObserver(function(es){es.forEach(function(e){wk.classList.toggle('active',e.isIntersecting)})},{threshold:.4}).observe(wk);
+    var wf=wk.querySelector('.wk-frame');
+    if(wf&&fine&&!reduce)document.addEventListener('mousemove',function(e){
+      if(!wk.classList.contains('active'))return;
+      var rx=(e.clientX/innerWidth-.5)*6,ry=(e.clientY/innerHeight-.5)*6;
+      wf.style.transform='perspective(1200px) rotateY('+rx+'deg) rotateX('+(-ry)+'deg) scale(1)';
+    });
+    var wb=wk.querySelector('[data-wk-buy]'),wp=wk.querySelector('[data-wk-price]'),wn=wk.querySelector('[data-wk-note]'),wadded=0;
+    wb.addEventListener('change',function(e){if(e.target.dataset.price)wp.textContent=money(+e.target.dataset.price)});
+    wb.addEventListener('submit',function(e){e.preventDefault();wadded++;setCount(wadded);wn.innerHTML='Added. <a href="cart.html">View cart</a>'});
+  }
 })();
