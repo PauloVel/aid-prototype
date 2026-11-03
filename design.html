@@ -27,7 +27,6 @@
  <nav aria-label="Main"><ul id="menu"><li><a href="shop.html">Shop</a></li><li><a href="design.html" aria-current="page">Studio</a></li><li><a class="cartlink" href="cart.html">Cart <span data-cart-count>0</span></a></li></ul></nav>
  <button class="burger" aria-expanded="false" aria-controls="menu">Menu</button>
 </header>
-<nav class="subnav" aria-label="Studio"><span>Studio</span><a href="design.html" aria-current="page">Design</a><a href="work.html">Work</a><a href="build.html">Build</a><a href="contact.html">Contact</a></nav>
 <main id="main">
 <section class="sd-hero">
  <img class="sd-bg" src="assets/BK_passage.jpg" alt="" width="2200" height="1420" fetchpriority="high">
@@ -52,20 +51,58 @@
  <div class="rv"><span class="n">C</span><h3>Products + services</h3><p>Identity, interface, product, campaigns, content. Built to be worn, shipped and seen.</p></div>
 </section>
 <section class="sd-stmt"><img class="sd-bg green" src="assets/adr_summit.webp" alt="" width="736" height="734" loading="lazy"><h2 class="rv">Safe is <em class="hollow">invisible.</em></h2></section>
-<section class="sd-ways-head"><p class="kicker">Five ways</p><h2 class="rv">To be <em class="hollow">remembered.</em></h2></section>
-<ul class="sd-list" id="ways">
- <li id="identity" tabindex="0"><img src="assets/WHYHARES.webp" alt="" loading="lazy" style="object-position:center 35%"><span class="n">01</span><h2>Identity</h2><p class="t">Your mark</p></li>
- <li id="interface" tabindex="0"><img src="assets/aid_Cd.webp" alt="" loading="lazy" style="object-position:center"><span class="n">02</span><h2>Interface</h2><p class="t">Your home</p></li>
- <li id="product" tabindex="0"><img src="assets/feel_main.webp" alt="" loading="lazy" style="object-position:center 40%"><span class="n">03</span><h2>Product</h2><p class="t">Your gear</p></li>
- <li id="campaigns" tabindex="0"><img src="assets/FEWOFUS1.webp" alt="" loading="lazy" style="object-position:center"><span class="n">04</span><h2>Campaigns</h2><p class="t">Your noise</p></li>
- <li id="content" tabindex="0"><img src="assets/short_02.webp" alt="" loading="lazy" style="object-position:center"><span class="n">05</span><h2>Content</h2><p class="t">Your story</p></li>
-</ul>
-<a class="next" href="work.html"><p class="kicker">Next</p><h2>See the work →</h2></a>
+<section class="sd-floor" aria-labelledby="sdf">
+ <div class="sd-floor-head"><p class="kicker">Concepts</p><h2 id="sdf" class="rv">Out of the <em class="hollow">studio.</em></h2></div>
+ <div class="sd-stage">
+  <figure class="sd-obj rv"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID cap">
+ <defs><clipPath id="c-cap"><path d="M70 230 Q64 92 200 84 Q336 92 330 230 Z"/></clipPath>
+ <linearGradient id="g-cap" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient></defs>
+ <path d="M54 232 Q200 190 346 232 Q336 290 200 300 Q64 290 54 232Z" fill="#c9c9c3" stroke="#a9a9a3" stroke-width="2"/>
+ <g clip-path="url(#c-cap)"><rect width="400" height="400" fill="#ecece6"/><rect width="400" height="400" fill="url(#g-cap)"/>
+ <path d="M200 84 Q170 150 168 230M200 84 Q230 150 232 230M200 84 Q130 130 110 230M200 84 Q270 130 290 230" fill="none" stroke="#b9b9b2" stroke-width="2"/></g>
+ <circle cx="200" cy="85" r="7" fill="#b9b9b2"/>
+ <text x="200" y="182" text-anchor="middle" font-family="Anton" font-size="44" fill="#111" letter-spacing="4">AID</text>
+</svg><figcaption>Cap</figcaption></figure>
+  <figure class="sd-obj rv"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID sneaker">
+ <defs><linearGradient id="g-shoe" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient>
+ <clipPath id="c-shoe"><path d="M52 262 L54 150 Q58 118 92 114 L150 110 Q176 130 196 142 L240 152 Q304 162 342 204 Q372 232 366 262Z"/></clipPath></defs>
+ <path d="M44 262 H372 Q380 300 344 312 H78 Q40 306 44 262Z" fill="#222"/>
+ <path d="M48 276 H374" stroke="#f0f0f0" stroke-width="5"/>
+ <g clip-path="url(#c-shoe)"><rect width="400" height="400" fill="#ececec"/><rect width="400" height="400" fill="url(#g-shoe)"/>
+ <path d="M150 262 L246 150 L290 160 L206 262Z" fill="#111"/>
+ <path d="M162 132 L196 160M178 124 L212 154M194 118 L228 150" stroke="#8d8d8d" stroke-width="3"/>
+ <path d="M54 150 Q58 118 92 114 L110 114 L110 190 L54 190Z" fill="#cfcfcf"/></g>
+ <text x="70" y="244" font-family="Anton" font-size="22" fill="#111" letter-spacing="3">AID</text>
+</svg><figcaption>Kicks</figcaption></figure>
+  <figure class="sd-obj rv"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID backpack">
+ <defs><clipPath id="c-packp"><path d="M130 226 H270 V334 Q270 346 258 346 H142 Q130 346 130 334Z"/></clipPath>
+ <linearGradient id="g-pack" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient></defs>
+ <path d="M160 78 Q200 30 240 78" fill="none" stroke="#2a3722" stroke-width="10" stroke-linecap="round"/>
+ <path d="M104 150 Q60 200 78 330 L100 330 L104 150Z M296 150 Q340 200 322 330 L300 330 L296 150Z" fill="#2a3722"/>
+ <path d="M108 124 Q108 70 200 68 Q292 70 292 124 L302 340 Q302 362 280 362 L120 362 Q98 362 98 340Z" fill="#46583a"/>
+ <path d="M108 124 Q108 70 200 68 Q292 70 292 124 L302 340 Q302 362 280 362 L120 362 Q98 362 98 340Z" fill="url(#g-pack)"/>
+ <path d="M122 150 Q200 168 278 150" fill="none" stroke="#0e130e" stroke-width="3"/>
+ <image href="assets/adr_summit.webp" x="130" y="226" width="140" height="120" preserveAspectRatio="xMidYMid slice" clip-path="url(#c-packp)"/>
+ <path d="M130 226 H270" stroke="#0e130e" stroke-width="3"/>
+ <text x="200" y="206" text-anchor="middle" font-family="Anton" font-size="26" fill="#f0f0f0" letter-spacing="4">AID</text>
+</svg><figcaption>Pack</figcaption></figure>
+  <figure class="sd-obj rv"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID tee">
+ <defs><clipPath id="c-tee"><path d="M125 62 L165 50 Q200 84 235 50 L275 62 L352 112 L318 164 L282 140 L282 346 L118 346 L118 140 L82 164 L48 112 Z"/></clipPath>
+ <clipPath id="c-teep"><rect x="150" y="130" width="100" height="100"/></clipPath>
+ <linearGradient id="g-tee" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".08"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient></defs>
+ <g clip-path="url(#c-tee)"><rect width="400" height="400" fill="#e9e9e4"/><rect width="400" height="400" fill="url(#g-tee)"/>
+ <image href="assets/FEWOFUS1.webp" x="150" y="130" width="100" height="100" preserveAspectRatio="xMidYMid slice" clip-path="url(#c-teep)"/>
+ <path d="M165 50 Q200 84 235 50" fill="none" stroke="#bdbdb6" stroke-width="6"/></g>
+ <text x="200" y="262" text-anchor="middle" font-family="Anton" font-size="26" fill="#111" letter-spacing="4">AID</text>
+</svg><figcaption>Tee</figcaption></figure>
+ </div>
+</section>
+<section class="sd-contact" id="contact"><a class="rv" href="mailto:hello@aid.studio" aria-label="Email AID studio"><p class="kicker">Start something dangerous</p><h2>hello@<br>aid.studio</h2></a></section>
 </main>
 <footer class="foot">
  <div class="big" aria-hidden="true">AID</div>
  <div class="row">
-  <nav class="links" aria-label="Footer"><a href="design.html">Design</a><a href="work.html">Work</a><a href="lab.html">Abrasive</a><a href="build.html">Build</a><a href="contact.html">Contact</a><a href="https://www.instagram.com/abrasivetmt" rel="noopener">Instagram</a><a href="shop.html">Shop</a></nav>
+  <nav class="links" aria-label="Footer"><a href="design.html">Studio</a><a href="lab.html">Abrasive</a><a href="https://www.instagram.com/abrasivetmt" rel="noopener">Instagram</a><a href="shop.html">Shop</a></nav>
   <p>Build partner: <a href="https://evrabo.com" rel="noopener">EVRABO</a></p>
  </div>
 </footer>

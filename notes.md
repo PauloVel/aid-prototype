@@ -32,8 +32,11 @@ social media and may buy posters. The design studio is the second door: professi
 
 ## Navigation
 
-Main nav: **Shop · Studio · Cart**. Abrasive is reached from the homepage, the footer and Instagram, not the menu. Studio pages (Design, Work, Build, Contact and
-the project pages) share a small sub-menu under the header. Do not add more top-level items.
+Main nav: **Shop · Studio · Cart**. Abrasive is reached from the homepage, the footer and Instagram, not the menu. Studio is ONE page (`design.html`): hero "Be unmistakable", who it is for, "Safe is invisible", a lit floor of concept products (cap, kicks, pack, tee as SVG mockups, swap for real renders later) and a big email link (`#contact`). Work, Build, Contact and the project pages were removed (still in git history). Do not add more top-level items or Studio sub-pages.
+
+## Studio page look
+
+One aesthetic: outdoor, black / white / green. No red on the page content (the menu stays red). Letters are white or black only. Only the "Safe is invisible" band gets the green grade; all other images keep natural colour.
 
 ## Homepage order (current, supersedes the story below where they conflict)
 
