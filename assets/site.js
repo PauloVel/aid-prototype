@@ -231,3 +231,34 @@
     wb.addEventListener('submit',function(e){e.preventDefault();wadded++;setCount(wadded);wn.innerHTML='Added. <a href="cart.html">View cart</a>'});
   }
 })();
+
+/* studio: the climb */
+(function(){
+  if(!document.querySelector('.as-hero'))return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var alt=document.querySelector('.alt b'),img=document.querySelector('.as-hero-img'),film=document.querySelector('.as-film'),box=document.querySelector('.as-film-box');
+  var tick=false;
+  function upd(){
+    tick=false;
+    var max=document.documentElement.scrollHeight-innerHeight,p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+    if(alt)alt.textContent=String(Math.round(p*8848)).padStart(4,'0');
+    if(reduce)return;
+    if(img&&scrollY<innerHeight*1.2)img.style.transform='translate3d(0,'+(scrollY*.18)+'px,0) scale('+(1+scrollY/innerHeight*.08)+')';
+    if(film&&box){var r=film.getBoundingClientRect(),t=r.height-innerHeight,q=t>0?Math.min(1,Math.max(0,-r.top/(t*.6))):1;box.style.setProperty('--p',q)}
+  }
+  function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
+  addEventListener('scroll',req,{passive:true});addEventListener('resize',req);
+  if(!reduce&&box)box.style.setProperty('--p',0);
+  upd();
+  var wall=document.querySelector('.as-wall'),z=2;
+  if(!wall)return;
+  wall.querySelectorAll('.as-obj').forEach(function(o,i){
+    var x=0,y=0,rot=(i%2?1:-1)*(3+i*2),sx,sy,ox,oy,on=false,lx=0;
+    function put(s){o.style.transform='translate3d('+x+'px,'+y+'px,0) rotate('+rot+'deg) scale('+(s||1)+')'}
+    put();
+    o.addEventListener('pointerdown',function(e){on=true;sx=e.clientX;sy=e.clientY;ox=x;oy=y;lx=e.clientX;o.style.zIndex=++z;o.setPointerCapture(e.pointerId);put(1.08);e.preventDefault()});
+    o.addEventListener('pointermove',function(e){if(!on)return;x=ox+e.clientX-sx;y=oy+e.clientY-sy;rot+=(e.clientX-lx)*.25;rot=Math.max(-25,Math.min(25,rot));lx=e.clientX;put(1.08)});
+    var end=function(){if(!on)return;on=false;put()};
+    o.addEventListener('pointerup',end);o.addEventListener('pointercancel',end);
+  });
+})();

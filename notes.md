@@ -34,9 +34,27 @@ social media and may buy posters. The design studio is the second door: professi
 
 Main nav: **Shop · Studio · Cart**. Abrasive is reached from the homepage, the footer and Instagram, not the menu. Studio is ONE page (`design.html`): hero "Be unmistakable", who it is for, "Safe is invisible", a lit floor of concept products (cap, kicks, pack, tee as SVG mockups, swap for real renders later) and a big email link (`#contact`). Work, Build, Contact and the project pages were removed (still in git history). Do not add more top-level items or Studio sub-pages.
 
-## Studio page look
+## Studio page look - "The Climb" (supersedes the outdoor black/white/green rule)
 
-One aesthetic: outdoor, black / white / green. No red on the page content (the menu stays red). Letters are white or black only. Only the "Safe is invisible" band gets the green grade; all other images keep natural colour.
+Feedback that killed the previous takes: colour-filtering whole sections, effects only on the
+corners of words, tiny decorative elements, "trying to look sharp and artist". It was not creative
+enough, it just changed colours. AID is not Evrabo: it is for people who want to be on top, and the
+page has to show attitude.
+
+Rules:
+- **Words are always Anton, white.** No outlines, no ghost layers, no coloured type. One section may
+  break convention, and only one: the drag wall.
+- **Images in full natural colour.** No grades, no duotone, no tinting a section. Only a neutral black
+  gradient behind type for legibility.
+- **Change the experience, not the paint.** The page is an ascent. Scroll = altitude: a big fixed
+  counter (0000 to 8848 M, difference-blended) climbs with the scroll. Big gestures only, nothing small.
+- **Almost no copy.** Title, then three words, then one verb. Copy is a last resort.
+
+Order: (1) full-bleed hero photo, "Be unmistakable." Anton white, parallax; (2) film pinned, opens from
+a window to full-bleed as you scroll; (3) three full-screen ranks, 01 Athletes / 02 Risk-takers /
+03 Outdoors, each sticking and covering the last like a podium; (4) THE crazy section: "Take it." a
+black wall where the concept products (cap, kicks, pack, tee) can be dragged, tilted and thrown around;
+(5) big email link. Reduced motion: no scrub, no parallax, counter still updates.
 
 ## Homepage order (current, supersedes the story below where they conflict)
 

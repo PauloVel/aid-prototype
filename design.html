@@ -28,27 +28,24 @@
  <button class="burger" aria-expanded="false" aria-controls="menu">Menu</button>
 </header>
 <main id="main">
-<section class="sd-hero">
- <img class="sd-bg" src="assets/BK_passage.jpg" alt="" width="2200" height="1420" fetchpriority="high">
- <i class="reg tl" aria-hidden="true"></i><i class="reg tr" aria-hidden="true"></i>
- <span class="tag tl" aria-hidden="true">AID / STUDIO</span><span class="tag tr" aria-hidden="true">N 36°&nbsp;W 118°</span>
- <h1 aria-label="Be unmistakable"><span class="l1" data-t="Be">Be</span><span class="l2" data-t="unmistakable.">unmistakable.</span></h1>
+<div class="alt" aria-hidden="true"><b>0000</b><span>M</span></div>
+<section class="as-hero">
+ <img class="as-hero-img" src="assets/BK_passage.jpg" alt="" width="2200" height="1420" fetchpriority="high">
+ <h1><span>Be</span><span>unmistak&shy;able.</span></h1>
+ <p class="as-go" aria-hidden="true">Climb &darr;</p>
 </section>
-<section class="sd-film" aria-label="Studio film">
- <div class="sd-frame">
-  <video muted loop playsinline preload="none" data-src="assets/hero.mp4" aria-hidden="true"></video>
-  <i class="c a"></i><i class="c b"></i><i class="c c"></i><i class="c d"></i>
-  <span class="rec" aria-hidden="true"><b></b>REC</span>
- </div>
+<section class="as-film" aria-label="Studio film">
+ <div class="as-film-in"><div class="as-film-box"><video muted loop playsinline preload="none" data-src="assets/hero.mp4" aria-hidden="true"></video></div></div>
 </section>
-<section class="sd-who" id="who" aria-label="Who Studio is for">
- <img class="sd-bg" src="assets/snow_hor.jpg" alt="" loading="lazy">
- <ul class="sd-words"><li class="rv">Athletes</li><li class="rv">Risk-takers</li><li class="rv">Outdoors</li></ul>
+<section class="as-ranks" id="who" aria-label="Who Studio is for">
+ <article class="as-rank"><img src="assets/adr_drag.webp" alt="" loading="lazy"><span class="no">01</span><h2>Athletes</h2></article>
+ <article class="as-rank"><img src="assets/adr_jet.webp" alt="" loading="lazy"><span class="no">02</span><h2>Risk-takers</h2></article>
+ <article class="as-rank"><img src="assets/snow_hor.jpg" alt="" loading="lazy"><span class="no">03</span><h2>Outdoors</h2></article>
 </section>
-<section class="sd-floor" aria-labelledby="sdf">
- <div class="sd-floor-head"><p class="kicker">Concepts</p><h2 id="sdf" class="rv">Out of the <em class="hollow">studio.</em></h2></div>
- <div class="sd-stage">
-  <figure class="sd-obj rv"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID cap">
+<section class="as-wall" aria-label="Concepts. Drag them.">
+ <h2 aria-hidden="true">Take<br>it.</h2>
+
+  <figure class="as-obj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID cap">
  <defs><clipPath id="c-cap"><path d="M70 230 Q64 92 200 84 Q336 92 330 230 Z"/></clipPath>
  <linearGradient id="g-cap" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient></defs>
  <path d="M54 232 Q200 190 346 232 Q336 290 200 300 Q64 290 54 232Z" fill="#c9c9c3" stroke="#a9a9a3" stroke-width="2"/>
@@ -57,7 +54,7 @@
  <circle cx="200" cy="85" r="7" fill="#b9b9b2"/>
  <text x="200" y="182" text-anchor="middle" font-family="Anton" font-size="44" fill="#111" letter-spacing="4">AID</text>
 </svg><figcaption>Cap</figcaption></figure>
-  <figure class="sd-obj rv"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID sneaker">
+  <figure class="as-obj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID sneaker">
  <defs><linearGradient id="g-shoe" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient>
  <clipPath id="c-shoe"><path d="M52 262 L54 150 Q58 118 92 114 L150 110 Q176 130 196 142 L240 152 Q304 162 342 204 Q372 232 366 262Z"/></clipPath></defs>
  <path d="M44 262 H372 Q380 300 344 312 H78 Q40 306 44 262Z" fill="#222"/>
@@ -68,7 +65,7 @@
  <path d="M54 150 Q58 118 92 114 L110 114 L110 190 L54 190Z" fill="#cfcfcf"/></g>
  <text x="70" y="244" font-family="Anton" font-size="22" fill="#111" letter-spacing="3">AID</text>
 </svg><figcaption>Kicks</figcaption></figure>
-  <figure class="sd-obj rv"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID backpack">
+  <figure class="as-obj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID backpack">
  <defs><clipPath id="c-packp"><path d="M130 226 H270 V334 Q270 346 258 346 H142 Q130 346 130 334Z"/></clipPath>
  <linearGradient id="g-pack" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient></defs>
  <path d="M160 78 Q200 30 240 78" fill="none" stroke="#2a3722" stroke-width="10" stroke-linecap="round"/>
@@ -80,7 +77,7 @@
  <path d="M130 226 H270" stroke="#0e130e" stroke-width="3"/>
  <text x="200" y="206" text-anchor="middle" font-family="Anton" font-size="26" fill="#f0f0f0" letter-spacing="4">AID</text>
 </svg><figcaption>Pack</figcaption></figure>
-  <figure class="sd-obj rv"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID tee">
+  <figure class="as-obj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID tee">
  <defs><clipPath id="c-tee"><path d="M125 62 L165 50 Q200 84 235 50 L275 62 L352 112 L318 164 L282 140 L282 346 L118 346 L118 140 L82 164 L48 112 Z"/></clipPath>
  <clipPath id="c-teep"><rect x="150" y="130" width="100" height="100"/></clipPath>
  <linearGradient id="g-tee" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".08"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient></defs>
@@ -89,7 +86,7 @@
  <path d="M165 50 Q200 84 235 50" fill="none" stroke="#bdbdb6" stroke-width="6"/></g>
  <text x="200" y="262" text-anchor="middle" font-family="Anton" font-size="26" fill="#111" letter-spacing="4">AID</text>
 </svg><figcaption>Tee</figcaption></figure>
- </div>
+ 
 </section>
 <section class="sd-contact" id="contact"><a class="rv" href="mailto:hello@aid.studio" aria-label="Email AID studio"><p class="kicker">Start something dangerous</p><h2>hello@<br>aid.studio</h2></a></section>
 </main>
