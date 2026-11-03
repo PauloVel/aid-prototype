@@ -534,17 +534,23 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .studio .disc .cost{border-left-color:var(--green)}
 .studio .next:hover h2{color:var(--fg)}
 
-/* five ways in — full-bleed bands, same weight as "Safe is invisible" */
-.sd-way{position:relative;isolation:isolate;overflow:hidden;min-height:90svh;display:flex;align-items:flex-end;padding:clamp(2rem,5vw,4rem) var(--pad);border-bottom:1px solid var(--rule)}
-.sd-way::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(5,5,5,.9) 0%,rgba(5,5,5,.25) 60%,rgba(5,5,5,.4) 100%)}
-.sd-way .sd-bg{transition:transform 1.6s cubic-bezier(.2,.7,.2,1)}
-.sd-way:hover .sd-bg{transform:scale(1.04)}
-.sd-way-in{width:100%;display:grid;grid-template-columns:1fr minmax(0,34ch);gap:1rem 3rem;align-items:end}
-.sd-way .n{grid-column:1/-1;font-size:.8rem;letter-spacing:.3em;color:var(--fg)}
-.sd-way h2{font-size:clamp(5rem,19vw,22rem);letter-spacing:-.02em;line-height:.82;margin-left:-.03em}
-.sd-way .k{grid-column:2;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:var(--fg)}
-.sd-way .c{grid-column:2;color:var(--fg);opacity:.8;border-left:2px solid var(--green);padding-left:1rem}
-.sd-way h2{grid-row:2/4;grid-column:1}
-.sd-way .k{grid-row:2;align-self:end}
-.sd-way .c{grid-row:3;align-self:end}
-@media(max-width:800px){.sd-way-in{grid-template-columns:1fr}.sd-way .k,.sd-way .c,.sd-way h2{grid-column:1;grid-row:auto}.sd-way .k{margin-top:1rem}}
+/* safe is invisible: green grade (this band only) */
+.sd-bg.green{filter:grayscale(1) contrast(1.1) brightness(.8)}
+.sd-stmt::after{content:"";position:absolute;inset:0;z-index:-1;background:#0f7a2e;mix-blend-mode:color;opacity:.9}
+
+/* five ways in — giant stacked words, image floods in on hover */
+.sd-list{border-top:3px solid var(--fg)}
+.sd-list li{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:3rem 1fr minmax(0,32ch);gap:1.5rem;align-items:center;padding:clamp(1.5rem,3.5vw,3rem) var(--pad);border-bottom:1px solid var(--rule);outline:0}
+.sd-list img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:0;transform:scale(1.08);transition:opacity .5s,transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.sd-list li::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(5,5,5,.75),rgba(5,5,5,.2));opacity:0;transition:opacity .5s}
+.sd-list li:hover img,.sd-list li:focus-visible img{opacity:1;transform:none}
+.sd-list li:hover::before,.sd-list li:focus-visible::before{opacity:1}
+.sd-list h2{font-size:clamp(4.5rem,17vw,19rem);letter-spacing:-.02em;line-height:.85;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.sd-list li:hover h2{transform:translateX(1.5rem)}
+.sd-list .n{font-size:.8rem;letter-spacing:.3em;color:var(--fg)}
+.sd-list .k{font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.75rem}
+.sd-list .c{color:var(--dim);border-left:2px solid var(--green);padding-left:1rem;transition:color .4s}
+.sd-list li:hover .c{color:var(--fg)}
+@media(hover:none){.sd-list img{opacity:.35;transform:none}.sd-list li::before{opacity:1}}
+@media(max-width:800px){.sd-list li{grid-template-columns:2rem 1fr}.sd-list .d{grid-column:2}}
+@media(prefers-reduced-motion:reduce){.sd-list img,.sd-list h2{transition:none}}
