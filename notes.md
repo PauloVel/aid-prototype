@@ -52,10 +52,12 @@ Rules:
 Order: (1) full-bleed hero photo, "Be unmistakable." Anton white, parallax; (2) film pinned, opens from
 a window to full-bleed as you scroll; (3) "who it is for": one pinned stage, three giant words
 (Athletes / Risk-takers / Outdoors), scroll or hover lights one word and crossfades its photo behind.
-**No sliding/stacking cards anywhere** (feedback: predictable, lame); (4) "By hand.": treated like sections 1 and 2, NOT a stage trick: pinned full-bleed natural-colour photo,
-giant Anton product name bottom-left (hero-size), the product large on the right, scroll cycles the four
-pieces (cap, kicks, pack, tee) with a tiny "By hand 01 / 04" counter. No lamp/spotlight effects, no callout copy,
-no buy language (rejected: lamp shelf, per-product rooms with callouts); (5) "Say hello." is a real message form:
+**No sliding/stacking cards anywhere** (feedback: predictable, lame); (4) "We design.": **Studio presents AID as a design studio, so it shows that AID DESIGNS products, it does not
+present products to sell.** Pinned black drafting table with a faint grid, giant Anton "We design." bottom-left,
+and one concept at a time (cap, kicks, pack, tee) on the right. A scan line sweeps with scroll: left of it the
+finished concept, right of it the construction drawing (outline of the same SVG, cloned in JS). Tiny counter
+"01 / 04 Cap" only. No photos behind, no product grid, no buy language, no callout copy (rejected: lamp shelf,
+per-product rooms, photo-per-product "By hand"); (5) "Say hello." is a real message form:
 giant Anton fields (Your email, Say it), "To hello at aid.studio" spelled without an @, the whole section inverts
 to white on focus, Send opens the mail app via mailto (address built in JS). **No "@" shown in that section.**
 Reduced motion: no scrub, no parallax, no float, counter still updates.
