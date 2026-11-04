@@ -43,11 +43,12 @@ Kept and approved: the hero "Be unmistakable." and the pinned film that opens fr
 
 Order: (1) full-bleed hero photo + "Be unmistakable." Anton white, parallax; (2) film pinned, opens to
 full-bleed, and as it opens the line **"World on reach."** rises in giant Anton (the video itself has no text);
-(3) **"We design."** pinned, black: giant Anton "WE DESIGN." is a knock-out window onto ONE real AID poster
-(the volcano figure, WHYDG, full colour). Scroll zooms you THROUGH the letters (exponential zoom into the bar of
-the "I", SVG mask, no copy) until the poster fills the screen full-bleed, then holds. Rejected: scan-line reveal
-(no punch), carousels, several posters, "Few of us" as the poster. The image is fine; the effect is the point.
-If it gets changed, keep it one gesture, one image;
+(3) **"We design."** a plain full-screen section, NO scroll trick: one big image on the left that swaps on
+hover/focus, and on the right the giant "WE DESIGN." over a huge navigation of what AID designs (01 Identity,
+02 Campaigns, 03 Product, 04 Content) and one line of attitude, "Safe is invisible." Image + idea + navigation +
+a statement. Clicking an item scrolls to Say hello with the topic prefilled ("Identity: ") and focuses the
+message. Images are AID's own work, never third-party footage and never the star mark. Rejected for this
+section: scan-line reveal, zoom-through-letters, carousels, "surprise box" effects. Unexpected = the idea, not a trick;
 (4) **"Say hello."**
 real message form, giant Anton fields, whole section inverts to white on focus.
 

@@ -248,18 +248,19 @@
   addEventListener('scroll',req,{passive:true});addEventListener('resize',req);
   if(!reduce&&box)box.style.setProperty('--p',0);
   upd();
-  var gear=document.querySelector('.as-gear');
-  if(gear&&!reduce){
-    var gz=document.getElementById('gz'),gt=document.getElementById('gt'),gr=document.getElementById('gr'),gi=gear.querySelector('.as-gimg'),ox=0,oy=0,K=Math.log(70);
-    var gset=function(){var bb=gt.getExtentOfChar(3);ox=bb.x+bb.width/2;oy=bb.y+bb.height*.55};
-    var gpick=function(){
-      var r=gear.getBoundingClientRect(),t=r.height-innerHeight,q=t>0?Math.min(1,Math.max(0,-r.top/t)):0,z=Math.min(1,q/.72),k=Math.exp(K*z);
-      gz.setAttribute('transform','translate('+ox+' '+oy+') scale('+k+') translate('+(-ox)+' '+(-oy)+')');
-      gr.style.opacity=q<.62?1:Math.max(0,1-(q-.62)/.1);
-      gi.style.transform='scale('+(1.18-.18*Math.min(1,q/.8))+')';
-    };
-    (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){gset();gpick()});
-    addEventListener('scroll',gpick,{passive:true});addEventListener('resize',function(){gset();gpick()});
+  var nv=document.querySelector('.as-nav');
+  if(nv){
+    var nl=nv.querySelectorAll('li a'),ni=nv.querySelectorAll('.as-nav-img img');
+    var nset=function(i){nl.forEach(function(l,k){l.classList.toggle('on',k===i)});ni.forEach(function(m,k){m.classList.toggle('on',k===i);if(k===i)m.loading='eager'})};
+    nl.forEach(function(l,k){
+      l.addEventListener('mouseenter',function(){nset(k)});
+      l.addEventListener('focus',function(){nset(k)});
+      l.addEventListener('click',function(){
+        nset(k);
+        var t=document.querySelector('.say textarea');
+        if(t){if(!t.value.trim()||/^[A-Za-z]+: $/.test(t.value))t.value=l.dataset.topic+': ';setTimeout(function(){t.focus({preventScroll:true});t.setSelectionRange(t.value.length,t.value.length)},700)}
+      });
+    });
   }
   /* Web3Forms public access key (free, tied to the destination inbox). Paste it here. */
   var W3F_KEY='c433599a-60cf-45df-8fc9-a80bcb283c1f';
