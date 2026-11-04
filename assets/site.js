@@ -259,14 +259,15 @@
     addEventListener('scroll',gpick,{passive:true});gpick();
   }
   /* Web3Forms public access key (free, tied to the destination inbox). Paste it here. */
-  var W3F_KEY='PASTE-WEB3FORMS-KEY';
+  var W3F_KEY='c433599a-60cf-45df-8fc9-a80bcb283c1f';
   var say=document.querySelector('.say');
   if(say){say.addEventListener('submit',function(e){e.preventDefault();
     var f=say.elements.from,m=say.elements.msg,n=say.querySelector('.say-note'),btn=say.querySelector('.send'),ok=true;
     [f,m].forEach(function(x){var bad=!x.value.trim()||(x===f&&!/^\S+@\S+\.\S+$/.test(x.value));x.classList.toggle('bad',bad);if(bad)ok=false});
     if(!ok){n.textContent='Both, please.';return}
     btn.disabled=true;n.textContent='Sending...';
-    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:W3F_KEY,subject:'AID Studio: message from '+f.value,from_name:'AID Studio site',email:f.value,message:m.value})})
+    var fd=new FormData();fd.append('access_key',W3F_KEY);fd.append('subject','AID Studio: message from '+f.value);fd.append('from_name','AID Studio site');fd.append('email',f.value);fd.append('message',m.value);
+    fetch('https://api.web3forms.com/submit',{method:'POST',body:fd})
       .then(function(r){return r.json()})
       .then(function(d){if(!d.success)throw 0;f.value='';m.value='';n.textContent='Sent.'})
       .catch(function(){n.textContent="Didn't go. Try again."})

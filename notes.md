@@ -43,7 +43,7 @@ Kept and approved: the hero "Be unmistakable." and the pinned film that opens fr
 
 Order: (1) full-bleed hero photo + "Be unmistakable." Anton white, parallax; (2) film pinned, opens to
 full-bleed, and as it opens the line **"World on reach."** rises in giant Anton (the video itself has no text);
-(3) **"We design."** pinned black drafting table with faint grid: ONE punchy real AID poster (Few of us), drawn in by a scan line as you scroll. Never a carousel or several options (rejected: "a lot of options popping up"); (4) **"Say hello."**
+(3) **"We design."** pinned black drafting table with faint grid: ONE punchy real AID poster (the volcano figure, WHYDG; "Few of us" was rejected as not punchy enough), drawn in by a scan line as you scroll. Never a carousel or several options (rejected: "a lot of options popping up"); (4) **"Say hello."**
 real message form, giant Anton fields, whole section inverts to white on focus.
 
 Rules:
