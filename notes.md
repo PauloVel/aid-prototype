@@ -42,8 +42,7 @@ enough, it just changed colours. AID is not Evrabo: it is for people who want to
 page has to show attitude.
 
 Rules:
-- **Words are always Anton, white.** No outlines, no ghost layers, no coloured type. One section may
-  break convention, and only one: the drag wall.
+- **Words are always Anton, white.** No outlines, no ghost layers, no coloured type. 
 - **Images in full natural colour.** No grades, no duotone, no tinting a section. Only a neutral black
   gradient behind type for legibility.
 - **Change the experience, not the paint.** The page is an ascent. Scroll = altitude: a big fixed
@@ -51,10 +50,13 @@ Rules:
 - **Almost no copy.** Title, then three words, then one verb. Copy is a last resort.
 
 Order: (1) full-bleed hero photo, "Be unmistakable." Anton white, parallax; (2) film pinned, opens from
-a window to full-bleed as you scroll; (3) three full-screen ranks, 01 Athletes / 02 Risk-takers /
-03 Outdoors, each sticking and covering the last like a podium; (4) THE crazy section: "Take it." a
-black wall where the concept products (cap, kicks, pack, tee) can be dragged, tilted and thrown around;
-(5) big email link. Reduced motion: no scrub, no parallax, counter still updates.
+a window to full-bleed as you scroll; (3) "who it is for": one pinned stage, three giant words
+(Athletes / Risk-takers / Outdoors), scroll or hover lights one word and crossfades its photo behind.
+**No sliding/stacking cards anywhere** (feedback: predictable, lame); (4) "By hand.": four rooms, one per
+product (cap, kicks, pack, tee), each full-screen with the piece large, a ghost name behind, hand-stitch
+detail on the SVG and three drawn leader-line callouts about how it is made. **Never a product grid and
+never "buy" language on this page**: every piece gets its own moment, appreciated, not sold. The drag
+wall was removed; (5) big email link. Reduced motion: no scrub, no parallax, no float, counter still updates.
 
 ## Homepage order (current, supersedes the story below where they conflict)
 

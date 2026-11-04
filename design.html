@@ -37,35 +37,59 @@
 <section class="as-film" aria-label="Studio film">
  <div class="as-film-in"><div class="as-film-box"><video muted loop playsinline preload="none" data-src="assets/hero.mp4" aria-hidden="true"></video></div></div>
 </section>
-<section class="as-ranks" id="who" aria-label="Who Studio is for">
- <article class="as-rank"><img src="assets/adr_drag.webp" alt="" loading="lazy"><span class="no">01</span><h2>Athletes</h2></article>
- <article class="as-rank"><img src="assets/adr_jet.webp" alt="" loading="lazy"><span class="no">02</span><h2>Risk-takers</h2></article>
- <article class="as-rank"><img src="assets/snow_hor.jpg" alt="" loading="lazy"><span class="no">03</span><h2>Outdoors</h2></article>
+<section class="as-who" id="who" aria-label="Who Studio is for">
+ <div class="as-who-in">
+  <img class="on" src="assets/adr_drag.webp" alt="" data-i="0">
+  <img src="assets/adr_jet.webp" alt="" data-i="1" loading="lazy">
+  <img src="assets/snow_hor.jpg" alt="" data-i="2" loading="lazy">
+  <ol>
+   <li class="on" data-i="0"><span>01</span><h2>Athletes</h2></li>
+   <li data-i="1"><span>02</span><h2>Risk-takers</h2></li>
+   <li data-i="2"><span>03</span><h2>Outdoors</h2></li>
+  </ol>
+ </div>
 </section>
-<section class="as-wall" aria-label="Concepts. Drag them.">
- <h2 aria-hidden="true">Take<br>it.</h2>
-
-  <figure class="as-obj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID cap">
+<section class="as-hand" aria-label="Made by hand">
+ <div class="as-hand-head"><h2>By hand.</h2><p>Four pieces. Each one made like it is the only one.</p></div>
+ <article class="as-piece">
+  <span class="as-pno" aria-hidden="true">01</span><h3 class="as-pname" aria-hidden="true">Cap</h3>
+  <div class="as-pbox"><div class="as-pobj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID cap">
  <defs><clipPath id="c-cap"><path d="M70 230 Q64 92 200 84 Q336 92 330 230 Z"/></clipPath>
  <linearGradient id="g-cap" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient></defs>
  <path d="M54 232 Q200 190 346 232 Q336 290 200 300 Q64 290 54 232Z" fill="#c9c9c3" stroke="#a9a9a3" stroke-width="2"/>
  <g clip-path="url(#c-cap)"><rect width="400" height="400" fill="#ecece6"/><rect width="400" height="400" fill="url(#g-cap)"/>
  <path d="M200 84 Q170 150 168 230M200 84 Q230 150 232 230M200 84 Q130 130 110 230M200 84 Q270 130 290 230" fill="none" stroke="#b9b9b2" stroke-width="2"/></g>
  <circle cx="200" cy="85" r="7" fill="#b9b9b2"/>
- <text x="200" y="182" text-anchor="middle" font-family="Anton" font-size="44" fill="#111" letter-spacing="4">AID</text>
-</svg><figcaption>Cap</figcaption></figure>
-  <figure class="as-obj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID sneaker">
+ <path d="M62 238 Q200 198 338 238" fill="none" stroke="#8c8c85" stroke-width="2" stroke-dasharray="7 6"/><text x="200" y="182" text-anchor="middle" font-family="Anton" font-size="44" fill="#111" letter-spacing="4">AID</text>
+</svg></div>
+   <span class="as-call l" style="left:18%;top:30%"><i></i><b>Crown stitched by hand</b></span>
+   <span class="as-call r" style="left:50%;top:46%"><i></i><b>Embroidered, not printed</b></span>
+   <span class="as-call r" style="left:78%;top:52%"><i></i><b>Brim bent and set by eye</b></span>
+  </div>
+  <p class="as-pline">Six panels. One head.</p>
+ </article>
+ <article class="as-piece">
+  <span class="as-pno" aria-hidden="true">02</span><h3 class="as-pname" aria-hidden="true">Kicks</h3>
+  <div class="as-pbox"><div class="as-pobj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID sneaker">
  <defs><linearGradient id="g-shoe" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".12"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".3"/></linearGradient>
  <clipPath id="c-shoe"><path d="M52 262 L54 150 Q58 118 92 114 L150 110 Q176 130 196 142 L240 152 Q304 162 342 204 Q372 232 366 262Z"/></clipPath></defs>
  <path d="M44 262 H372 Q380 300 344 312 H78 Q40 306 44 262Z" fill="#222"/>
- <path d="M48 276 H374" stroke="#f0f0f0" stroke-width="5"/>
+ <path d="M52 292 H370" stroke="#777" stroke-width="2" stroke-dasharray="7 6"/><path d="M48 276 H374" stroke="#f0f0f0" stroke-width="5"/>
  <g clip-path="url(#c-shoe)"><rect width="400" height="400" fill="#ececec"/><rect width="400" height="400" fill="url(#g-shoe)"/>
  <path d="M150 262 L246 150 L290 160 L206 262Z" fill="#111"/>
  <path d="M162 132 L196 160M178 124 L212 154M194 118 L228 150" stroke="#8d8d8d" stroke-width="3"/>
  <path d="M54 150 Q58 118 92 114 L110 114 L110 190 L54 190Z" fill="#cfcfcf"/></g>
  <text x="70" y="244" font-family="Anton" font-size="22" fill="#111" letter-spacing="3">AID</text>
-</svg><figcaption>Kicks</figcaption></figure>
-  <figure class="as-obj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID backpack">
+</svg></div>
+   <span class="as-call l" style="left:20%;top:54%"><i></i><b>Sole sewn, then glued</b></span>
+   <span class="as-call r" style="left:52%;top:38%"><i></i><b>Panels cut one pair at a time</b></span>
+   <span class="as-call r" style="left:84%;top:70%"><i></i><b>Laced and tested by us</b></span>
+  </div>
+  <p class="as-pline">Built to be thrown at a mountain.</p>
+ </article>
+ <article class="as-piece">
+  <span class="as-pno" aria-hidden="true">03</span><h3 class="as-pname" aria-hidden="true">Pack</h3>
+  <div class="as-pbox"><div class="as-pobj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID backpack">
  <defs><clipPath id="c-packp"><path d="M130 226 H270 V334 Q270 346 258 346 H142 Q130 346 130 334Z"/></clipPath>
  <linearGradient id="g-pack" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".1"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></linearGradient></defs>
  <path d="M160 78 Q200 30 240 78" fill="none" stroke="#2a3722" stroke-width="10" stroke-linecap="round"/>
@@ -74,19 +98,32 @@
  <path d="M108 124 Q108 70 200 68 Q292 70 292 124 L302 340 Q302 362 280 362 L120 362 Q98 362 98 340Z" fill="url(#g-pack)"/>
  <path d="M122 150 Q200 168 278 150" fill="none" stroke="#0e130e" stroke-width="3"/>
  <image href="assets/adr_summit.webp" x="130" y="226" width="140" height="120" preserveAspectRatio="xMidYMid slice" clip-path="url(#c-packp)"/>
- <path d="M130 226 H270" stroke="#0e130e" stroke-width="3"/>
+ <path d="M114 150 L122 346M286 150 L278 346" stroke="#c9d3bd" stroke-width="2" stroke-dasharray="7 6" fill="none"/><path d="M130 226 H270" stroke="#0e130e" stroke-width="3"/>
  <text x="200" y="206" text-anchor="middle" font-family="Anton" font-size="26" fill="#f0f0f0" letter-spacing="4">AID</text>
-</svg><figcaption>Pack</figcaption></figure>
-  <figure class="as-obj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID tee">
+</svg></div>
+   <span class="as-call l" style="left:30%;top:24%"><i></i><b>Straps hand-finished</b></span>
+   <span class="as-call r" style="left:50%;top:62%"><i></i><b>Pocket printed with the summit</b></span>
+   <span class="as-call r" style="left:72%;top:80%"><i></i><b>Seams doubled, every one</b></span>
+  </div>
+  <p class="as-pline">Carries the whole climb.</p>
+ </article>
+ <article class="as-piece">
+  <span class="as-pno" aria-hidden="true">04</span><h3 class="as-pname" aria-hidden="true">Tee</h3>
+  <div class="as-pbox"><div class="as-pobj"><svg viewBox="0 0 400 400" role="img" aria-label="Concept: AID tee">
  <defs><clipPath id="c-tee"><path d="M125 62 L165 50 Q200 84 235 50 L275 62 L352 112 L318 164 L282 140 L282 346 L118 346 L118 140 L82 164 L48 112 Z"/></clipPath>
  <clipPath id="c-teep"><rect x="150" y="130" width="100" height="100"/></clipPath>
  <linearGradient id="g-tee" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".08"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient></defs>
  <g clip-path="url(#c-tee)"><rect width="400" height="400" fill="#e9e9e4"/><rect width="400" height="400" fill="url(#g-tee)"/>
  <image href="assets/FEWOFUS1.webp" x="150" y="130" width="100" height="100" preserveAspectRatio="xMidYMid slice" clip-path="url(#c-teep)"/>
  <path d="M165 50 Q200 84 235 50" fill="none" stroke="#bdbdb6" stroke-width="6"/></g>
- <text x="200" y="262" text-anchor="middle" font-family="Anton" font-size="26" fill="#111" letter-spacing="4">AID</text>
-</svg><figcaption>Tee</figcaption></figure>
- 
+ <path d="M120 330 H280" stroke="#a8a8a1" stroke-width="2" stroke-dasharray="7 6"/><path d="M124 144 L84 168M276 144 L316 168" stroke="#a8a8a1" stroke-width="2" stroke-dasharray="7 6" fill="none"/><text x="200" y="262" text-anchor="middle" font-family="Anton" font-size="26" fill="#111" letter-spacing="4">AID</text>
+</svg></div>
+   <span class="as-call l" style="left:22%;top:36%"><i></i><b>Collar hand-stitched flat</b></span>
+   <span class="as-call r" style="left:50%;top:60%"><i></i><b>Graphic placed by hand</b></span>
+   <span class="as-call r" style="left:60%;top:82%"><i></i><b>Hem turned twice</b></span>
+  </div>
+  <p class="as-pline">Heavy cotton. Plain on purpose.</p>
+ </article>
 </section>
 <section class="sd-contact" id="contact"><a class="rv" href="mailto:hello@aid.studio" aria-label="Email AID studio"><p class="kicker">Start something dangerous</p><h2>hello@<br>aid.studio</h2></a></section>
 </main>
