@@ -43,8 +43,7 @@ Kept and approved: the hero "Be unmistakable." and the pinned film that opens fr
 
 Order: (1) full-bleed hero photo + "Be unmistakable." Anton white, parallax; (2) film pinned, opens to
 full-bleed, and as it opens the line **"World on reach."** rises in giant Anton (the video itself has no text);
-(3) **"We design."** pinned black drafting table with faint grid: one real AID poster at a time (Few of us, heat
-suit, hare, bike) is drawn in by a scan line as you scroll, tiny "01 / 04" counter only; (4) **"Say hello."**
+(3) **"We design."** pinned black drafting table with faint grid: ONE punchy real AID poster (Few of us), drawn in by a scan line as you scroll. Never a carousel or several options (rejected: "a lot of options popping up"); (4) **"Say hello."**
 real message form, giant Anton fields, whole section inverts to white on focus.
 
 Rules:
@@ -53,10 +52,10 @@ Rules:
 - **No drawn/SVG products.** They looked fake. There are no product images yet; until real renders exist, the
   design proof is AID's real poster work. Add product renders only if they are real.
 - **No sliding or stacking cards, no product grids, no buy language, no callout copy, no lamp effects.**
-- **Say hello must send, never open the mail app.** Send posts to FormSubmit (formsubmit.co/ajax/<address>),
-  shows "Sending...", then "Sent." in place (or "Didn't go. Try again."). Honeypot field `_honey`. Visible text
-  spells the address without an @ ("To correo_AID at outlook.com"); the real address is assembled in JS.
-  FormSubmit needs a one-time activation: the first submission emails the destination inbox a confirm link.
+- **Say hello must send, never open the mail app.** Send posts to Web3Forms (api.web3forms.com/submit, public access key `W3F_KEY` in site.js; FormSubmit was dropped, its server returned 522),
+  shows "Sending...", then "Sent." in place (or "Didn't go. Try again."). Visible text
+  spells the address without an @ ("To correo_AID at outlook.com"); the address itself is never in the page (it lives behind the key).
+  The key comes from web3forms.com (enter the destination email, key arrives by mail).
   On the Shopify conversion, swap to Shopify's contact form.
 - Reduced motion: no scrub, no parallax; film line and posters show in full.
 

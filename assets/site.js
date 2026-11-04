@@ -250,26 +250,25 @@
   upd();
   var gear=document.querySelector('.as-gear');
   if(gear){
-    var gps=gear.querySelectorAll('.as-gp'),gn=gear.querySelector('.as-gn'),gc=-1;
-    gps.forEach(function(p){var sc=document.createElement('i');sc.className='as-scan';sc.setAttribute('aria-hidden','true');p.appendChild(sc)});
+    var gp=gear.querySelector('.as-gp'),sc=document.createElement('i');
+    sc.className='as-scan';sc.setAttribute('aria-hidden','true');gp.appendChild(sc);
     var gpick=function(){
-      var r=gear.getBoundingClientRect(),t=r.height-innerHeight,q=t>0?Math.min(.9999,Math.max(0,-r.top/t)):0,i=Math.floor(q*4),f=q*4-i,s=reduce?100:Math.min(100,Math.max(0,(f-.08)/.62*100));
-      if(i!==gc){gc=i;gps.forEach(function(p,k){p.classList.toggle('on',k===i);var m=p.querySelector('img');if(k===i)m.loading='eager'});if(gn)gn.textContent='0'+(i+1)+' / 04'}
-      gps[i].style.setProperty('--s',s);
+      var r=gear.getBoundingClientRect(),t=r.height-innerHeight,q=t>0?Math.min(1,Math.max(0,-r.top/t)):1;
+      gp.style.setProperty('--s',reduce?100:Math.min(100,q/.7*100));
     };
     addEventListener('scroll',gpick,{passive:true});gpick();
   }
+  /* Web3Forms public access key (free, tied to the destination inbox). Paste it here. */
+  var W3F_KEY='PASTE-WEB3FORMS-KEY';
   var say=document.querySelector('.say');
   if(say){say.addEventListener('submit',function(e){e.preventDefault();
     var f=say.elements.from,m=say.elements.msg,n=say.querySelector('.say-note'),btn=say.querySelector('.send'),ok=true;
     [f,m].forEach(function(x){var bad=!x.value.trim()||(x===f&&!/^\S+@\S+\.\S+$/.test(x.value));x.classList.toggle('bad',bad);if(bad)ok=false});
     if(!ok){n.textContent='Both, please.';return}
-    if(say.elements._honey.value)return;
-    var to='correo_AID'+String.fromCharCode(64)+'outlook.com';
     btn.disabled=true;n.textContent='Sending...';
-    fetch('https://formsubmit.co/ajax/'+to,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:f.value,message:m.value,_subject:'AID Studio: message from '+f.value,_captcha:'false',_template:'box'})})
-      .then(function(r){if(!r.ok)throw 0;return r.json()})
-      .then(function(){f.value='';m.value='';n.textContent='Sent.'})
+    fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({access_key:W3F_KEY,subject:'AID Studio: message from '+f.value,from_name:'AID Studio site',email:f.value,message:m.value})})
+      .then(function(r){return r.json()})
+      .then(function(d){if(!d.success)throw 0;f.value='';m.value='';n.textContent='Sent.'})
       .catch(function(){n.textContent="Didn't go. Try again."})
       .then(function(){btn.disabled=false});
   })}

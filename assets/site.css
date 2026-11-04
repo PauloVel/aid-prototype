@@ -581,13 +581,13 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .as-film-line{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;position:absolute;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);z-index:2;font-size:clamp(5rem,17vw,20rem);line-height:.85;letter-spacing:-.02em;color:#fff;opacity:clamp(0,calc((var(--p) - .65) * 3.5),1);transform:translateY(calc((1 - var(--p)) * 3rem))}
 .as-film-box::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,0) 55%);pointer-events:none}
 .as-film-box{position:relative}
-.as-gear{height:400vh;position:relative}
+.as-gear{height:220vh;position:relative}
 .as-gear-in{position:sticky;top:0;height:100svh;overflow:hidden;background-color:#000;background-image:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);background-size:6rem 6rem;isolation:isolate}
 .as-gear-in::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to right,rgba(0,0,0,.85),rgba(0,0,0,0) 65%)}
 .as-gear h2{position:absolute;left:var(--pad);bottom:clamp(3rem,7vw,6rem);z-index:2;font-size:clamp(6rem,18.5vw,24rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em}
-.as-gp{--s:0;position:absolute;right:6vw;top:50%;transform:translateY(-50%);opacity:0;pointer-events:none}
+.as-gp{--s:0;position:absolute;right:6vw;top:36%;transform:translateY(-50%);opacity:0;pointer-events:none}
 .as-gp.on{opacity:1}
-.as-gp img{display:block;max-width:min(44vw,640px);max-height:74svh;width:auto;height:auto;clip-path:inset(0 calc(100% - var(--s) * 1%) 0 0);box-shadow:0 40px 60px rgba(0,0,0,.6)}
+.as-gp img{display:block;max-width:min(50vw,820px);max-height:78svh;width:auto;height:auto;clip-path:inset(0 calc(100% - var(--s) * 1%) 0 0);box-shadow:0 40px 60px rgba(0,0,0,.6)}
 .as-gp::before{content:"";position:absolute;inset:0;border:1px dashed rgba(255,255,255,.55)}
 .as-scan{position:absolute;top:-6%;bottom:-6%;left:calc(var(--s) * 1%);width:2px;background:#fff;z-index:3}
 .as-scan::after{content:"";position:absolute;top:0;left:-5px;width:12px;height:12px;border-radius:50%;background:#fff}
