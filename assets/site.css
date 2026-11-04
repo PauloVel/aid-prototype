@@ -568,45 +568,29 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 @media(prefers-reduced-motion:reduce){.sd-obj svg,.sd-contact h2{transition:none}}
 
 /* studio v3 - THE CLIMB. Anton, white, full colour. The page is an ascent: scroll = altitude. */
-.alt{position:fixed;left:var(--pad);bottom:1.2rem;z-index:50;display:flex;align-items:baseline;gap:.5rem;font-family:'Anton',sans-serif;line-height:1;mix-blend-mode:difference;color:#fff;pointer-events:none}
-.alt b{font-weight:400;font-size:clamp(3rem,9vw,8rem);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-.alt span{font-size:clamp(1.2rem,3vw,2.5rem)}
 .as-hero{position:relative;isolation:isolate;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem var(--pad) clamp(5rem,12vw,9rem)}
 .as-hero-img{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;z-index:-2;will-change:transform}
 .as-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,0) 60%)}
 .as-hero h1{display:flex;flex-direction:column;font-size:clamp(6rem,25vw,28rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em}
 .as-hero h1 span:last-child{font-size:.5em;padding-left:.1em}
-.as-go{position:absolute;right:var(--pad);bottom:1.4rem;font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(1.2rem,2.4vw,2rem);letter-spacing:.08em;animation:bob 1.6s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(.5rem)}}
 .as-film{height:280vh;position:relative}
 .as-film-in{position:sticky;top:0;height:100svh;display:grid;place-items:center;background:#000;overflow:hidden}
 .as-film-box{--p:1;width:100%;height:100%;clip-path:inset(calc((1 - var(--p)) * 30svh) calc((1 - var(--p)) * 30vw) round calc((1 - var(--p)) * 1.2rem))}
 .as-film-box video{width:100%;height:100%;object-fit:cover}
-.as-who{height:320vh;position:relative}
-.as-who-in{position:sticky;top:0;height:100svh;overflow:hidden;background:#000;isolation:isolate;display:flex;align-items:center}
-.as-who-in img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;opacity:0;transform:scale(1.08);transition:opacity .7s ease,transform 1.6s cubic-bezier(.2,.7,.2,1)}
-.as-who-in img.on{opacity:1;transform:scale(1)}
-.as-who-in::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,0,0,.7),rgba(0,0,0,.05) 70%)}
-.as-who ol{list-style:none;padding:0 var(--pad);width:100%}
-.as-who li{display:flex;align-items:baseline;gap:clamp(.8rem,2vw,2rem);opacity:.22;transition:opacity .5s,transform .7s cubic-bezier(.2,.7,.2,1);cursor:pointer}
-.as-who li.on{opacity:1;transform:translateX(clamp(.5rem,3vw,3rem))}
-.as-who li span{font-family:'Anton',sans-serif;font-size:clamp(1.2rem,2.4vw,2rem);color:#fff}
-.as-who h2{font-size:clamp(4.5rem,17vw,21rem);line-height:.92;letter-spacing:-.02em;color:#fff}
+.as-film-line{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;position:absolute;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);z-index:2;font-size:clamp(5rem,17vw,20rem);line-height:.85;letter-spacing:-.02em;color:#fff;opacity:clamp(0,calc((var(--p) - .65) * 3.5),1);transform:translateY(calc((1 - var(--p)) * 3rem))}
+.as-film-box::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,0) 55%);pointer-events:none}
+.as-film-box{position:relative}
 .as-gear{height:400vh;position:relative}
 .as-gear-in{position:sticky;top:0;height:100svh;overflow:hidden;background-color:#000;background-image:linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px);background-size:6rem 6rem;isolation:isolate}
 .as-gear-in::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to right,rgba(0,0,0,.85),rgba(0,0,0,0) 65%)}
-.as-gear h2{position:absolute;left:var(--pad);bottom:clamp(3rem,7vw,6rem);z-index:2;font-size:clamp(7rem,24vw,28rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em}
-.as-gp{--s:0;position:absolute;right:5vw;top:50%;width:min(62vw,80svh);aspect-ratio:1;transform:translateY(-50%);opacity:0;pointer-events:none}
+.as-gear h2{position:absolute;left:var(--pad);bottom:clamp(3rem,7vw,6rem);z-index:2;font-size:clamp(6rem,18.5vw,24rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em}
+.as-gp{--s:0;position:absolute;right:6vw;top:50%;transform:translateY(-50%);opacity:0;pointer-events:none}
 .as-gp.on{opacity:1}
-.as-gp>div{position:absolute;inset:0}
-.as-gp svg{width:100%;height:100%;display:block;overflow:visible}
-.as-r{clip-path:inset(0 calc(100% - var(--s) * 1%) 0 0)}.as-r svg{filter:drop-shadow(0 40px 36px rgba(0,0,0,.7))}
-.as-w{clip-path:inset(0 0 0 calc(var(--s) * 1%))}
-.as-w svg *{fill:none;stroke:#fff;stroke-width:1.6;stroke-dasharray:none;vector-effect:non-scaling-stroke}
-.as-w svg image,.as-w svg linearGradient,.as-w svg stop{display:none}
-.as-w svg text{stroke-width:1}
+.as-gp img{display:block;max-width:min(44vw,640px);max-height:74svh;width:auto;height:auto;clip-path:inset(0 calc(100% - var(--s) * 1%) 0 0);box-shadow:0 40px 60px rgba(0,0,0,.6)}
+.as-gp::before{content:"";position:absolute;inset:0;border:1px dashed rgba(255,255,255,.55)}
 .as-scan{position:absolute;top:-6%;bottom:-6%;left:calc(var(--s) * 1%);width:2px;background:#fff;z-index:3}
 .as-scan::after{content:"";position:absolute;top:0;left:-5px;width:12px;height:12px;border-radius:50%;background:#fff}
-.as-gk{position:absolute;top:6rem;right:var(--pad);z-index:3;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:clamp(1rem,2vw,1.6rem);display:flex;gap:1.5rem;color:#fff}
-@media(max-width:700px){.as-gp{width:92vw;right:4vw;top:40%}.as-gear h2{font-size:clamp(5rem,26vw,9rem)}}
-@media(prefers-reduced-motion:reduce){.as-go{animation:none}}
+.as-gk{position:absolute;top:6rem;left:var(--pad);z-index:3;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.08em;font-size:clamp(1rem,2vw,1.6rem);display:flex;gap:1.5rem;color:#fff}
+@media(max-width:700px){.as-gp{right:4vw;top:40%}.as-gp img{max-width:88vw;max-height:55svh}.as-gear h2{font-size:clamp(5rem,26vw,9rem)}}
+@media(prefers-reduced-motion:reduce){

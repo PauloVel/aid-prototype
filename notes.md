@@ -34,33 +34,31 @@ social media and may buy posters. The design studio is the second door: professi
 
 Main nav: **Shop · Studio · Cart**. Abrasive is reached from the homepage, the footer and Instagram, not the menu. Studio is ONE page (`design.html`): hero "Be unmistakable", who it is for, "Safe is invisible", a lit floor of concept products (cap, kicks, pack, tee as SVG mockups, swap for real renders later) and a big email link (`#contact`). Work, Build, Contact and the project pages were removed (still in git history). Do not add more top-level items or Studio sub-pages.
 
-## Studio page look - "The Climb" (supersedes the outdoor black/white/green rule)
+## Studio page - current direction (supersedes "The Climb" and every earlier Studio take)
 
-Feedback that killed the previous takes: colour-filtering whole sections, effects only on the
-corners of words, tiny decorative elements, "trying to look sharp and artist". It was not creative
-enough, it just changed colours. AID is not Evrabo: it is for people who want to be on top, and the
-page has to show attitude.
+Studio presents AID as a design studio. It SHOWS design, it never labels audiences ("Athletes / Risk-takers /
+Outdoors" was removed: telling, not showing) and never sells products.
+
+Kept and approved: the hero "Be unmistakable." and the pinned film that opens from a window to full-bleed.
+
+Order: (1) full-bleed hero photo + "Be unmistakable." Anton white, parallax; (2) film pinned, opens to
+full-bleed, and as it opens the line **"World on reach."** rises in giant Anton (the video itself has no text);
+(3) **"We design."** pinned black drafting table with faint grid: one real AID poster at a time (Few of us, heat
+suit, hare, bike) is drawn in by a scan line as you scroll, tiny "01 / 04" counter only; (4) **"Say hello."**
+real message form, giant Anton fields, whole section inverts to white on focus.
 
 Rules:
-- **Words are always Anton, white.** No outlines, no ghost layers, no coloured type. 
-- **Images in full natural colour.** No grades, no duotone, no tinting a section. Only a neutral black
-  gradient behind type for legibility.
-- **Change the experience, not the paint.** The page is an ascent. Scroll = altitude: a big fixed
-  counter (0000 to 8848 M, difference-blended) climbs with the scroll. Big gestures only, nothing small.
-- **Almost no copy.** Title, then three words, then one verb. Copy is a last resort.
-
-Order: (1) full-bleed hero photo, "Be unmistakable." Anton white, parallax; (2) film pinned, opens from
-a window to full-bleed as you scroll; (3) "who it is for": one pinned stage, three giant words
-(Athletes / Risk-takers / Outdoors), scroll or hover lights one word and crossfades its photo behind.
-**No sliding/stacking cards anywhere** (feedback: predictable, lame); (4) "We design.": **Studio presents AID as a design studio, so it shows that AID DESIGNS products, it does not
-present products to sell.** Pinned black drafting table with a faint grid, giant Anton "We design." bottom-left,
-and one concept at a time (cap, kicks, pack, tee) on the right. A scan line sweeps with scroll: left of it the
-finished concept, right of it the construction drawing (outline of the same SVG, cloned in JS). Tiny counter
-"01 / 04 Cap" only. No photos behind, no product grid, no buy language, no callout copy (rejected: lamp shelf,
-per-product rooms, photo-per-product "By hand"); (5) "Say hello." is a real message form:
-giant Anton fields (Your email, Say it), "To hello at aid.studio" spelled without an @, the whole section inverts
-to white on focus, Send opens the mail app via mailto (address built in JS). **No "@" shown in that section.**
-Reduced motion: no scrub, no parallax, no float, counter still updates.
+- Words are always Anton, white. Images in full natural colour. Almost no copy.
+- **No altitude counter / floating meters** (meant nothing, no continuation). No "Climb" cue.
+- **No drawn/SVG products.** They looked fake. There are no product images yet; until real renders exist, the
+  design proof is AID's real poster work. Add product renders only if they are real.
+- **No sliding or stacking cards, no product grids, no buy language, no callout copy, no lamp effects.**
+- **Say hello must send, never open the mail app.** Send posts to FormSubmit (formsubmit.co/ajax/<address>),
+  shows "Sending...", then "Sent." in place (or "Didn't go. Try again."). Honeypot field `_honey`. Visible text
+  spells the address without an @ ("To correo_AID at outlook.com"); the real address is assembled in JS.
+  FormSubmit needs a one-time activation: the first submission emails the destination inbox a confirm link.
+  On the Shopify conversion, swap to Shopify's contact form.
+- Reduced motion: no scrub, no parallax; film line and posters show in full.
 
 ## Homepage order (current, supersedes the story below where they conflict)
 

@@ -236,12 +236,10 @@
 (function(){
   if(!document.querySelector('.as-hero'))return;
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var alt=document.querySelector('.alt b'),img=document.querySelector('.as-hero-img'),film=document.querySelector('.as-film'),box=document.querySelector('.as-film-box');
+  var img=document.querySelector('.as-hero-img'),film=document.querySelector('.as-film'),box=document.querySelector('.as-film-box');
   var tick=false;
   function upd(){
     tick=false;
-    var max=document.documentElement.scrollHeight-innerHeight,p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
-    if(alt)alt.textContent=String(Math.round(p*8848)).padStart(4,'0');
     if(reduce)return;
     if(img&&scrollY<innerHeight*1.2)img.style.transform='translate3d(0,'+(scrollY*.18)+'px,0) scale('+(1+scrollY/innerHeight*.08)+')';
     if(film&&box){var r=film.getBoundingClientRect(),t=r.height-innerHeight,q=t>0?Math.min(1,Math.max(0,-r.top/(t*.6))):1;box.style.setProperty('--p',q)}
@@ -250,36 +248,29 @@
   addEventListener('scroll',req,{passive:true});addEventListener('resize',req);
   if(!reduce&&box)box.style.setProperty('--p',0);
   upd();
-  var who=document.querySelector('.as-who');
-  if(who){
-    var lis=who.querySelectorAll('li'),ims=who.querySelectorAll('img'),cur=-1;
-    var set=function(i){if(i===cur)return;cur=i;lis.forEach(function(l,k){l.classList.toggle('on',k===i)});ims.forEach(function(m,k){m.classList.toggle('on',k===i);if(k===i)m.loading='eager'})};
-    var pick=function(){var r=who.getBoundingClientRect(),t=r.height-innerHeight,q=t>0?Math.min(.999,Math.max(0,-r.top/t)):0;set(Math.floor(q*lis.length))};
-    addEventListener('scroll',pick,{passive:true});pick();
-    lis.forEach(function(l,k){l.addEventListener('mouseenter',function(){set(k)})});
-  }
   var gear=document.querySelector('.as-gear');
   if(gear){
-    var gps=gear.querySelectorAll('.as-gp'),gn=gear.querySelector('.as-gn'),gm=gear.querySelector('.as-gm'),gc=-1;
-    gps.forEach(function(p){
-      var svg=p.querySelector('svg'),w=document.createElement('div'),r=document.createElement('div'),sc=document.createElement('i');
-      w.className='as-w';w.setAttribute('aria-hidden','true');w.appendChild(svg.cloneNode(true));
-      r.className='as-r';r.appendChild(svg);sc.className='as-scan';sc.setAttribute('aria-hidden','true');
-      p.appendChild(w);p.appendChild(r);p.appendChild(sc);
-    });
+    var gps=gear.querySelectorAll('.as-gp'),gn=gear.querySelector('.as-gn'),gc=-1;
+    gps.forEach(function(p){var sc=document.createElement('i');sc.className='as-scan';sc.setAttribute('aria-hidden','true');p.appendChild(sc)});
     var gpick=function(){
-      var r=gear.getBoundingClientRect(),t=r.height-innerHeight,q=t>0?Math.min(.9999,Math.max(0,-r.top/t)):0,i=Math.floor(q*4),f=q*4-i,s=reduce?100:Math.min(100,Math.max(0,(f-.1)/.7*100));
-      if(i!==gc){gc=i;gps.forEach(function(p,k){p.classList.toggle('on',k===i)});if(gn)gn.textContent='0'+(i+1)+' / 04';if(gm)gm.textContent=gps[i].dataset.n}
+      var r=gear.getBoundingClientRect(),t=r.height-innerHeight,q=t>0?Math.min(.9999,Math.max(0,-r.top/t)):0,i=Math.floor(q*4),f=q*4-i,s=reduce?100:Math.min(100,Math.max(0,(f-.08)/.62*100));
+      if(i!==gc){gc=i;gps.forEach(function(p,k){p.classList.toggle('on',k===i);var m=p.querySelector('img');if(k===i)m.loading='eager'});if(gn)gn.textContent='0'+(i+1)+' / 04'}
       gps[i].style.setProperty('--s',s);
     };
     addEventListener('scroll',gpick,{passive:true});gpick();
   }
   var say=document.querySelector('.say');
   if(say){say.addEventListener('submit',function(e){e.preventDefault();
-    var f=say.elements.from,m=say.elements.msg,n=say.querySelector('.say-note'),ok=true;
+    var f=say.elements.from,m=say.elements.msg,n=say.querySelector('.say-note'),btn=say.querySelector('.send'),ok=true;
     [f,m].forEach(function(x){var bad=!x.value.trim()||(x===f&&!/^\S+@\S+\.\S+$/.test(x.value));x.classList.toggle('bad',bad);if(bad)ok=false});
     if(!ok){n.textContent='Both, please.';return}
-    location.href='mailto:hello'+String.fromCharCode(64)+'aid.studio?subject='+encodeURIComponent('Hello from '+f.value)+'&body='+encodeURIComponent(m.value+String.fromCharCode(10,10)+f.value);
-    n.textContent='Sent. We answer from AID.';
+    if(say.elements._honey.value)return;
+    var to='correo_AID'+String.fromCharCode(64)+'outlook.com';
+    btn.disabled=true;n.textContent='Sending...';
+    fetch('https://formsubmit.co/ajax/'+to,{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({email:f.value,message:m.value,_subject:'AID Studio: message from '+f.value,_captcha:'false',_template:'box'})})
+      .then(function(r){if(!r.ok)throw 0;return r.json()})
+      .then(function(){f.value='';m.value='';n.textContent='Sent.'})
+      .catch(function(){n.textContent="Didn't go. Try again."})
+      .then(function(){btn.disabled=false});
   })}
 })();
