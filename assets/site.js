@@ -258,15 +258,19 @@
     addEventListener('scroll',pick,{passive:true});pick();
     lis.forEach(function(l,k){l.addEventListener('mouseenter',function(){set(k)})});
   }
-  var hand=document.querySelector('.as-hand');
-  if(hand&&!reduce){
-    var tx=.5,ty=.55,cx=.5,cy=.55,on=false,vis=false,t0=0;
-    hand.addEventListener('pointermove',function(e){var r=hand.getBoundingClientRect();tx=(e.clientX-r.left)/r.width;ty=(e.clientY-r.top)/r.height;on=true});
-    hand.addEventListener('pointerleave',function(){on=false});
-    new IntersectionObserver(function(es){vis=es[0].isIntersecting}).observe(hand);
-    (function loop(t){requestAnimationFrame(loop);if(!vis)return;
-      if(!on){tx=.5+Math.sin(t/2600)*.4;ty=.58+Math.cos(t/3700)*.12}
-      cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;
-      hand.style.setProperty('--mx',cx*100+'%');hand.style.setProperty('--my',cy*100+'%')})(0);
+  var gear=document.querySelector('.as-gear');
+  if(gear){
+    var gs=gear.querySelectorAll('li,.as-gp,.as-gear-in>img'),gn=gear.querySelector('.as-gn'),gc=-1;
+    var gpick=function(){var r=gear.getBoundingClientRect(),t=r.height-innerHeight,q=t>0?Math.min(.999,Math.max(0,-r.top/t)):0,i=Math.floor(q*4);
+      if(i===gc)return;gc=i;gs.forEach(function(e){e.classList.toggle('on',+e.dataset.i===i);if(e.tagName==='IMG'&&+e.dataset.i===i)e.loading='eager'});if(gn)gn.textContent='0'+(i+1)+' / 04'};
+    addEventListener('scroll',gpick,{passive:true});gpick();
   }
+  var say=document.querySelector('.say');
+  if(say){say.addEventListener('submit',function(e){e.preventDefault();
+    var f=say.elements.from,m=say.elements.msg,n=say.querySelector('.say-note'),ok=true;
+    [f,m].forEach(function(x){var bad=!x.value.trim()||(x===f&&!/^\S+@\S+\.\S+$/.test(x.value));x.classList.toggle('bad',bad);if(bad)ok=false});
+    if(!ok){n.textContent='Both, please.';return}
+    location.href='mailto:hello'+String.fromCharCode(64)+'aid.studio?subject='+encodeURIComponent('Hello from '+f.value)+'&body='+encodeURIComponent(m.value+String.fromCharCode(10,10)+f.value);
+    n.textContent='Sent. We answer from AID.';
+  })}
 })();
