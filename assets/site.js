@@ -248,19 +248,25 @@
   addEventListener('scroll',req,{passive:true});addEventListener('resize',req);
   if(!reduce&&box)box.style.setProperty('--p',0);
   upd();
-  var nv=document.querySelector('.as-nav');
-  if(nv){
-    var nl=nv.querySelectorAll('li a'),ni=nv.querySelectorAll('.as-nav-img img');
-    var nset=function(i){nl.forEach(function(l,k){l.classList.toggle('on',k===i)});ni.forEach(function(m,k){m.classList.toggle('on',k===i);if(k===i)m.loading='eager'})};
-    nl.forEach(function(l,k){
-      l.addEventListener('mouseenter',function(){nset(k)});
-      l.addEventListener('focus',function(){nset(k)});
-      l.addEventListener('click',function(){
-        nset(k);
-        var t=document.querySelector('.say textarea');
-        if(t){if(!t.value.trim()||/^[A-Za-z]+: $/.test(t.value))t.value=l.dataset.topic+': ';setTimeout(function(){t.focus({preventScroll:true});t.setSelectionRange(t.value.length,t.value.length)},700)}
-      });
-    });
+  var fo=document.querySelector('.as-focus');
+  if(fo&&!reduce){
+    var fi=fo.querySelector('.as-fimg'),cv=fo.querySelector('.as-fcv'),cx=cv.getContext('2d'),sm=document.createElement('canvas'),sx=sm.getContext('2d'),last=-1,W=0,H=0;
+    var size=function(){var d=Math.min(devicePixelRatio||1,1.5);W=cv.width=Math.round(innerWidth*d);H=cv.height=Math.round(innerHeight*d);last=-1};
+    var draw=function(){
+      var r=fo.getBoundingClientRect(),t=r.height-innerHeight,q=t>0?Math.min(1,Math.max(0,-r.top/t)):0,z=Math.min(1,q/.7);
+      var b=Math.max(1,Math.round(90*Math.pow(1-z,2.4)));
+      fo.classList.toggle('done',z>=.98);
+      if(b===last)return;last=b;
+      var iw=fi.naturalWidth,ih=fi.naturalHeight;if(!iw)return;
+      var s=Math.max(W/iw,H/ih),cw=W/s,ch=H/s,cxp=(iw-cw)/2,cyp=(ih-ch)/2;
+      var w=Math.max(1,Math.ceil(W/b)),h=Math.max(1,Math.ceil(H/b));
+      sm.width=w;sm.height=h;sx.imageSmoothingEnabled=b>1?false:true;
+      sx.drawImage(fi,cxp,cyp,cw,ch,0,0,w,h);
+      cx.imageSmoothingEnabled=false;cx.clearRect(0,0,W,H);cx.drawImage(sm,0,0,w,h,0,0,w*b,h*b);
+    };
+    var go=function(){size();fo.classList.add('js');draw()};
+    if(fi.complete)go();else fi.addEventListener('load',go);
+    addEventListener('scroll',draw,{passive:true});addEventListener('resize',function(){size();draw()});
   }
   /* Web3Forms public access key (free, tied to the destination inbox). Paste it here. */
   var W3F_KEY='c433599a-60cf-45df-8fc9-a80bcb283c1f';

@@ -43,12 +43,12 @@ Kept and approved: the hero "Be unmistakable." and the pinned film that opens fr
 
 Order: (1) full-bleed hero photo + "Be unmistakable." Anton white, parallax; (2) film pinned, opens to
 full-bleed, and as it opens the line **"World on reach."** rises in giant Anton (the video itself has no text);
-(3) **"We design."** a plain full-screen section, NO scroll trick: one big image on the left that swaps on
-hover/focus, and on the right the giant "WE DESIGN." over a huge navigation of what AID designs (01 Identity,
-02 Campaigns, 03 Product, 04 Content) and one line of attitude, "Safe is invisible." Image + idea + navigation +
-a statement. Clicking an item scrolls to Say hello with the topic prefilled ("Identity: ") and focuses the
-message. Images are AID's own work, never third-party footage and never the star mark. Rejected for this
-section: scan-line reveal, zoom-through-letters, carousels, "surprise box" effects. Unexpected = the idea, not a trick;
+(3) **"We design."** ONE image (the volcano figure, WHYDG, the one the owner approved) and ONE scroll behaviour:
+"navigation" in the owner's sense means **scroll-driven animation / scrollytelling** (how the page behaves as you
+scroll), NOT menus, lists or links to other pages. The poster starts as huge raw pixels and resolves into focus
+as you scroll (canvas, block size shrinks with scroll), like watching it being designed. Giant Anton "We design."
+sits over it the whole time; "Safe is invisible." appears once it is sharp. No lists, no infographic-style
+navigation, no extra images in this section. Rejected: scan line, zoom through letters, discipline list;
 (4) **"Say hello."**
 real message form, giant Anton fields, whole section inverts to white on focus.
 
