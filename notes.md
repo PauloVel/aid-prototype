@@ -52,11 +52,10 @@ Rules:
 Order: (1) full-bleed hero photo, "Be unmistakable." Anton white, parallax; (2) film pinned, opens from
 a window to full-bleed as you scroll; (3) "who it is for": one pinned stage, three giant words
 (Athletes / Risk-takers / Outdoors), scroll or hover lights one word and crossfades its photo behind.
-**No sliding/stacking cards anywhere** (feedback: predictable, lame); (4) "By hand.": four rooms, one per
-product (cap, kicks, pack, tee), each full-screen with the piece large, a ghost name behind, hand-stitch
-detail on the SVG and three drawn leader-line callouts about how it is made. **Never a product grid and
-never "buy" language on this page**: every piece gets its own moment, appreciated, not sold. The drag
-wall was removed; (5) big email link. Reduced motion: no scrub, no parallax, no float, counter still updates.
+**No sliding/stacking cards anywhere** (feedback: predictable, lame); (4) "By hand.": ONE screen, not four. A dark room, the four pieces (cap, kicks, pack, tee) on a shelf with
+only their names, and a lamp that follows the pointer (auto-drifts on touch/idle) so each piece is lit as
+you reach it. **No product grids as a sales wall, no buy language, no callout copy, no per-product screens**
+(feedback: too much text, too saturated); (5) "Say hello." big link to email. **No "@" or address shown in that section.** Reduced motion: no scrub, no parallax, no float, counter still updates.
 
 ## Homepage order (current, supersedes the story below where they conflict)
 
