@@ -55,7 +55,7 @@ site.js "studio: one continuous shot"):
    **"opening doors" / parting halves were rejected as lame**), revealing **the 3D helmet** (live three.js scene in
    `assets/helmet.js`, model `assets/helmet/helmet.glb`, rendered into the same WebGL mist shader as its "poster").
    It appears as raw grey clay and is painted into the finished design by a clip plane sweeping up it while it
-   turns (design process, not a picture). Giant Anton "On purpose." slams up; "Safe is invisible." appears last.
+   turns (design process, not a picture). Giant Anton "On purpose." slams up. No "Safe is invisible." line anywhere in the story (owner removed it).
    The old volcano poster is only the fallback if three.js cannot load. **Three.js modules need http(s), not file://.**
    **PLACEHOLDER WARNING: the current helmet is a third-party F1 model (Red Bull / Max Verstappen livery with Jumbo,
    Citrix, Mobil 1, Puma, Arai logos). It must be replaced with an original AID design before the site is published.**
