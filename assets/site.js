@@ -258,7 +258,7 @@
     'if(g<.001){gl_FragColor=vec4(texture2D(a,uvA).rgb,1.);return;}'+
     'vec2 uvB=(v-.5)*sb/zb+.5;vec3 B=texture2D(b,uvB).rgb;'+
     'vec3 gl=vec3(0.);for(int i=0;i<4;i++){float an=float(i)*1.5708+.7854;vec2 od=vec2(cos(an),sin(an))*vec2(1./asp,1.);gl+=max(texture2D(b,uvB+od*.016).rgb-.6,0.);}'+
-    'B+=gl*.22;B=clamp(B,0.,1.4);B=mix(B,B*B*(3.-2.*B),.32);'+
+    'B+=gl*.14;B=clamp(B,0.,1.4);B=mix(B,B*B*(3.-2.*B),.32);'+
     'vec2 vc=(v-.5)*vec2(asp,1.);B*=mix(1.,smoothstep(1.15,.3,length(vc)),.5);'+
     'float gr=h(v*vec2(1440.,900.)+vec2(fract(t*7.13)*61.,fract(t*3.7)*37.))-.5;B+=gr*.1*(1.1-dot(B,vec3(.33)));'+
     'if(g>.999){gl_FragColor=vec4(clamp(B,0.,1.),1.);return;}'+
@@ -303,7 +303,7 @@
     var HM=window.AIDHelmet,useH=!!(HM&&HM.ready),ca=cv.width/cv.height;
     if(useH){
       var sz=cv.width+'x'+cv.height;if(sz!==hSize){hSize=sz;HM.setSize(cv.width,cv.height)}
-      HM.render(rotH,paintH);
+      HM.render(rotH);
       try{gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,texB);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,HM.canvas)}catch(e){useH=false;window.AIDHelmet=null}
     }
     if(!useH){upPoster&&upPoster();if(!gl)return}
@@ -346,7 +346,7 @@
     line.style.transform='translate3d(0,'+((1-out(li))*4+lo*-6)+'rem,0)';
     var g=T(p,.66,.92);
     mist=g;zoomB=1.3-.3*out(T(p,.74,.97));
-    curP=p;story.classList.toggle('live',p>=.9);rotH=dragRot;paintH=out(T(p,.84,.97));
+    curP=p;story.classList.toggle('live',p>=.9);rotH=dragRot;
     var onC=p>=.6&&p<=.995;
     if(gl&&prog){
       cv.style.opacity=T(p,.6,.63);
