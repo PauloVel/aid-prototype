@@ -43,7 +43,7 @@ story.
 
 **One continuous shot** (`.as-story`, 900vh, one pinned 100svh stage, all driven by one progress value in
 site.js "studio: one continuous shot"):
-1. Hero photo + "Be unmistakable." with **three small "AID" marks at the bottom right (two on top, one centred under them, a little pyramid, requested by the owner)**: camera pushes into the clouds; BE and UNMISTAKABLE tear apart to opposite corners,
+1. Hero photo + "Be unmistakable." with **three small "AID" marks at the bottom right (two side by side higher up on the right, the third directly under the right one, requested by the owner)**: camera pushes into the clouds; BE and UNMISTAKABLE tear apart to opposite corners,
    and the whole hero **falls into black**.
 2. Out of the black, the film opens as a **rectangle window** (small centered rectangle with rounded corners growing
    to full-bleed). **Never a circle/iris: the owner called it a cheap CapCut effect.** "World on reach." rises over it.
