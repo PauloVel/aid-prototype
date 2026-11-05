@@ -55,8 +55,9 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const drawVis = () => {
       const g = visCanvas.getContext('2d'); g.clearRect(0, 0, 1600, 600);
       g.fillStyle = '#f6f6f4'; g.textAlign = 'center'; g.textBaseline = 'middle';
-      g.font = '400 520px Anton, Impact, "Arial Narrow", sans-serif';
-      g.fillText('A', 440, 322); g.fillText('I', 800, 322); g.fillText('D', 1160, 322);
+      g.font = '400 720px Anton, Impact, "Arial Narrow", sans-serif';
+      const w = g.measureText('AID').width, sx = 1500 / Math.max(w, 1);
+      g.save(); g.translate(800, 336); g.scale(sx, 1); g.fillText('AID', 0, 0); g.restore();
       visTex.needsUpdate = true;
     };
     drawAid(); drawVis();
@@ -70,12 +71,6 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const FDEF = ['uniform sampler2D uAid;', 'varying vec3 vHP;', 'varying vec3 vHN;'].join(NL);
     const FSET = [
       'vec3 hn=-normalize(vHN);',
-      'float sd=step(.55,abs(hn.x));',
-      'vec2 du=vec2((vHP.z+0.012)/0.052+.5,(vHP.y+0.004)/0.030+.5);',
-      'du.x=hn.x<0.?du.x:1.-du.x;',
-      'vec4 dt=texture2D(uAid,du);',
-      'float inb=step(0.,du.x)*step(du.x,1.)*step(0.,du.y)*step(du.y,1.);',
-      'diffuseColor.rgb=mix(diffuseColor.rgb,dt.rgb,dt.a*sd*inb);',
       'float st=step(.3,hn.y)*(1.-step(.0013,abs(vHP.x)));',
       'diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.93,.93,.9),st);'].join(NL);
     shell.onBeforeCompile = (sh) => {
@@ -91,7 +86,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const visor = new THREE.MeshPhysicalMaterial({ color: 0x000000, roughness: .16, clearcoat: .8, clearcoatRoughness: .06, envMapIntensity: .9, side: THREE.DoubleSide });
     const VFDEF = ['uniform sampler2D uVis;', 'varying vec3 vHP;', 'varying vec3 vHN;'].join(NL);
     const VFSET = [
-      'vec2 vu=vec2(vHP.x/0.056+.5,vHP.y/0.021+.5);',
+      'vec2 vu=vec2(atan(vHP.x,vHP.z)/1.15+.5,vHP.y/0.021+.5);',
       'vec4 vt=texture2D(uVis,vu);',
       'float vf=step(0.,vHP.z)*step(0.,vu.x)*step(vu.x,1.)*step(0.,vu.y)*step(vu.y,1.);',
       'diffuseColor.rgb=mix(diffuseColor.rgb,vt.rgb,vt.a*vf);'].join(NL);

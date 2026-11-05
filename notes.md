@@ -60,8 +60,8 @@ site.js "studio: one continuous shot"):
    **HELMET LIVERY (current): third-party F1 helmet SHAPE, AID's own livery.** `assets/helmet.js` removes every sponsor layer
    and the 110 lettering pieces (Red Bull / Jumbo / Citrix / Mobil 1 / Puma / Arai) and paints the model's clean base shell
    (original material `mat_0`; `mat_2` carries the logos as cut-outs and is hidden): deep red satin shell, black visor with a
-   big white **A I D printed across it** (wide letters, projected from the front), a bigger white AID on both sides of the
-   shell, thin white stripe over the top. **Rejected looks: glossy all-black (read as "a 0-style astronaut"), red stripe on
+   ONE big, wide white **AID printed across it** (stretched to fill the visor, mapped around the visor's curve so it reads from
+   the front; **AID appears only once on the helmet: the side marks were removed**), thin white stripe over the top. **Rejected looks: glossy all-black (read as "a 0-style astronaut"), red stripe on
    black.** Lighting is form-defining: key directional light with real cast shadows, red rim light, dark studio env with a few
    sharp light strips; composite shader adds glow on highlights, vignette, light contrast curve and film grain. Never a flat,
    bright, even product-shot look and never an all-black helmet. Normals on this model face inward (shaders negate them).

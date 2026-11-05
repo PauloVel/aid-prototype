@@ -294,7 +294,7 @@
   }
   var cover=function(w,h,ca){var ta=w/h;return ta>ca?[ca/ta,1]:[1,ta/ca]};
   var glSize=function(){if(!gl)return;var d=Math.min(devicePixelRatio||1,1.25);cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);gl.viewport(0,0,cv.width,cv.height)};
-  var rotH=0,paintH=0,hSize='';
+  var rotH=0,paintH=0,hSize='',curP=0,dragRot=.34,dragVel=0,dragging=false,lastX=0;
   var glDraw=function(){
     if(!gl||!prog)return;
     var HM=window.AIDHelmet,useH=!!(HM&&HM.ready),ca=cv.width/cv.height;
@@ -311,12 +311,16 @@
     gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
   };
   var zoomB=1.3,loopOn=false;
-  var loop=function(){if(!loopOn)return;glDraw();requestAnimationFrame(loop)};
+  var loop=function(){if(!loopOn)return;if(!dragging&&dragVel){dragRot+=dragVel;dragVel*=.94;if(Math.abs(dragVel)<.0001)dragVel=0}rotH=dragRot;glDraw();requestAnimationFrame(loop)};
   var cl=function(v){return Math.min(1,Math.max(0,v))},T=function(p,a,b){return cl((p-a)/(b-a))},out=function(t){return 1-Math.pow(1-t,3)},inn=function(t){return t*t};
   if(!reduce){
     vid.src='assets/hero.mp4';
     new IntersectionObserver(function(es){if(es[0].isIntersecting)vid.play().catch(function(){});else vid.pause()},{threshold:0}).observe(story);
   }
+  story.addEventListener('pointerdown',function(e){if(curP<.9||e.button>0)return;dragging=true;lastX=e.clientX;dragVel=0;story.classList.add('grab');try{story.setPointerCapture(e.pointerId)}catch(x){}});
+  story.addEventListener('pointermove',function(e){if(!dragging)return;var dx=e.clientX-lastX;lastX=e.clientX;dragRot+=dx*.011;dragVel=dx*.011});
+  var dragEnd=function(){dragging=false;story.classList.remove('grab')};
+  story.addEventListener('pointerup',dragEnd);story.addEventListener('pointercancel',dragEnd);
   var tick=false;
   function upd(){
     tick=false;
@@ -338,7 +342,7 @@
     line.style.transform='translate3d(0,'+((1-out(li))*4+lo*-6)+'rem,0)';
     var g=T(p,.66,.92);
     mist=g;zoomB=1.3-.3*out(T(p,.74,.97));
-    rotH=.5+T(p,.7,.99)*Math.PI*2;paintH=out(T(p,.84,.97));
+    curP=p;story.classList.toggle('live',p>=.9);rotH=dragRot;paintH=out(T(p,.84,.97));
     var onC=p>=.6&&p<=.995;
     if(gl&&prog){
       cv.style.opacity=T(p,.6,.63);
