@@ -17,6 +17,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
     renderer.setPixelRatio(1);
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = .95;
     renderer.localClippingEnabled = true;
     api.canvas = renderer.domElement;
     const scene = new THREE.Scene();
@@ -24,8 +25,8 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 10);
 
     const env = new THREE.Scene();
-    env.add(new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshBasicMaterial({ color: 0x0b0c0e, side: THREE.BackSide })));
-    [[5, 2.2, 0, 4.6, 0, 14], [1.2, 5, -4.2, 1, 2.5, 18], [1.2, 5, 4.2, 1, 2.5, 18], [4, 1.2, 0, .5, 4.6, 8], [3, 1, 0, -1.5, -4.6, 6]].forEach(([w, h, x, y, z, i]) => {
+    env.add(new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshBasicMaterial({ color: 0x020203, side: THREE.BackSide })));
+    [[6, .5, 0, 4.6, 0, 30], [.45, 6, -4.4, 1, 2.2, 46], [.45, 6, 4.4, 1, 2.2, 36], [5, .35, 0, .8, -4.6, 40], [.7, 3, 3, -.5, -4, 22], [3, .25, 0, -1.2, 4.6, 16]].forEach(([w, h, x, y, z, i]) => {
       const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color().setScalar(i), side: THREE.DoubleSide }));
       m.position.set(x, y, z); m.lookAt(0, 0, 0); env.add(m);
     });
@@ -51,7 +52,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     drawAid();
     if (document.fonts && document.fonts.load) document.fonts.load('400 470px Anton').then(drawAid).catch(() => {});
     const decal = { uRot: { value: 0 }, uAid: { value: aidTex } };
-    const shell = new THREE.MeshPhysicalMaterial({ name: 'AID_shell', color: 0x0a0a0b, roughness: .5, metalness: 0, clearcoat: .7, clearcoatRoughness: .12, envMapIntensity: .8, side: THREE.DoubleSide });
+    const shell = new THREE.MeshPhysicalMaterial({ name: 'AID_shell', color: 0x040405, roughness: .26, metalness: 0, clearcoat: 1, clearcoatRoughness: .035, envMapIntensity: 1.5, side: THREE.DoubleSide });
     const NL = String.fromCharCode(10);
     const VDEF = ['uniform float uRot;', 'varying vec3 vHP;', 'varying vec3 vHN;',
       'vec3 rotYn(vec3 v,float a){float c=cos(a),s=sin(a);return vec3(c*v.x-s*v.z,v.y,s*v.x+c*v.z);}'].join(NL);
@@ -74,7 +75,8 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
         .replace('#include <begin_vertex>', '#include <begin_vertex>' + NL + VSET);
       sh.fragmentShader = sh.fragmentShader
         .replace('#include <common>', '#include <common>' + NL + FDEF)
-        .replace('#include <color_fragment>', '#include <color_fragment>' + NL + FSET);
+        .replace('#include <color_fragment>', '#include <color_fragment>' + NL + FSET)
+        .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>' + NL + 'totalEmissiveRadiance += vec3(.95,.015,.015) * st;');
     };
     shell.customProgramCacheKey = () => 'aid-shell';
     const visor = new THREE.MeshPhysicalMaterial({ color: 0x000000, roughness: .02, clearcoat: 1, clearcoatRoughness: 0, envMapIntensity: 2.2, side: THREE.DoubleSide });

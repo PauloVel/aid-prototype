@@ -63,6 +63,10 @@ site.js "studio: one continuous shot"):
    cut-outs and is hidden) in AID colours: glossy black, a big white "AID" projected on both sides (shader, canvas
    texture in Anton) and a red stripe over the top. **The underlying shape is still someone else's model of unknown
    licence: placeholder until the owner has an original helmet.** Normals on this model face inward (shader negates them).
+   **HELMET LOOK (owner request): dark, grainy, high-contrast, sharp. Near-black studio with a few very bright narrow light
+   strips (sharp reflections on a glossy clearcoat shell), a glowing red top stripe (emissive), bloom-style glow around
+   highlights, vignette, contrast curve and film grain, all in the mist/composite shader in site.js plus env/material in
+   helmet.js. Never a soft, bright, even product-shot look.**
    **Outdoor effects only (cloud, fog, smoke, snow, embers); pixelation, circles and doors are all rejected.**
    Fallback: if WebGL is unavailable or blocked (e.g. the page opened straight from disk via file://, where images
    are cross-origin for WebGL) the story falls back to a plain crossfade to the poster; test the shader over

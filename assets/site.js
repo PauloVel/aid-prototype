@@ -264,8 +264,12 @@
     'float front=1.-abs(m*2.-1.);'+
     'float d=clamp(front*1.7,0.,1.)*(.55+.7*c2);'+
     'vec3 fc=mix(vec3(.55,.6,.64),vec3(.94,.96,.97),smoothstep(.25,.75,c2));'+
+    'vec3 gl=vec3(0.);for(int i=0;i<8;i++){float an=float(i)*.7854;vec2 od=vec2(cos(an),sin(an))*vec2(1./asp,1.);gl+=max(texture2D(b,uvB+od*.010).rgb-.6,0.)+max(texture2D(b,uvB+od*.028).rgb-.6,0.)*.8;}'+
+    'B+=gl*.17;B=clamp(B,0.,1.4);B=mix(B,B*B*(3.-2.*B),.5);'+
+    'vec2 vc=(v-.5)*vec2(asp,1.);B*=mix(1.,smoothstep(1.15,.3,length(vc)),.62);'+
+    'float gr=h(v*vec2(1440.,900.)+vec2(fract(t*7.13)*61.,fract(t*3.7)*37.))-.5;B+=gr*.14*(1.1-dot(B,vec3(.33)));'+
     'vec3 col=mix(mix(A,B,m),fc,clamp(d*.92,0.,1.));'+
-    'gl_FragColor=vec4(col,1.);}';
+    'gl_FragColor=vec4(clamp(col,0.,1.),1.);}';
     var sh=function(tp,src){var s=gl.createShader(tp);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){return null}return s};
     var vsh=sh(gl.VERTEX_SHADER,vs),fsh=sh(gl.FRAGMENT_SHADER,fs);
     if(vsh&&fsh){
