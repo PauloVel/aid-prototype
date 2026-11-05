@@ -34,36 +34,29 @@ social media and may buy posters. The design studio is the second door: professi
 
 Main nav: **Shop · Studio · Cart**. Abrasive is reached from the homepage, the footer and Instagram, not the menu. Studio is ONE page (`design.html`): hero "Be unmistakable", who it is for, "Safe is invisible", a lit floor of concept products (cap, kicks, pack, tee as SVG mockups, swap for real renders later) and a big email link (`#contact`). Work, Build, Contact and the project pages were removed (still in git history). Do not add more top-level items or Studio sub-pages.
 
-## Studio page - current direction (supersedes "The Climb" and every earlier Studio take)
+## Studio page - current direction (supersedes every earlier Studio take)
 
-Studio presents AID as a design studio. It SHOWS design, it never labels audiences ("Athletes / Risk-takers /
-Outdoors" was removed: telling, not showing) and never sells products.
+Studio presents AID as a design studio. It SHOWS design; no audience labels, no product selling, no lists, no
+menus. The owner's word "navigation" means **scroll-driven animation / scrollytelling**: how the page behaves
+as you scroll, NOT links or menus. One section with a trick is not enough: the WHOLE page must be one scroll
+story.
 
-Kept and approved: the hero "Be unmistakable." and the pinned film that opens from a window to full-bleed.
+**One continuous shot** (`.as-story`, 620vh, one pinned 100svh stage, all driven by one progress value in
+site.js "studio: one continuous shot"):
+1. Hero photo + "Be unmistakable.": camera pushes into the clouds; BE and UNMISTAKABLE tear apart to opposite corners.
+2. The film opens through the clouds as a growing circle; "World on reach." rises (video has no text).
+3. Line falls away; the live film frame pixelates into huge raw blocks (canvas).
+4. Blocks swap to the approved poster (volcano figure, WHYDG) and resolve into focus while giant Anton
+   "We design." slams up; "Safe is invisible." appears once sharp.
+5. Then the "Say hello." form (separate section): giant Anton fields, inverts to white on focus, Send posts via
+   Web3Forms (public access key `W3F_KEY` in site.js; FormSubmit was dropped, it returned 522). Visible text spells
+   the address without an @ ("To correo_AID at outlook.com"); no "@" in that section.
 
-Order: (1) full-bleed hero photo + "Be unmistakable." Anton white, parallax; (2) film pinned, opens to
-full-bleed, and as it opens the line **"World on reach."** rises in giant Anton (the video itself has no text);
-(3) **"We design."** ONE image (the volcano figure, WHYDG, the one the owner approved) and ONE scroll behaviour:
-"navigation" in the owner's sense means **scroll-driven animation / scrollytelling** (how the page behaves as you
-scroll), NOT menus, lists or links to other pages. The poster starts as huge raw pixels and resolves into focus
-as you scroll (canvas, block size shrinks with scroll), like watching it being designed. Giant Anton "We design."
-sits over it the whole time; "Safe is invisible." appears once it is sharp. No lists, no infographic-style
-navigation, no extra images in this section. Rejected: scan line, zoom through letters, discipline list;
-(4) **"Say hello."**
-real message form, giant Anton fields, whole section inverts to white on focus.
-
-Rules:
-- Words are always Anton, white. Images in full natural colour. Almost no copy.
-- **No altitude counter / floating meters** (meant nothing, no continuation). No "Climb" cue.
-- **No drawn/SVG products.** They looked fake. There are no product images yet; until real renders exist, the
-  design proof is AID's real poster work. Add product renders only if they are real.
-- **No sliding or stacking cards, no product grids, no buy language, no callout copy, no lamp effects.**
-- **Say hello must send, never open the mail app.** Send posts to Web3Forms (api.web3forms.com/submit, public access key `W3F_KEY` in site.js; FormSubmit was dropped, its server returned 522),
-  shows "Sending...", then "Sent." in place (or "Didn't go. Try again."). Visible text
-  spells the address without an @ ("To correo_AID at outlook.com"); the address itself is never in the page (it lives behind the key).
-  The key comes from web3forms.com (enter the destination email, key arrives by mail).
-  On the Shopify conversion, swap to Shopify's contact form.
-- Reduced motion: no scrub, no parallax; film line and posters show in full.
+Rules: words always Anton, white; images natural colour; almost no copy; no counters or floating meters; no
+drawn/SVG products (none exist; poster work is the proof); no sliding/stacking cards, grids, buy language, callouts,
+lamp or scan-line effects; handoffs between beats are the point, never hard section breaks in the story.
+The video is loaded by the story script (the generic lazy loader never sees it inside a zero-size clip-path).
+Reduced motion: story collapses to hero + text (class `rm`), no scrub.
 
 ## Homepage order (current, supersedes the story below where they conflict)
 

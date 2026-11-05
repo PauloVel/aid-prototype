@@ -567,29 +567,26 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 @media(max-width:800px){.sd-stage{grid-template-columns:1fr}.sd-obj{border-right:0}}
 @media(prefers-reduced-motion:reduce){.sd-obj svg,.sd-contact h2{transition:none}}
 
-/* studio v3 - THE CLIMB. Anton, white, full colour. The page is an ascent: scroll = altitude. */
-.as-hero{position:relative;isolation:isolate;min-height:100svh;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:8rem var(--pad) clamp(5rem,12vw,9rem)}
-.as-hero-img{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;z-index:-2;will-change:transform}
-.as-hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(to top,rgba(0,0,0,.75),rgba(0,0,0,0) 60%)}
-.as-hero h1{display:flex;flex-direction:column;font-size:clamp(6rem,25vw,28rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em}
-.as-hero h1 span:last-child{font-size:.5em;padding-left:.1em}
-@keyframes bob{50%{transform:translateY(.5rem)}}
-.as-film{height:280vh;position:relative}
-.as-film-in{position:sticky;top:0;height:100svh;display:grid;place-items:center;background:#000;overflow:hidden}
-.as-film-box{--p:1;width:100%;height:100%;clip-path:inset(calc((1 - var(--p)) * 30svh) calc((1 - var(--p)) * 30vw) round calc((1 - var(--p)) * 1.2rem))}
-.as-film-box video{width:100%;height:100%;object-fit:cover}
-.as-film-line{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;position:absolute;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);z-index:2;font-size:clamp(5rem,17vw,20rem);line-height:.85;letter-spacing:-.02em;color:#fff;opacity:clamp(0,calc((var(--p) - .65) * 3.5),1);transform:translateY(calc((1 - var(--p)) * 3rem))}
-.as-film-box::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,0) 55%);pointer-events:none}
-.as-film-box{position:relative}
-.as-focus{height:320vh;position:relative}
-.as-focus-in{position:sticky;top:0;height:100svh;overflow:hidden;background:#000;isolation:isolate}
-.as-fimg,.as-fcv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.as-fcv{opacity:0}
-.as-focus.js .as-fcv{opacity:1}
-.as-focus.js .as-fimg{visibility:hidden}
-.as-focus-in::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0) 55%);pointer-events:none}
-.as-focus h2{position:absolute;z-index:2;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);font-size:clamp(6rem,22vw,26rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em}
-.as-fsay{position:absolute;z-index:2;right:var(--pad);top:6rem;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(1.4rem,3.4vw,3.2rem);color:#fff;opacity:0;transform:translateY(1rem);transition:opacity .5s,transform .6s cubic-bezier(.2,.7,.2,1)}
-.as-focus.done .as-fsay{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.as-fsay{opacity:1;transform:none;transition:none}}
-@media(prefers-reduced-motion:reduce){
+/* studio: one continuous shot */
+.as-story{height:620vh;position:relative}
+.as-st{position:sticky;top:0;height:100svh;overflow:hidden;background:#000;isolation:isolate}
+.as-st>*{position:absolute}
+.st-hero{inset:-6% 0;width:100%;height:112%;object-fit:cover;z-index:1;will-change:transform}
+.as-st::before{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0) 60%);pointer-events:none}
+.st-h1{z-index:3;left:var(--pad);right:var(--pad);bottom:clamp(2.5rem,7vw,6rem);display:flex;flex-direction:column;font-size:clamp(6rem,25vw,28rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em;will-change:transform,opacity}
+.st-h1 span{display:block;will-change:transform}
+.st-h1 span:last-child{font-size:.5em;padding-left:.1em}
+.st-film{inset:0;z-index:4;clip-path:circle(0% at 50% 50%);will-change:clip-path}
+.st-film video{width:100%;height:100%;object-fit:cover}
+.st-film::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,0) 55%)}
+.st-line{z-index:5;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(5rem,17vw,20rem);line-height:.85;letter-spacing:-.02em;color:#fff;opacity:0;will-change:transform,opacity}
+.st-poster{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.st-cv{inset:0;width:100%;height:100%;z-index:6;opacity:0}
+.st-h2{z-index:7;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);font-size:clamp(6rem,22vw,26rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em;opacity:0;will-change:transform,opacity}
+.st-say{z-index:7;right:var(--pad);top:6rem;font-family:'Anton',sans-serif;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(1.4rem,3.4vw,3.2rem);color:#fff;opacity:0;transform:translateY(1rem);transition:opacity .5s,transform .6s cubic-bezier(.2,.7,.2,1)}
+.as-story.done .st-say{opacity:1;transform:none}
+.as-story.rm{height:auto}.as-story.rm .as-st{position:relative;height:auto;display:grid}
+.as-story.rm .as-st>*{position:relative;grid-area:1/1}
+.as-story.rm .st-film,.as-story.rm .st-line,.as-story.rm .st-cv,.as-story.rm .st-poster{display:none}
+.as-story.rm .st-h2{display:none}
+@media(prefers-reduced-motion:reduce){.st-say{transition:none}}
