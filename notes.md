@@ -47,11 +47,16 @@ site.js "studio: one continuous shot"):
    and the whole hero **falls into black**.
 2. Out of the black, the film opens as a **rectangle window** (small centered rectangle with rounded corners growing
    to full-bleed). **Never a circle/iris: the owner called it a cheap CapCut effect.** "World on reach." rises over it.
-3. Line falls away and the camera **pushes into real cloud**: the hero photo's own clouds (BK_passage.jpg, cropped to
-   the cloud region, two halves) fade in over the film until it is a whiteout of cloud. **Outdoor effects only
-   (cloud, fog, smoke, snow, embers); the pixel/mosaic transition was rejected: "it just pixels and appears the other one".**
-4. The cloud **parts left and right** and the approved poster (volcano figure, WHYDG) is revealed underneath, settling
-   from a push-in, while giant Anton "We design." slams up; "Safe is invisible." appears once settled.
+3. Line falls away and **real mist rolls in**: a live WebGL shader (fractal-noise fog, drifting) covers the film in
+   swirling cloud. No second image is used for the transition: **never reuse the hero photo or any image just to
+   transition (the cloud-photo version was rejected: "why would an image appear double just for the transition").**
+4. The mist **burns off unevenly, like fog lifting off a mountain** (noise-threshold reveal, no left/right split:
+   **"opening doors" / parting halves were rejected as lame**), revealing the approved poster (volcano figure,
+   WHYDG), which settles from a push-in while giant Anton "We design." slams up; "Safe is invisible." appears last.
+   **Outdoor effects only (cloud, fog, smoke, snow, embers); pixelation, circles and doors are all rejected.**
+   Fallback: if WebGL is unavailable or blocked (e.g. the page opened straight from disk via file://, where images
+   are cross-origin for WebGL) the story falls back to a plain crossfade to the poster; test the shader over
+   http://localhost, not file://.
    **The story wants plenty of black: black beats between beats, not hard cuts.**
 5. Then the "Say hello." form (separate section): giant Anton fields, inverts to white on focus, Send posts via
    Web3Forms (public access key `W3F_KEY` in site.js; FormSubmit was dropped, it returned 522). Visible text spells
