@@ -61,7 +61,9 @@ site.js "studio: one continuous shot"):
    and the 110 lettering pieces (Red Bull / Jumbo / Citrix / Mobil 1 / Puma / Arai) and paints the model's clean base shell
    (original material `mat_0`; `mat_2` carries the logos as cut-outs and is hidden): deep red satin shell, black visor with a
    ONE big, wide white **AID printed across it** (stretched to fill the visor, mapped around the visor's curve so it reads from
-   the front; **AID appears only once on the helmet: the side marks were removed**), thin white stripe over the top. **Rejected looks: glossy all-black (read as "a 0-style astronaut"), red stripe on
+   the front; **AID appears only once on the helmet: the side marks were removed**), thin white stripe over the top.
+   **The helmet turns by DRAGGING (pointer drag with inertia, starts facing the viewer), never by scrolling: scroll only drives the story (mist, clay-to-paint sweep). Drag is enabled once the helmet is on screen (class `live`); touch-action is pan-y so vertical page scroll still works.**
+   **Rejected looks: glossy all-black (read as "a 0-style astronaut"), red stripe on
    black.** Lighting is form-defining: key directional light with real cast shadows, red rim light, dark studio env with a few
    sharp light strips; composite shader adds glow on highlights, vignette, light contrast curve and film grain. Never a flat,
    bright, even product-shot look and never an all-black helmet. Normals on this model face inward (shaders negate them).
