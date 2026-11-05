@@ -56,7 +56,7 @@ site.js "studio: one continuous shot"):
    `assets/helmet.js`, model `assets/helmet/helmet.glb`, rendered into the same WebGL mist shader as its "poster").
    It appears as raw grey clay and is painted into the finished design by a clip plane sweeping up it while it
    turns (design process, not a picture). Giant Anton "On purpose." slams up. No "Safe is invisible." line anywhere in the story (owner removed it).
-   The old volcano poster is only the fallback if three.js cannot load. **Three.js modules need http(s), not file://.**
+   The old volcano poster is only the fallback if three.js cannot load. **Three.js modules need http(s), not file://: to see the helmet, double-click `start-site.bat` (serves the site at http://localhost:8000/design.html). Opening design.html straight from the folder shows only the poster fallback.**
    **HELMET LIVERY: the owner chose to keep the third-party F1 helmet SHAPE but replace its livery with AID's own.**
    `assets/helmet.js` removes every sponsor layer and the 110 lettering pieces (Red Bull / Jumbo / Citrix / Mobil 1 /
    Puma / Arai) and paints the model's clean base shell (original material `mat_0`; `mat_2` carries the logos as
