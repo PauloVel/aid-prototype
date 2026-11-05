@@ -50,11 +50,12 @@ site.js "studio: one continuous shot"):
 3. Line falls away and **real mist rolls in**: a live WebGL shader (fractal-noise fog, drifting) covers the film in
    swirling cloud. No second image is used for the transition: **never reuse the hero photo or any image just to
    transition (the cloud-photo version was rejected: "why would an image appear double just for the transition").**
+**The headline for this beat is "On purpose." The owner rejected "We design." as childish, "a children's book". Keep headlines short, hard, with attitude; never plain descriptions of what we do.**
 4. The mist **burns off unevenly, like fog lifting off a mountain** (noise-threshold reveal, no left/right split:
    **"opening doors" / parting halves were rejected as lame**), revealing **the 3D helmet** (live three.js scene in
    `assets/helmet.js`, model `assets/helmet/helmet.glb`, rendered into the same WebGL mist shader as its "poster").
    It appears as raw grey clay and is painted into the finished design by a clip plane sweeping up it while it
-   turns (design process, not a picture). Giant Anton "We design." slams up; "Safe is invisible." appears last.
+   turns (design process, not a picture). Giant Anton "On purpose." slams up; "Safe is invisible." appears last.
    The old volcano poster is only the fallback if three.js cannot load. **Three.js modules need http(s), not file://.**
    **PLACEHOLDER WARNING: the current helmet is a third-party F1 model (Red Bull / Max Verstappen livery with Jumbo,
    Citrix, Mobil 1, Puma, Arai logos). It must be replaced with an original AID design before the site is published.**
