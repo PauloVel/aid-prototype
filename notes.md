@@ -41,13 +41,16 @@ menus. The owner's word "navigation" means **scroll-driven animation / scrollyte
 as you scroll, NOT links or menus. One section with a trick is not enough: the WHOLE page must be one scroll
 story.
 
-**One continuous shot** (`.as-story`, 620vh, one pinned 100svh stage, all driven by one progress value in
+**One continuous shot** (`.as-story`, 780vh, one pinned 100svh stage, all driven by one progress value in
 site.js "studio: one continuous shot"):
-1. Hero photo + "Be unmistakable.": camera pushes into the clouds; BE and UNMISTAKABLE tear apart to opposite corners.
-2. The film opens through the clouds as a growing circle; "World on reach." rises (video has no text).
-3. Line falls away; the live film frame pixelates into huge raw blocks (canvas).
-4. Blocks swap to the approved poster (volcano figure, WHYDG) and resolve into focus while giant Anton
-   "We design." slams up; "Safe is invisible." appears once sharp.
+1. Hero photo + "Be unmistakable.": camera pushes into the clouds; BE and UNMISTAKABLE tear apart to opposite corners,
+   and the whole hero **falls into black**.
+2. Out of the black, the film opens as a **rectangle window** (small centered rectangle with rounded corners growing
+   to full-bleed). **Never a circle/iris: the owner called it a cheap CapCut effect.** "World on reach." rises over it.
+3. Line falls away; the live film frame pixelates into huge raw blocks (canvas), then **dips to black**.
+4. Out of the black the approved poster (volcano figure, WHYDG) appears as raw blocks and resolves into focus while
+   giant Anton "We design." slams up; "Safe is invisible." appears once sharp.
+   **The story wants plenty of black: black beats between beats, not hard cuts.**
 5. Then the "Say hello." form (separate section): giant Anton fields, inverts to white on focus, Send posts via
    Web3Forms (public access key `W3F_KEY` in site.js; FormSubmit was dropped, it returned 522). Visible text spells
    the address without an @ ("To correo_AID at outlook.com"); no "@" in that section.

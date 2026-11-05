@@ -568,7 +568,7 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 @media(prefers-reduced-motion:reduce){.sd-obj svg,.sd-contact h2{transition:none}}
 
 /* studio: one continuous shot */
-.as-story{height:620vh;position:relative}
+.as-story{height:780vh;position:relative}
 .as-st{position:sticky;top:0;height:100svh;overflow:hidden;background:#000;isolation:isolate}
 .as-st>*{position:absolute}
 .st-hero{inset:-6% 0;width:100%;height:112%;object-fit:cover;z-index:1;will-change:transform}
@@ -576,7 +576,7 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .st-h1{z-index:3;left:var(--pad);right:var(--pad);bottom:clamp(2.5rem,7vw,6rem);display:flex;flex-direction:column;font-size:clamp(6rem,25vw,28rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em;will-change:transform,opacity}
 .st-h1 span{display:block;will-change:transform}
 .st-h1 span:last-child{font-size:.5em;padding-left:.1em}
-.st-film{inset:0;z-index:4;clip-path:circle(0% at 50% 50%);will-change:clip-path}
+.st-film{inset:0;z-index:4;opacity:0;clip-path:inset(36svh 36vw round 1.2rem);will-change:clip-path,opacity}
 .st-film video{width:100%;height:100%;object-fit:cover}
 .st-film::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,0) 55%)}
 .st-line{z-index:5;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(5rem,17vw,20rem);line-height:.85;letter-spacing:-.02em;color:#fff;opacity:0;will-change:transform,opacity}
