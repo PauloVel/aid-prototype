@@ -57,16 +57,15 @@ site.js "studio: one continuous shot"):
    It appears as raw grey clay and is painted into the finished design by a clip plane sweeping up it while it
    turns (design process, not a picture). Giant Anton "On purpose." slams up. No "Safe is invisible." line anywhere in the story (owner removed it).
    The old volcano poster is only the fallback if three.js cannot load. **Three.js modules need http(s), not file://: to see the helmet, double-click `start-site.bat` (serves the site at http://localhost:8000/design.html). Opening design.html straight from the folder shows only the poster fallback.**
-   **HELMET LIVERY: the owner chose to keep the third-party F1 helmet SHAPE but replace its livery with AID's own.**
-   `assets/helmet.js` removes every sponsor layer and the 110 lettering pieces (Red Bull / Jumbo / Citrix / Mobil 1 /
-   Puma / Arai) and paints the model's clean base shell (original material `mat_0`; `mat_2` carries the logos as
-   cut-outs and is hidden) in AID colours: glossy black, a big white "AID" projected on both sides (shader, canvas
-   texture in Anton) and a red stripe over the top. **The underlying shape is still someone else's model of unknown
-   licence: placeholder until the owner has an original helmet.** Normals on this model face inward (shader negates them).
-   **HELMET LOOK (owner request): dark, grainy, high-contrast, sharp. Near-black studio with a few very bright narrow light
-   strips (sharp reflections on a glossy clearcoat shell), a glowing red top stripe (emissive), bloom-style glow around
-   highlights, vignette, contrast curve and film grain, all in the mist/composite shader in site.js plus env/material in
-   helmet.js. Never a soft, bright, even product-shot look.**
+   **HELMET LIVERY (current): third-party F1 helmet SHAPE, AID's own livery.** `assets/helmet.js` removes every sponsor layer
+   and the 110 lettering pieces (Red Bull / Jumbo / Citrix / Mobil 1 / Puma / Arai) and paints the model's clean base shell
+   (original material `mat_0`; `mat_2` carries the logos as cut-outs and is hidden): deep red satin shell, black visor with a
+   big white **A I D printed across it** (wide letters, projected from the front), a bigger white AID on both sides of the
+   shell, thin white stripe over the top. **Rejected looks: glossy all-black (read as "a 0-style astronaut"), red stripe on
+   black.** Lighting is form-defining: key directional light with real cast shadows, red rim light, dark studio env with a few
+   sharp light strips; composite shader adds glow on highlights, vignette, light contrast curve and film grain. Never a flat,
+   bright, even product-shot look and never an all-black helmet. Normals on this model face inward (shaders negate them).
+   **The underlying shape is still someone else's model of unknown licence: placeholder until the owner has an original helmet.**
    **Outdoor effects only (cloud, fog, smoke, snow, embers); pixelation, circles and doors are all rejected.**
    Fallback: if WebGL is unavailable or blocked (e.g. the page opened straight from disk via file://, where images
    are cross-origin for WebGL) the story falls back to a plain crossfade to the poster; test the shader over
