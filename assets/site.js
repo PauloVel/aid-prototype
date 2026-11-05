@@ -252,10 +252,17 @@
     'varying vec2 v;uniform sampler2D a,b;uniform vec2 sa,sb;uniform float g,t,asp,zb;'+
     'float h(vec2 x){return fract(sin(dot(x,vec2(127.1,311.7)))*43758.5453);}'+
     'float n(vec2 x){vec2 i=floor(x),f=fract(x);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}'+
-    'float fbm(vec2 x){float s=0.,m=.5;for(int i=0;i<5;i++){s+=m*n(x);x=x*2.03+vec2(1.7,9.2);m*=.5;}return s;}'+
+    'float fbm(vec2 x){float s=0.,m=.5;for(int i=0;i<4;i++){s+=m*n(x);x=x*2.03+vec2(1.7,9.2);m*=.5;}return s;}'+
     'void main(){'+
-    'vec2 uvA=(v-.5)*sa+.5;vec2 uvB=(v-.5)*sb/zb+.5;'+
-    'vec3 A=texture2D(a,uvA).rgb;vec3 B=texture2D(b,uvB).rgb;'+
+    'vec2 uvA=(v-.5)*sa+.5;'+
+    'if(g<.001){gl_FragColor=vec4(texture2D(a,uvA).rgb,1.);return;}'+
+    'vec2 uvB=(v-.5)*sb/zb+.5;vec3 B=texture2D(b,uvB).rgb;'+
+    'vec3 gl=vec3(0.);for(int i=0;i<4;i++){float an=float(i)*1.5708+.7854;vec2 od=vec2(cos(an),sin(an))*vec2(1./asp,1.);gl+=max(texture2D(b,uvB+od*.016).rgb-.6,0.);}'+
+    'B+=gl*.22;B=clamp(B,0.,1.4);B=mix(B,B*B*(3.-2.*B),.32);'+
+    'vec2 vc=(v-.5)*vec2(asp,1.);B*=mix(1.,smoothstep(1.15,.3,length(vc)),.5);'+
+    'float gr=h(v*vec2(1440.,900.)+vec2(fract(t*7.13)*61.,fract(t*3.7)*37.))-.5;B+=gr*.1*(1.1-dot(B,vec3(.33)));'+
+    'if(g>.999){gl_FragColor=vec4(clamp(B,0.,1.),1.);return;}'+
+    'vec3 A=texture2D(a,uvA).rgb;'+
     'vec2 q=v*vec2(asp,1.);'+
     'vec2 w=vec2(fbm(q*1.6+vec2(t*.04,0.)),fbm(q*1.6+vec2(5.2,1.3)-vec2(0.,t*.03)));'+
     'float c=fbm(q*2.4+w*1.6+vec2(t*.05,-t*.02));'+
@@ -264,10 +271,6 @@
     'float front=1.-abs(m*2.-1.);'+
     'float d=clamp(front*1.7,0.,1.)*(.55+.7*c2);'+
     'vec3 fc=mix(vec3(.55,.6,.64),vec3(.94,.96,.97),smoothstep(.25,.75,c2));'+
-    'vec3 gl=vec3(0.);for(int i=0;i<8;i++){float an=float(i)*.7854;vec2 od=vec2(cos(an),sin(an))*vec2(1./asp,1.);gl+=max(texture2D(b,uvB+od*.010).rgb-.6,0.)+max(texture2D(b,uvB+od*.028).rgb-.6,0.)*.8;}'+
-    'B+=gl*.17;B=clamp(B,0.,1.4);B=mix(B,B*B*(3.-2.*B),.32);'+
-    'vec2 vc=(v-.5)*vec2(asp,1.);B*=mix(1.,smoothstep(1.15,.3,length(vc)),.5);'+
-    'float gr=h(v*vec2(1440.,900.)+vec2(fract(t*7.13)*61.,fract(t*3.7)*37.))-.5;B+=gr*.1*(1.1-dot(B,vec3(.33)));'+
     'vec3 col=mix(mix(A,B,m),fc,clamp(d*.92,0.,1.));'+
     'gl_FragColor=vec4(clamp(col,0.,1.),1.);}';
     var sh=function(tp,src){var s=gl.createShader(tp);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS)){return null}return s};
@@ -293,7 +296,7 @@
     }else gl=null;
   }
   var cover=function(w,h,ca){var ta=w/h;return ta>ca?[ca/ta,1]:[1,ta/ca]};
-  var glSize=function(){if(!gl)return;var d=Math.min(devicePixelRatio||1,1.25);cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);gl.viewport(0,0,cv.width,cv.height)};
+  var glSize=function(){if(!gl)return;var d=Math.min(devicePixelRatio||1,1.25,Math.sqrt(2000000/Math.max(1,innerWidth*innerHeight)));cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);gl.viewport(0,0,cv.width,cv.height)};
   var rotH=0,paintH=0,hSize='',curP=0,dragRot=.34,dragVel=0,dragging=false,lastX=0;
   var glDraw=function(){
     if(!gl||!prog)return;
@@ -311,7 +314,8 @@
     gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
   };
   var zoomB=1.3,loopOn=false;
-  var loop=function(){if(!loopOn)return;if(!dragging&&dragVel){dragRot+=dragVel;dragVel*=.94;if(Math.abs(dragVel)<.0001)dragVel=0}rotH=dragRot;glDraw();requestAnimationFrame(loop)};
+  var dirty=true;
+  var loop=function(){if(!loopOn)return;if(!dragging&&dragVel){dragRot+=dragVel;dragVel*=.94;if(Math.abs(dragVel)<.0001)dragVel=0}rotH=dragRot;if(dirty||dragging||dragVel||(mist>.002&&mist<.998)){dirty=false;glDraw()}requestAnimationFrame(loop)};
   var cl=function(v){return Math.min(1,Math.max(0,v))},T=function(p,a,b){return cl((p-a)/(b-a))},out=function(t){return 1-Math.pow(1-t,3)},inn=function(t){return t*t};
   if(!reduce){
     vid.src='assets/hero.mp4';
@@ -348,7 +352,7 @@
       cv.style.opacity=T(p,.6,.63);
       film.style.opacity=T(p,.28,.33)*(1-T(p,.63,.65));
       if(onC&&!loopOn){loopOn=true;requestAnimationFrame(loop)}else if(!onC)loopOn=false;
-      if(onC)glDraw();
+      if(onC)dirty=true;
     }else{
       film.style.opacity=T(p,.28,.33)*(1-T(p,.8,.84));
       pst.style.opacity=T(p,.74,.86);

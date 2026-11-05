@@ -57,16 +57,24 @@ site.js "studio: one continuous shot"):
    It appears as raw grey clay and is painted into the finished design by a clip plane sweeping up it while it
    turns (design process, not a picture). Giant Anton "On purpose." slams up. No "Safe is invisible." line anywhere in the story (owner removed it).
    The old volcano poster is only the fallback if three.js cannot load. **Three.js modules need http(s), not file://: to see the helmet, double-click `start-site.bat` (serves the site at http://localhost:8000/design.html). Opening design.html straight from the folder shows only the poster fallback.**
-   **HELMET LIVERY (current): third-party F1 helmet SHAPE, AID's own livery.** `assets/helmet.js` removes every sponsor layer
-   and the 110 lettering pieces (Red Bull / Jumbo / Citrix / Mobil 1 / Puma / Arai) and paints the model's clean base shell
-   (original material `mat_0`; `mat_2` carries the logos as cut-outs and is hidden): deep red satin shell, black visor with a
-   ONE big, wide white **AID printed across it** (stretched to fill the visor, mapped around the visor's curve so it reads from
-   the front; **AID appears only once on the helmet: the side marks were removed**), thin white stripe over the top.
-   **The helmet turns by DRAGGING (pointer drag with inertia, starts facing the viewer), never by scrolling: scroll only drives the story (mist, clay-to-paint sweep). Drag is enabled once the helmet is on screen (class `live`); touch-action is pan-y so vertical page scroll still works.**
-   **Rejected looks: glossy all-black (read as "a 0-style astronaut"), red stripe on
-   black.** Lighting is form-defining: key directional light with real cast shadows, red rim light, dark studio env with a few
-   sharp light strips; composite shader adds glow on highlights, vignette, light contrast curve and film grain. Never a flat,
-   bright, even product-shot look and never an all-black helmet. Normals on this model face inward (shaders negate them).
+   **HELMET (current): third-party F1 helmet SHAPE, AID's own livery and structure.** `assets/helmet.js` removes every sponsor layer
+   and the 110 lettering pieces (Red Bull / Jumbo / Citrix / Mobil 1 / Puma / Arai) and rebuilds the look on the model's clean base
+   shell (original material `mat_0`; `mat_2` carries the logos as cut-outs and is hidden): deep red satin shell **with real structure**
+   (a procedural carbon-style weave with bump, a slotted top vent, rear diffuser slits, a perforated chin breather and a panel seam
+   groove, all in the shell shader, no extra textures), black visor with ONE big, wide white **AID printed across it** (mapped around
+   the visor's curve; **AID appears only once on the helmet**). No stripe. **Rejected looks: glossy all-black (read as "a 0-style
+   astronaut"), a smooth shell with no texture/holes/structure, red stripe on black.**
+   **LIGHTING RULE: exactly ONE light source, one white light** (a single white directional light with a cast shadow, plus an
+   environment that contains one single softbox in the same direction for the reflection). No rim lights, no coloured lights, no
+   hemisphere/ambient fill. Dark scene, form read by that single light and its shadow.
+   **PERFORMANCE RULE: quality over quantity of effects. The page was laggy, so: 1024 shadow map, 4-tap glow, the fog noise is skipped
+   entirely when there is no fog (early-outs on the mist progress), the clay copy is hidden once painted and the painted copy hidden
+   before the sweep, the canvas is capped at ~2M pixels, and the helmet is redrawn ONLY when something changes (scroll, drag, inertia,
+   mist), not every frame. Do not add effects without removing others.**
+   **The helmet turns by DRAGGING (pointer drag with inertia, starts facing the viewer), never by scrolling: scroll only drives the story
+   (mist, clay-to-paint sweep). Drag is enabled once the helmet is on screen (class `live`); touch-action is pan-y so vertical page
+   scroll still works.** Normals on this model face inward (shaders negate them). Composite shader keeps a light glow, vignette,
+   contrast curve and film grain.
    **The underlying shape is still someone else's model of unknown licence: placeholder until the owner has an original helmet.**
    **Outdoor effects only (cloud, fog, smoke, snow, embers); pixelation, circles and doors are all rejected.**
    Fallback: if WebGL is unavailable or blocked (e.g. the page opened straight from disk via file://, where images
