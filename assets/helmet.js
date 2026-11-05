@@ -65,7 +65,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       'vec4 dt=texture2D(uAid,du);',
       'float inb=step(0.,du.x)*step(du.x,1.)*step(0.,du.y)*step(du.y,1.);',
       'diffuseColor.rgb=mix(diffuseColor.rgb,dt.rgb,dt.a*sd*inb);',
-      'float st=step(.3,hn.y)*(1.-step(.003,abs(vHP.x)));',
+      'float st=step(.3,hn.y)*(1.-step(.0013,abs(vHP.x)));',
       'diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.72,.008,.008),st);'].join(NL);
     shell.onBeforeCompile = (sh) => {
       sh.uniforms.uRot = decal.uRot; sh.uniforms.uAid = decal.uAid;
