@@ -47,9 +47,11 @@ site.js "studio: one continuous shot"):
    and the whole hero **falls into black**.
 2. Out of the black, the film opens as a **rectangle window** (small centered rectangle with rounded corners growing
    to full-bleed). **Never a circle/iris: the owner called it a cheap CapCut effect.** "World on reach." rises over it.
-3. Line falls away; the live film frame pixelates into huge raw blocks (canvas), then **dips to black**.
-4. Out of the black the approved poster (volcano figure, WHYDG) appears as raw blocks and resolves into focus while
-   giant Anton "We design." slams up; "Safe is invisible." appears once sharp.
+3. Line falls away and the camera **pushes into real cloud**: the hero photo's own clouds (BK_passage.jpg, cropped to
+   the cloud region, two halves) fade in over the film until it is a whiteout of cloud. **Outdoor effects only
+   (cloud, fog, smoke, snow, embers); the pixel/mosaic transition was rejected: "it just pixels and appears the other one".**
+4. The cloud **parts left and right** and the approved poster (volcano figure, WHYDG) is revealed underneath, settling
+   from a push-in, while giant Anton "We design." slams up; "Safe is invisible." appears once settled.
    **The story wants plenty of black: black beats between beats, not hard cuts.**
 5. Then the "Say hello." form (separate section): giant Anton fields, inverts to white on focus, Send posts via
    Web3Forms (public access key `W3F_KEY` in site.js; FormSubmit was dropped, it returned 522). Visible text spells
