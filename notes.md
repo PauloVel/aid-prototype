@@ -41,7 +41,7 @@ menus. The owner's word "navigation" means **scroll-driven animation / scrollyte
 as you scroll, NOT links or menus. One section with a trick is not enough: the WHOLE page must be one scroll
 story.
 
-**One continuous shot** (`.as-story`, 780vh, one pinned 100svh stage, all driven by one progress value in
+**One continuous shot** (`.as-story`, 900vh, one pinned 100svh stage, all driven by one progress value in
 site.js "studio: one continuous shot"):
 1. Hero photo + "Be unmistakable." with **three small "AID" marks at the bottom right (two on top, one centred under them, a little pyramid, requested by the owner)**: camera pushes into the clouds; BE and UNMISTAKABLE tear apart to opposite corners,
    and the whole hero **falls into black**.
@@ -51,8 +51,13 @@ site.js "studio: one continuous shot"):
    swirling cloud. No second image is used for the transition: **never reuse the hero photo or any image just to
    transition (the cloud-photo version was rejected: "why would an image appear double just for the transition").**
 4. The mist **burns off unevenly, like fog lifting off a mountain** (noise-threshold reveal, no left/right split:
-   **"opening doors" / parting halves were rejected as lame**), revealing the approved poster (volcano figure,
-   WHYDG), which settles from a push-in while giant Anton "We design." slams up; "Safe is invisible." appears last.
+   **"opening doors" / parting halves were rejected as lame**), revealing **the 3D helmet** (live three.js scene in
+   `assets/helmet.js`, model `assets/helmet/helmet.glb`, rendered into the same WebGL mist shader as its "poster").
+   It appears as raw grey clay and is painted into the finished design by a clip plane sweeping up it while it
+   turns (design process, not a picture). Giant Anton "We design." slams up; "Safe is invisible." appears last.
+   The old volcano poster is only the fallback if three.js cannot load. **Three.js modules need http(s), not file://.**
+   **PLACEHOLDER WARNING: the current helmet is a third-party F1 model (Red Bull / Max Verstappen livery with Jumbo,
+   Citrix, Mobil 1, Puma, Arai logos). It must be replaced with an original AID design before the site is published.**
    **Outdoor effects only (cloud, fog, smoke, snow, embers); pixelation, circles and doors are all rejected.**
    Fallback: if WebGL is unavailable or blocked (e.g. the page opened straight from disk via file://, where images
    are cross-origin for WebGL) the story falls back to a plain crossfade to the poster; test the shader over

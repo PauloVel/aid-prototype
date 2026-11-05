@@ -290,14 +290,20 @@
   }
   var cover=function(w,h,ca){var ta=w/h;return ta>ca?[ca/ta,1]:[1,ta/ca]};
   var glSize=function(){if(!gl)return;var d=Math.min(devicePixelRatio||1,1.25);cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);gl.viewport(0,0,cv.width,cv.height)};
+  var rotH=0,paintH=0,hSize='';
   var glDraw=function(){
     if(!gl||!prog)return;
-    upPoster&&upPoster();if(!gl)return;
-    var ca=cv.width/cv.height;
+    var HM=window.AIDHelmet,useH=!!(HM&&HM.ready),ca=cv.width/cv.height;
+    if(useH){
+      var sz=cv.width+'x'+cv.height;if(sz!==hSize){hSize=sz;HM.setSize(cv.width,cv.height)}
+      HM.render(rotH,paintH);
+      try{gl.activeTexture(gl.TEXTURE1);gl.bindTexture(gl.TEXTURE_2D,texB);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,HM.canvas)}catch(e){useH=false;window.AIDHelmet=null}
+    }
+    if(!useH){upPoster&&upPoster();if(!gl)return}
     if(vid.readyState>=2&&vid.videoWidth){gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texA);try{gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,vid)}catch(e){breakGL();return}}
-    var sa=vid.videoWidth?cover(vid.videoWidth,vid.videoHeight,ca):[1,1],sb=pst.naturalWidth?cover(pst.naturalWidth,pst.naturalHeight,ca):[1,1];
+    var sa=vid.videoWidth?cover(vid.videoWidth,vid.videoHeight,ca):[1,1],sb=(!useH&&pst.naturalWidth)?cover(pst.naturalWidth,pst.naturalHeight,ca):[1,1];
     gl.uniform2f(U.sa,sa[0],sa[1]);gl.uniform2f(U.sb,sb[0],sb[1]);
-    gl.uniform1f(U.g,mist);gl.uniform1f(U.t,(performance.now()-t0)/1000);gl.uniform1f(U.asp,ca);gl.uniform1f(U.zb,zoomB);
+    gl.uniform1f(U.g,mist);gl.uniform1f(U.t,(performance.now()-t0)/1000);gl.uniform1f(U.asp,ca);gl.uniform1f(U.zb,useH?1:zoomB);
     gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
   };
   var zoomB=1.3,loopOn=false;
@@ -328,6 +334,7 @@
     line.style.transform='translate3d(0,'+((1-out(li))*4+lo*-6)+'rem,0)';
     var g=T(p,.66,.92);
     mist=g;zoomB=1.3-.3*out(T(p,.74,.97));
+    rotH=.5+T(p,.7,.99)*Math.PI*2;paintH=out(T(p,.84,.97));
     var onC=p>=.6&&p<=.995;
     if(gl&&prog){
       cv.style.opacity=T(p,.6,.63);

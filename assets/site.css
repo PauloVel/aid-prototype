@@ -568,7 +568,7 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 @media(prefers-reduced-motion:reduce){.sd-obj svg,.sd-contact h2{transition:none}}
 
 /* studio: one continuous shot */
-.as-story{height:780vh;position:relative}
+.as-story{height:900vh;position:relative}
 .as-st{position:sticky;top:0;height:100svh;overflow:hidden;background:#000;isolation:isolate}
 .as-st>*{position:absolute}
 .st-hero{inset:-6% 0;width:100%;height:112%;object-fit:cover;z-index:1;will-change:transform}

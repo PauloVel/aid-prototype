@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>F1 Helmet — Austrian GP 2018</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; height: 100%; background: radial-gradient(ellipse at 50% 40%, #2a2d33 0%, #121316 70%); overflow: hidden; font-family: system-ui, sans-serif; }
+  #stage { position: fixed; inset: 0; }
+  canvas { display: block; width: 100%; height: 100%; touch-action: none; outline: none; }
+  #loader { position: fixed; inset: 0; display: grid; place-items: center; color: #aaa; font-size: 13px; letter-spacing: .15em; text-transform: uppercase; transition: opacity .6s; pointer-events: none; }
+  #loader.hide { opacity: 0; }
+  #bar { width: 160px; height: 2px; background: #333; margin-top: 12px; }
+  #bar i { display: block; height: 100%; width: 0; background: #e8e8e8; transition: width .2s; }
+  #err { display: none; position: fixed; inset: 0; place-items: center; color: #bbb; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="loader"><div style="text-align:center">Loading<div id="bar"><i></i></div></div></div>
+<div id="err">WebGL is not available in this browser.</div>
+
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js", "three/addons/": "./vendor/addons/" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { MeshoptDecoder } from 'three/addons/meshopt_decoder.module.js';
+
+/* ---------- Config ---------- */
+const CONFIG = {
+  model: 'models/helmet.glb',
+  visorMaterial: 'Material.001',   // the visor in the GLB
+  visor: { color: 0x000000, roughness: 0.02, clearcoat: 1, clearcoatRoughness: 0.0, envMapIntensity: 2.2 },
+  // Gold/yellow paint -> matte dark red
+  yellowMaterial: 'mat_4',
+  yellow: { color: 0x3a0107, roughness: 0.9 },
+  // Gray metal hardware -> black
+  grayMaterials: ['Material.003', 'Material.004', 'Material.005', 'Material.006'],
+  gray: { color: 0x050505, metalness: 0.5, roughness: 0.3 },
+  autoRotateSpeed: 1.2,
+  exposure: 1.0,
+};
+
+/* ---------- Renderer / scene ---------- */
+const stage = document.getElementById('stage');
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+} catch (e) { document.getElementById('err').style.display = 'grid'; throw e; }
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = CONFIG.exposure;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 10);
+
+/* Studio environment: dark room + bright softboxes (gives the visor crisp, glossy highlights) */
+function studioEnv() {
+  const env = new THREE.Scene();
+  env.add(new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10), new THREE.MeshBasicMaterial({ color: 0x0b0c0e, side: THREE.BackSide })));
+  const box = (w, h, x, y, z, i) => {
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color().setScalar(i), side: THREE.DoubleSide }));
+    m.position.set(x, y, z); m.lookAt(0, 0, 0); env.add(m);
+  };
+  box(5, 2.2, 0, 4.6, 0, 14);      // top
+  box(1.2, 5, -4.2, 1, 2.5, 18);   // left strip
+  box(1.2, 5, 4.2, 1, 2.5, 18);    // right strip
+  box(4, 1.2, 0, 0.5, 4.6, 8);     // front fill
+  box(3, 1.0, 0, -1.5, -4.6, 6);   // back low
+  return env;
+}
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(studioEnv(), 0.02).texture;
+
+/* Soft contact shadow */
+{
+  const c = document.createElement('canvas'); c.width = c.height = 128;
+  const g = c.getContext('2d'), grad = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  grad.addColorStop(0, 'rgba(0,0,0,.55)'); grad.addColorStop(1, 'rgba(0,0,0,0)');
+  g.fillStyle = grad; g.fillRect(0, 0, 128, 128);
+  var shadowTex = new THREE.CanvasTexture(c);
+}
+
+/* ---------- Controls ---------- */
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.enablePan = false;
+controls.autoRotate = true;
+controls.autoRotateSpeed = CONFIG.autoRotateSpeed;
+let resumeTimer;
+controls.addEventListener('start', () => { controls.autoRotate = false; clearTimeout(resumeTimer); });
+controls.addEventListener('end', () => { resumeTimer = setTimeout(() => controls.autoRotate = true, 2500); });
+
+/* ---------- Load ---------- */
+const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
+loader.load(CONFIG.model, (gltf) => {
+  const model = gltf.scene;
+
+  // Brilliant black visor
+  const visor = new THREE.MeshPhysicalMaterial({
+    color: CONFIG.visor.color, metalness: 0, roughness: CONFIG.visor.roughness,
+    clearcoat: CONFIG.visor.clearcoat, clearcoatRoughness: CONFIG.visor.clearcoatRoughness,
+    envMapIntensity: CONFIG.visor.envMapIntensity, side: THREE.DoubleSide,
+    transparent: false, opacity: 1, name: 'visor_black',
+  });
+  const red = new THREE.MeshStandardMaterial({
+    color: CONFIG.yellow.color, metalness: 0, roughness: CONFIG.yellow.roughness, envMapIntensity: 0.25,
+    side: THREE.DoubleSide, name: 'matte_dark_red',
+  });
+  const black = new THREE.MeshStandardMaterial({
+    color: CONFIG.gray.color, metalness: CONFIG.gray.metalness, roughness: CONFIG.gray.roughness,
+    side: THREE.DoubleSide, name: 'black_hardware',
+  });
+  let found = 0, foundRed = 0;
+  model.traverse((o) => {
+    if (!o.isMesh) return;
+    if (o.material.name === CONFIG.visorMaterial) { o.material = visor; o.renderOrder = 0; found++; }
+    else if (o.material.name === CONFIG.yellowMaterial) { o.material = red; foundRed++; }
+    else if (CONFIG.grayMaterials.includes(o.material.name)) o.material = black;
+  });
+  if (!foundRed) console.warn('Yellow material not found:', CONFIG.yellowMaterial);
+  if (!found) console.warn('Visor material not found:', CONFIG.visorMaterial);
+
+  scene.add(model);
+
+  // Center and frame
+  const box = new THREE.Box3().setFromObject(model);
+  const center = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
+  model.position.sub(center);
+  const R = Math.max(size.x, size.y, size.z);
+
+  const shadow = new THREE.Mesh(new THREE.PlaneGeometry(R * 1.6, R * 1.6), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
+  shadow.rotation.x = -Math.PI / 2; shadow.position.y = -size.y / 2 - R * 0.02;
+  scene.add(shadow);
+
+  camera.near = R / 100; camera.far = R * 50; camera.updateProjectionMatrix();
+  controls.target.set(0, 0, 0);
+  controls.minDistance = R * 1.5; controls.maxDistance = R * 5;
+  camera.position.set(R * 0.9, R * 0.25, R * 2.4);
+  controls.update();
+  resize();
+  document.getElementById('loader').classList.add('hide');
+  window.__ready = { camera, controls, R };
+}, (e) => {
+  if (e.total) document.querySelector('#bar i').style.width = (e.loaded / e.total * 100) + '%';
+}, (err) => { console.error(err); document.getElementById('loader').textContent = 'Failed to load model'; });
+
+/* ---------- Loop ---------- */
+function resize() {
+  const w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  // keep the helmet fully visible on narrow/portrait screens
+  camera.fov = w / h < 1 ? 30 / Math.max(w / h, 0.6) * 0.9 : 30;
+  camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize);
+resize();
+renderer.setAnimationLoop(() => { controls.update(); renderer.render(scene, camera); if (window.__ready) window.done = true; });
+</script>
+</body>
+</html>
