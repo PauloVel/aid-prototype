@@ -28,28 +28,16 @@
  <button class="burger" aria-expanded="false" aria-controls="menu">Menu</button>
 </header>
 <main id="main" class="pdpx">
-<!-- SHOPIFY: sections/main-product.liquid. Poster = product.featured_media, sizes = options_with_values, price = variant.price | money. Extra product.media can be added as a strip inside the dock. -->
+<!-- SHOPIFY: sections/main-product.liquid. Poster = product.featured_media, sizes = options_with_values (cm), price = variant.price | money -->
 <section class="px-story" aria-label="Poster">
  <div class="px-st">
   <video class="px-vid" muted loop playsinline preload="auto" data-src="assets/outdoor_video.mp4" data-pt-wait aria-hidden="true"></video>
   <div class="px-dim" aria-hidden="true"></div>
-  <div class="px-head"><p class="kicker">Adrenaline / Poster</p><h1>Adrenaline — Bike</h1></div>
-  <ol class="px-nav" aria-label="Story"><li><button type="button" data-b="0"><i>01</i>Look</button></li><li><button type="button" data-b="1"><i>02</i>Closer</button></li><li><button type="button" data-b="2"><i>03</i>Size it</button></li><li><button type="button" data-b="3"><i>04</i>Hang it</button></li></ol>
+  <div class="px-head"><p class="kicker">Adrenaline / Poster</p><h1>Adrenaline — Bike</h1><p class="fine">Edition of 100 · 62 left</p></div>
   <div class="px-stage"><div class="px-intro"><div class="px-poster"><img id="pdpmain" src="assets/adr_bike.webp" alt="Adrenaline Bike poster" width="736" height="981" fetchpriority="high" data-fx=".42" data-fy=".36"></div></div></div>
-  <div class="px-room" aria-hidden="true">
-   <i class="px-floor"></i>
-   <svg class="px-person" viewBox="0 0 60 175" focusable="false"><circle cx="30" cy="13" r="11"/><rect x="15" y="27" width="30" height="68" rx="10"/><rect x="6" y="30" width="8" height="64" rx="4"/><rect x="46" y="30" width="8" height="64" rx="4"/><rect x="16" y="90" width="13" height="85" rx="5"/><rect x="31" y="90" width="13" height="85" rx="5"/></svg>
-   <p class="px-pl">175 cm</p>
-  </div>
-  <div class="px-words">
-   <div class="px-w" data-b="0"><h2>Look.</h2><p>One print. A hundred copies. Then gone.</p></div>
-   <div class="px-w" data-b="1"><h2>Closer.</h2><p>200gsm matte. Every grain, printed true.</p></div>
-   <div class="px-w" data-b="2"><h2>Size it.</h2><p>A3, A2, A1 are standard paper sizes. The bigger the number, the smaller the poster. A1 is the biggest.</p></div>
-   <div class="px-w" data-b="3"><h2>Hang it.</h2><p>Rolled, never folded. Out in 3 days.</p></div>
-  </div>
-  <div class="px-size" aria-hidden="true"><p class="px-sz-n" data-px-sz>A3</p><p class="px-sz-d" data-px-dim>30 × 42 cm</p><p class="px-sz-t" data-px-tag>Desk size.</p></div>
+  <div class="px-words" aria-hidden="true"><div class="px-w" data-b="0"><h2>Look.</h2></div><div class="px-w" data-b="1"><h2>Closer.</h2></div><div class="px-w" data-b="2"><h2>Yours.</h2></div></div>
   <form id="atc" class="px-dock" action="cart.html">
-   <fieldset class="px-sizes"><legend>Size</legend><div class="opts"><label><input type="radio" name="size" value="A3" data-price="38" data-dim="30 × 42 cm" data-tag="Desk size." checked><span>A3<small>30 × 42 cm</small></span></label><label><input type="radio" name="size" value="A2" data-price="58" data-dim="42 × 59 cm" data-tag="Wall size."><span>A2<small>42 × 59 cm</small></span></label><label><input type="radio" name="size" value="A1" data-price="84" data-dim="59 × 84 cm" data-tag="Statement size."><span>A1<small>59 × 84 cm</small></span></label><label><input type="radio" name="size" value="50x70" data-price="72" data-dim="50 × 70 cm" data-tag="" disabled><span>50 × 70<small>cm</small></span></label></div></fieldset>
+   <fieldset class="px-sizes"><legend>Size (cm)</legend><div class="opts"><label><input type="radio" name="size" value="20x30" data-price="38" checked><span>20 × 30</span></label><label><input type="radio" name="size" value="30x40" data-price="58"><span>30 × 40</span></label><label><input type="radio" name="size" value="50x70" data-price="84"><span>50 × 70</span></label></div></fieldset>
    <div class="px-buy">
     <div class="qty"><button type="button" data-d="-" aria-label="Decrease quantity">−</button><input type="number" name="qty" value="1" min="1" max="99" aria-label="Quantity"><button type="button" data-d="+" aria-label="Increase quantity">+</button></div>
     <p class="price" id="price">$38.00</p>
@@ -59,21 +47,18 @@
   </form>
  </div>
 </section>
-<section class="px-facts" aria-label="About this poster">
- <article class="rv"><p class="kicker">01 / Print</p><h2>200gsm matte.</h2><p>Heavy stock. Inks true to the file.</p></article>
- <article class="rv"><p class="kicker">02 / Packed</p><h2>Rolled. Never folded.</h2><p>A tube, not a crease.</p></article>
- <article class="rv"><p class="kicker">03 / Shipping</p><h2>Out in 3 days.</h2><p>Tracked, worldwide.</p></article>
- <article class="rv"><p class="kicker">04 / Bulk</p><h2>Need a stack?</h2><p>Offices, venues, campaigns. <a href="design.html#contact" style="border-bottom:1px solid var(--red)">Talk to us.</a></p></article>
-</section>
-<section class="px-reel" aria-label="More posters">
- <div class="px-rst">
-  <div class="px-track">
-   <div class="px-rh"><p class="kicker">Next wall</p><h2>Fill the wall.</h2><a class="btn" href="shop.html">All posters</a></div>
-   <a class="px-rc" href="product.html"><img src="assets/adr_storm.webp" alt="Adrenaline — Storm poster" width="787" height="1400" loading="lazy"><span class="px-rm"><b>Adrenaline — Storm</b><i>From $38.00</i></span></a>
-   <a class="px-rc" href="product.html"><img src="assets/aid_OtroAngel.webp" alt="Angelistic poster" width="736" height="919" loading="lazy"><span class="px-rm"><b>Angelistic</b><i>From $42.00</i></span></a>
-   <a class="px-rc" href="product.html"><img src="assets/aid_Elelegido.webp" alt="El Elegido poster" width="900" height="1125" loading="lazy"><span class="px-rm"><b>El Elegido</b><i>From $42.00</i></span></a>
-   <a class="px-rc" href="product.html"><img src="assets/adr_jet.webp" alt="Adrenaline — Jet poster" width="736" height="1308" loading="lazy"><span class="px-rm"><b>Adrenaline — Jet</b><i>From $38.00</i></span></a>
+<p class="px-strip rv">200gsm matte <i>/</i> Rolled, never folded <i>/</i> Out in 3 days</p>
+<section class="px-cor" aria-label="More posters">
+ <div class="px-cst">
+  <div class="px-ch"><p class="kicker">Next wall</p><h2>Fill the wall.</h2></div>
+  <div class="px-cw">
+   <a class="px-cp" href="product.html" data-n="Adrenaline — Storm" data-p="From $38.00"><img src="assets/adr_storm.webp" alt="Adrenaline — Storm poster" width="787" height="1400" loading="lazy"></a>
+   <a class="px-cp" href="product.html" data-n="Angelistic" data-p="From $42.00"><img src="assets/aid_OtroAngel.webp" alt="Angelistic poster" width="736" height="919" loading="lazy"></a>
+   <a class="px-cp" href="product.html" data-n="El Elegido" data-p="From $42.00"><img src="assets/aid_Elelegido.webp" alt="El Elegido poster" width="900" height="1125" loading="lazy"></a>
+   <a class="px-cp" href="product.html" data-n="Adrenaline — Jet" data-p="From $38.00"><img src="assets/adr_jet.webp" alt="Adrenaline — Jet poster" width="736" height="1308" loading="lazy"></a>
   </div>
+  <a class="px-cl" href="product.html" tabindex="-1"><b></b><i></i></a>
+  <a class="btn px-call" href="shop.html">All posters</a>
  </div>
 </section>
 </main>

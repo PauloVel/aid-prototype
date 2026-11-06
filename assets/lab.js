@@ -112,7 +112,7 @@
   };
   var draw=function(){
     tick=false;
-    var now=performance.now(),dt=Math.min(64,now-tLast||16);tLast=now;K=1-Math.exp(-dt/110);need=false;
+    var now=performance.now(),dt=Math.min(64,now-tLast||16);tLast=now;K=1-Math.exp(-dt/80);need=false;
     var vh=vis(hero),vw=vis(words),vr=vis(reel);
     var ph=ease('h',hero,vh),pw=ease('w',words,vw),pr=ease('r',reel,vr);first=false;
     if(vh)drawHero(ph);if(vw)drawWords(pw);if(vr)drawReel(pr);

@@ -219,10 +219,10 @@ Measured by scrolling through each stage in headless Chrome at 2x DPR and loggin
 
 ## Product (`product.html`, `assets/product.css`, `assets/product.js`)
 
-A pinned scroll story, deliberately different from the cart (the cart is a split list; the product is a stage). 700svh story, one sticky stage over the looping video:
-the poster flips upright on arrival (after the page transition), then **scroll through its images** (each flips edge-on and swaps at that instant; counter 01/04 top right), then **scroll through its sizes** (poster scales to real proportions A3 -> A2 -> A1, size label flips, the matching chip in the dock gets a red "peek" outline), then the page moves on to four fact columns and a **sideways reel of more posters** (tilt in 3D, like Abrasive).
-**The dock never leaves the screen**: thumbnails (click = scroll to that image), size chips (click while in the size beat = scroll to that size), quantity, price, Add to cart. It is the real `form#atc`. No giant headline; footer AID is the only big white word. Mobile: same story, dock stacks in rows.
-Keep ids `#pdpmain #price #atc #atc-btn #atc-note`, `.pdp-thumbs button[data-full]`, `input[name=size][data-price][data-dim]`, `input[name=qty]` (site.js owns price/qty/add to cart; the thumbs click is intercepted in product.js while the story is active). Reduced motion: nothing is pinned, thumbs use site.js's plain swap. Performance rules as above (no blend modes / clip-path animation, eased progress, batched reads).
+The owner's brief: people want to buy the design poster, so **the poster first, then Add to cart, as little text as possible, no size-explaining gimmicks** (a version with a 175 cm person and A1/A2/A3 was rejected). Sizes are **20 x 30, 30 x 40 and 50 x 70 cm** everywhere (product, shop pick of the week, cart). Prices are placeholders (38 / 58 / 84): confirm.
+- **Story** (420svh, one pinned stage over the looping video): the poster flips upright on arrival (after the page transition), then three one-word beats: *Look.* (poster turns slightly) > *Closer.* (zoom into the print, aimed by `data-fx/data-fy` on the image) > *Yours.* (it settles, Add to cart pulses). Scrolling never swaps the poster. The dock (size chips, quantity, price, Add to cart = the real `form#atc`) never leaves the screen.
+- Under it, one line of facts, then **the corridor** (560svh): the other posters hang on two walls in 3D depth and scrolling walks you down the gallery; the nearest poster's name/price is a link at the bottom; "All posters" appears at the end.
+- Keep ids `#pdpmain #price #atc #atc-btn #atc-note`, `input[name=size][data-price]`, `input[name=qty]` (site.js owns price/qty/add to cart). Reduced motion: nothing pinned, corridor becomes a simple row. Rules: transforms only, no blend modes/filters/clip-path animation, eased progress (80ms), batched reads.
 
 ## Performance tooling
 

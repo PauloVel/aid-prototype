@@ -465,10 +465,10 @@
     var r=story.getBoundingClientRect(),tot=r.height-innerHeight,p=tot>0?cl(-r.top/tot):0;
     if(reduce){return}
     p=p<.165?p*(.30/.165):.30+(p-.165)*(.70/.835);
-    // ease toward the scroll position (about 110ms time constant): steady motion even with notched wheels
+    // ease toward the scroll position (about 80ms time constant): steady motion even with notched wheels
     var now=performance.now(),dt=Math.min(64,now-tLast||16);tLast=now;
     if(pS===null)pS=p;
-    pS+=(p-pS)*(1-Math.exp(-dt/110));
+    pS+=(p-pS)*(1-Math.exp(-dt/80));
     if(Math.abs(p-pS)<.0004)pS=p;else req();
     p=pS;
     var a=T(p,0,.26);
