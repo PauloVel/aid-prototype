@@ -588,7 +588,7 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .as-story.gl .st-poster{width:1px;height:1px}
 .st-h2{z-index:8;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);font-size:clamp(6rem,22vw,26rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em;opacity:0;will-change:transform,opacity}
 .as-story{touch-action:pan-y}
-.as-story.live{cursor:grab}.as-story.grab{cursor:grabbing}
+.as-story.live{cursor:grab;-webkit-user-select:none;user-select:none;touch-action:pan-y}.as-story.grab{cursor:grabbing}
 .as-story.rm{height:auto}.as-story.rm .as-st{position:relative;height:auto;display:grid}
 .as-story.rm .as-st>*{position:relative;grid-area:1/1}
 .as-story.rm .st-film,.as-story.rm .st-line,.as-story.rm .st-cv,.as-story.rm .st-poster{display:none}
