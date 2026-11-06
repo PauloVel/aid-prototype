@@ -197,3 +197,14 @@ Black AID curtain between pages. Built to survive fast clicking and to port to S
 - **Fonts are self-hosted** in `assets/Fonts/` (Anton + Space Grotesk latin woff2), declared at the top of `site.css` and `<link rel="preload">`ed in every `<head>`; Google Fonts links were removed. Shopify: upload the woff2 files to theme assets and point the `@font-face` urls at `{{ 'Anton-latin.woff2' | asset_url }}`. (Zen Kaku was dropped: nothing used `.jp`.)
 - **Page intros wait for the curtain**: while `html.pt-in` (curtain down) every CSS animation on the page is paused, so a page's own entrance (home hero etc.) plays in view when the curtain lifts instead of finishing unseen.
 - **Cart (`cart.html`, `assets/cart.css`, `assets/cart.js`)**: no giant headline (the footer AID is the only big white word on this page). Split layout: pinned left panel with looping video, a strip of every poster in the cart (click to jump to it, qty badge), totals and Checkout; right, the posters as large cards that tilt in on scroll. Mobile: totals + Checkout ride as a fixed bottom bar. Empty state is a compact video panel. Keep ids `#cart #sub #total #empty` and `.line[data-price] .tot input .rm` (site.js does the maths).
+
+## Performance rules for the scroll stories (Studio + Abrasive)
+
+Measured by scrolling through each stage in headless Chrome at 2x DPR and logging frame times. What was costing frames, in order:
+1. **Animated grain** (`.noise`): a full-screen layer ticking every frame. Studio and Abrasive now use a still grain.
+2. **`mix-blend-mode` on fixed layers** (nav, cursor): forces the whole scene through an extra surface every frame. On Abrasive the nav/cursor tone is set from `lab.js` (`--navc`) instead of blending. Do not add blend modes to fixed UI on these pages.
+3. **`clip-path` animation** (Studio film window): replaced by a scaled, rounded wrapper with a counter-scaled inner (`.st-film` > `.st-in`), same look, no repaint.
+4. **Big blend layers** (Abrasive words): the three `difference` words are now only as tall as the text, and hidden when inactive.
+5. **WebGL (Studio mist)**: video frames are uploaded only when a new frame exists, the helmet is not rendered before the mist starts, the video is not uploaded/decoded once the helmet fully replaces it. Faded layers get `visibility:hidden`.
+- **Studio opening beat** ("Be unmistakable") is time-warped: the first 30% of the animation plays in the first 16.5% of the scroll (story height 820vh).
+- Transition progress bar is white.

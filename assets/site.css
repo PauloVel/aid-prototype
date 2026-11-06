@@ -571,7 +571,7 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 @media(prefers-reduced-motion:reduce){.sd-obj svg,.sd-contact h2{transition:none}}
 
 /* studio: one continuous shot */
-.as-story{height:900vh;position:relative}
+.as-story{height:820vh;position:relative}
 .as-st{position:sticky;top:0;height:100svh;overflow:hidden;background:#000;isolation:isolate}
 .as-st>*{position:absolute}
 .st-hero{inset:-6% 0;width:100%;height:112%;object-fit:cover;z-index:1;will-change:transform}
@@ -582,9 +582,10 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 .st-ids{z-index:3;right:var(--pad);bottom:42vh;display:grid;grid-template-columns:repeat(2,auto);justify-content:end;gap:.35em .3em;font-family:'Anton',sans-serif;font-size:clamp(1rem,2.4vw,2.2rem);letter-spacing:.12em;line-height:1;color:#fff;will-change:transform,opacity}
 .st-ids b{font-weight:400}
 .st-ids b:last-child{grid-column:2;justify-self:end}
-.st-film{inset:0;z-index:4;opacity:0;clip-path:inset(36svh 36vw round 1.2rem);will-change:clip-path,opacity}
-.st-film video{width:100%;height:100%;object-fit:cover}
-.st-film::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,0) 55%)}
+.st-film{inset:0;z-index:4;opacity:0;visibility:hidden;overflow:hidden;border-radius:1.2rem;transform:scale(.28);transform-origin:50% 50%;will-change:transform,opacity}
+.st-in{position:absolute;inset:0;transform:scale(3.5714);transform-origin:50% 50%}
+.st-film video{width:100%;height:100%;object-fit:cover;display:block}
+.st-in::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,0) 55%)}
 .st-line{z-index:5;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(5rem,17vw,20rem);line-height:.85;letter-spacing:-.02em;color:#fff;opacity:0;will-change:transform,opacity}
 .st-poster{inset:0;width:100%;height:100%;object-fit:cover;z-index:6;opacity:0;will-change:transform}
 .st-cv{inset:0;width:100%;height:100%;z-index:7;opacity:0;pointer-events:none}
@@ -601,11 +602,11 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 /* page transition. Before JS runs, html.pt-in paints a static black cover (set by the inline head script) so the new page never flashes.
    Once site.js is up it swaps the cover for the real .pt-curtain (driven by the Web Animations API, so it can reverse mid-move). */
 html.pt-in::before{content:"AID";position:fixed;inset:0;z-index:9990;display:flex;align-items:center;justify-content:center;background:#050505;color:#f0f0f0;font-family:'Anton',sans-serif;font-size:clamp(8rem,34vw,34rem);line-height:1;letter-spacing:-.02em;pointer-events:none}
-html.pt-in::after{content:"";position:fixed;left:0;bottom:0;height:4px;width:100%;background:#ff1e1e;z-index:9991;transform-origin:0 50%;pointer-events:none;animation:ptBar 1.2s cubic-bezier(.2,.6,.2,1) both}
+html.pt-in::after{content:"";position:fixed;left:0;bottom:0;height:4px;width:100%;background:#f0f0f0;z-index:9991;transform-origin:0 50%;pointer-events:none;animation:ptBar 1.2s cubic-bezier(.2,.6,.2,1) both}
 html.pt-live::before,html.pt-live::after{display:none}
 .pt-curtain{position:fixed;inset:0;z-index:9992;display:flex;align-items:center;justify-content:center;background:#050505;color:#f0f0f0;font-family:'Anton',sans-serif;font-size:clamp(8rem,34vw,34rem);line-height:1;letter-spacing:-.02em;pointer-events:none;visibility:hidden;transform:translate3d(0,100%,0);will-change:transform}
 .pt-curtain.on{visibility:visible}
-.pt-curtain i{position:absolute;left:0;bottom:0;height:4px;width:100%;background:#ff1e1e;transform:scaleX(0);transform-origin:0 50%}
+.pt-curtain i{position:absolute;left:0;bottom:0;height:4px;width:100%;background:#f0f0f0;transform:scaleX(0);transform-origin:0 50%}
 .pt-curtain.busy i{animation:ptBar 2.4s cubic-bezier(.2,.6,.2,1) both}
 @keyframes ptBar{from{transform:scaleX(0)}to{transform:scaleX(.9)}}
 @media(prefers-reduced-motion:reduce){html.pt-in::before,html.pt-in::after,.pt-curtain{display:none}}
@@ -624,3 +625,6 @@ html.pt-out *,html.pt-in:not(.pt-go) *{scroll-behavior:auto!important}
 
 /* page intros wait for the curtain: a page's own load animations (home hero, etc.) stay at their first frame until it lifts, then play in view */
 html.pt-in:not(.pt-go) body>*:not(.pt-curtain),html.pt-in:not(.pt-go) body>*:not(.pt-curtain) *{animation-play-state:paused!important}
+
+/* the two heavy scroll stories run a still grain (an animated full-screen layer costs a frame every tick) */
+body.studio .noise{animation:none}

@@ -1,7 +1,12 @@
 /* Abrasive (lab.html): white theme, video + scrollytelling. Pinned stages only when JS is on (html.lb-js). */
 body.lab{--bg:#f4f4f1;--fg:#0a0a0a;--dim:#4d4d4d;--rule:rgba(0,0,0,.18)}
-body.lab .noise{opacity:.06;mix-blend-mode:multiply}
-body.lab .cursor{background:#fff}body.lab .cursor-f{border-color:#fff}
+body.lab .noise{opacity:.045;animation:none}
+/* nav + cursor: no mix-blend (a blend on a fixed layer forces the whole scene through an extra surface every frame); lab.js sets the tone */
+body.lab .nav{mix-blend-mode:normal;color:var(--navc,#0a0a0a);transition:color .25s}
+body.lab .nav ul.open{color:#f0f0f0}
+body.lab .cursor,body.lab .cursor-f{mix-blend-mode:normal;transition:background .25s,border-color .25s,width .3s,height .3s}
+body.lab .cursor{background:var(--navc,#0a0a0a)}body.lab .cursor-f{border-color:var(--navc,#0a0a0a)}
+@media(max-width:900px){body.lab{--navc:#f0f0f0!important}}
 .lb-st{position:relative;height:100svh;overflow:hidden}
 .lb-js .lb-st{position:sticky;top:0}
 .lb-js .lb-hero{height:560svh}.lb-js .lb-words{height:460svh}.lb-js .lb-reel{height:640svh}
@@ -21,8 +26,8 @@ body.lab .cursor{background:#fff}body.lab .cursor-f{border-color:#fff}
 .lb-words .lb-st{background:var(--bg)}
 .lb-pan{position:absolute;inset:0;background:#000;clip-path:inset(38svh 38vw round 1.2rem)}
 .lb-pan video{width:100%;height:100%;object-fit:cover;display:block}
-.lb-w{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;margin:0;font-family:'Anton',sans-serif;text-transform:uppercase;font-size:min(19vw,38svh);line-height:1;white-space:nowrap;color:#fff;mix-blend-mode:difference;perspective:900px;pointer-events:none}
-.lb-js .lb-w{opacity:0}
+.lb-w{position:absolute;left:0;right:0;top:50%;height:1.15em;margin-top:-.575em;display:flex;align-items:center;justify-content:center;margin-left:0;margin-right:0;font-family:'Anton',sans-serif;text-transform:uppercase;font-size:min(19vw,38svh);line-height:1;white-space:nowrap;color:#fff;mix-blend-mode:difference;perspective:900px;pointer-events:none}
+.lb-js .lb-w{opacity:0;visibility:hidden}
 .lb-w b{font-weight:400;display:block;will-change:transform}
 html:not(.lb-js) .lb-w{position:static;color:var(--fg);mix-blend-mode:normal;padding:2rem var(--pad)}
 html:not(.lb-js) .lb-pan{position:relative;clip-path:none;height:60svh}

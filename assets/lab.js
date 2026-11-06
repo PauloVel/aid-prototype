@@ -30,7 +30,7 @@
     var mo=1-T(p,.76,.86);mask.style.opacity=mo;mask.style.visibility=mo>0?"visible":"hidden";
     hv.style.transform='scale('+(1.18-.18*T(p,.3,.9))+')';
     cue.style.opacity=1-T(p,.04,.12);
-    dim.style.opacity=.5*(1-T(p,.5,.84));
+    var dm=.5*(1-T(p,.5,.84));dim.style.opacity=dm;dim.style.visibility=dm>0?'visible':'hidden';
   };
 
   /* 2. TESTED / IN PUBLIC. / NO FILLER. flip through over a video window that grows to full-bleed */
@@ -43,7 +43,7 @@
       var a=span[i][0],b=span[i][1],ein=out(T(p,a+.01,a+.1)),eout=inn(T(p,b-.09,b-.01));
       var on=p>=a&&p<b+.001&&!(p<.01&&i===0);
       var rx=i===1?180*(1-ein)-90*eout:-95*(1-ein)+95*eout; // the middle word arrives upside down
-      w.style.opacity=on?1:0;
+      w.style.opacity=on?1:0;w.style.visibility=on?'visible':'hidden';
       wb[i].style.transform='rotateX('+rx+'deg) scale('+(1+.1*T(p,a,b))+')';
     });
   };
@@ -68,7 +68,15 @@
   new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)flip.classList.add('in')})},{threshold:.4}).observe(flip);
 
   var tick=false;
-  var draw=function(){tick=false;if(vis(hero))drawHero();if(vis(words))drawWords();if(vis(reel))drawReel()};
+  /* nav + cursor tone without blend modes: dark text on the white page, white text once footage fills the top of the screen */
+  var tone='',setTone=function(dark){var t=dark?'#f0f0f0':'#0a0a0a';if(t!==tone){tone=t;root.style.setProperty('--navc',t)}};
+  var navTone=function(){
+    var hr=hero.getBoundingClientRect(),wr=words.getBoundingClientRect(),dark=false;
+    if(hr.top<=40&&hr.bottom>40)dark=prog(hero)>.72;
+    else if(wr.top<=40&&wr.bottom>40)dark=prog(words)>.4;
+    setTone(dark);
+  };
+  var draw=function(){tick=false;if(vis(hero))drawHero();if(vis(words))drawWords();if(vis(reel))drawReel();navTone()};
   var req=function(){if(!tick){tick=true;requestAnimationFrame(draw)}};
   addEventListener('scroll',req,{passive:true});
   addEventListener('resize',function(){measure();req()});
