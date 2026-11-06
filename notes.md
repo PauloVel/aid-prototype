@@ -208,3 +208,11 @@ Measured by scrolling through each stage in headless Chrome at 2x DPR and loggin
 5. **WebGL (Studio mist)**: video frames are uploaded only when a new frame exists, the helmet is not rendered before the mist starts, the video is not uploaded/decoded once the helmet fully replaces it. Faded layers get `visibility:hidden`.
 - **Studio opening beat** ("Be unmistakable") is time-warped: the first 30% of the animation plays in the first 16.5% of the scroll (story height 820vh).
 - Transition progress bar is white.
+
+## Smoothness pass 2 (transitions + stories)
+
+- **Heavy page set-up never runs while the curtain moves.** `window.aidAfterLift(fn)` (site.js) queues work until the lift has finished (or ~300ms after load when there is no curtain). Studio's WebGL mist set-up and `helmet.js` (renderer, glb parse, line-art build in one-mesh slices, shader compile) now start through it. Measured: entrance freezes of 800-900ms on Studio during the lift are gone.
+- **Critical videos block the lift until their first frame** (`data-pt-wait` on the Abrasive hero and home hero video), so their first expensive composite happens under the still curtain.
+- **Scroll progress is eased** (about 110ms time constant, once per frame) in Studio and Abrasive: a wheel notch no longer jumps the scene, which is what read as "not smooth".
+- **Abrasive zoom into the S is drawn on a canvas** (`.lb-hole`: a white sheet with letter-shaped holes, vector text on the GPU, no blend mode) from the moment the letters are upright; the flip phase stays DOM. If you change the heading font/size, `geometry()` in `lab.js` re-measures it.
+- Abrasive's growing video window uses transforms (like Studio's film window); reel reads all rects before writing.

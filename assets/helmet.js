@@ -11,7 +11,8 @@ import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const api = { ready: false, canvas: null, render() {}, setSize() {} };
   window.AIDHelmet = api;
-  try {
+  const tick = () => new Promise((r) => setTimeout(r, 0));
+  const start = () => { try {
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
     renderer.setPixelRatio(1);
     api.canvas = renderer.domElement;
@@ -36,16 +37,17 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const kicker = new THREE.DirectionalLight(0xffffff, 0.8); kicker.position.set(-2, -1, 1.5); scene.add(kicker);
     scene.add(new THREE.AmbientLight(0xffffff, 0.55));
 
-    new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load('assets/helmet/helmet.glb', (gltf) => {
+    new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load('assets/helmet/helmet.glb', async (gltf) => {
       const model = gltf.scene;
       const meshes = [];
       model.traverse((o) => { if (o.isMesh) meshes.push(o); });
       const drop = [], kept = [];
-      meshes.forEach((o) => {
+      for (const o of meshes) {
         const n = o.material.name;
-        if (HIDE.has(n)) { drop.push(o); return; }
+        if (HIDE.has(n)) { drop.push(o); continue; }
         kept.push(o);
         o.material = n === VISOR ? visorMat : fill;
+        await tick(); // one mesh per slice: the page stays responsive while the line art is built
         const eg = new LineSegmentsGeometry().fromEdgesGeometry(new THREE.EdgesGeometry(o.geometry, 24));
         const lb = new LineSegments2(eg, halo); lb.renderOrder = 1; o.add(lb);
         const lw = new LineSegments2(eg, ink); lw.renderOrder = 2; o.add(lw);
@@ -54,7 +56,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
           sb.scale.setScalar(1.034);
           o.add(sb);
         }
-      });
+      }
       drop.forEach((o) => o.parent && o.parent.remove(o));
       pivot.add(model);
       model.updateMatrixWorld(true);
@@ -65,7 +67,9 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       camera.near = R / 100; camera.far = R * 50;
       camera.position.set(R * .7, R * .22, R * 1.95); camera.lookAt(0, 0, 0);
       W = H = 0;
+      await tick();
       try { renderer.compile(scene, camera); } catch (e) {}
+      await tick();
       api.ready = true;
       dispatchEvent(new Event('aidhelmet'));
     }, undefined, (e) => { console.warn('helmet failed', e && e.stack || e); });
@@ -84,5 +88,6 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       pivot.rotation.set(0, rot, -.16);
       renderer.render(scene, camera);
     };
-  } catch (e) { window.AIDHelmet = null; console.warn('helmet unavailable', e); }
+  } catch (e) { window.AIDHelmet = null; console.warn('helmet unavailable', e); } };
+  if (window.aidAfterLift) window.aidAfterLift(start); else setTimeout(start, 1200);
 }
