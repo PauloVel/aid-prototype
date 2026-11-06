@@ -17,6 +17,7 @@
 <link rel="preload" href="assets/Fonts/Anton-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/Fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/product.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -26,33 +27,38 @@
  <nav aria-label="Main"><ul id="menu"><li><a href="shop.html" aria-current="page">Shop</a></li><li><a href="design.html">Studio</a></li><li><a class="cartlink" href="cart.html">Cart <span data-cart-count>0</span></a></li></ul></nav>
  <button class="burger" aria-expanded="false" aria-controls="menu">Menu</button>
 </header>
-<main id="main">
-<nav class="crumbs" aria-label="Breadcrumb"><a href="shop.html">Shop</a><span>/</span><a href="shop.html">Adrenaline</a><span>/</span>Bike</nav>
-<section class="pdp">
+<main id="main" class="pdpmain">
 <!-- SHOPIFY: sections/main-product.liquid. Gallery = product.media, options = product.options_with_values, price = variant.price | money -->
-<div class="pdp-media">
- <div class="pdp-main"><img id="pdpmain" src="assets/adr_bike.webp" alt="Adrenaline Bike poster" width="736" height="981"></div>
- <div class="pdp-thumbs" role="group" aria-label="Product images"><button type="button" aria-pressed="true" data-full="assets/adr_bike.webp" data-alt="Adrenaline Bike poster" aria-label="Show image 1"><img src="assets/adr_bike.webp" alt="" width="736" height="981" loading="lazy"></button><button type="button" aria-pressed="false" data-full="assets/adr_storm.webp" data-alt="Adrenaline Storm poster" aria-label="Show image 2"><img src="assets/adr_storm.webp" alt="" width="787" height="1400" loading="lazy"></button><button type="button" aria-pressed="false" data-full="assets/adr_jet.webp" data-alt="Adrenaline Jet poster" aria-label="Show image 3"><img src="assets/adr_jet.webp" alt="" width="736" height="1308" loading="lazy"></button><button type="button" aria-pressed="false" data-full="assets/aid_Elelegido.webp" data-alt="El Elegido poster" aria-label="Show image 4"><img src="assets/aid_Elelegido.webp" alt="" width="900" height="1125" loading="lazy"></button></div>
-</div>
-<div class="pdp-info">
- <div><p class="kicker">Adrenaline / Poster</p><h1>Adrenaline<br><em class="hollow">Bike</em></h1></div>
- <p class="price" id="price">$38.00</p>
- <p class="fine">Drop 03 · Edition of 100 · 62 left</p>
- <p class="lead">A bike at full commit. Printed to make a room feel faster.</p>
- <form id="atc" action="cart.html">
-  <fieldset><legend>Size</legend><div class="opts"><label><input type="radio" name="size" value="A3" data-price="38" checked><span>A3<small>30 × 42 cm</small></span></label><label><input type="radio" name="size" value="A2" data-price="58"><span>A2<small>42 × 59 cm</small></span></label><label><input type="radio" name="size" value="A1" data-price="84"><span>A1<small>59 × 84 cm</small></span></label><label><input type="radio" name="size" value="50x70" data-price="72" disabled><span>50 × 70<small>cm</small></span></label></div></fieldset>
-  <fieldset style="margin-top:1.75rem"><legend>Quantity</legend><div class="qty"><button type="button" data-d="-" aria-label="Decrease quantity">−</button><input type="number" name="qty" value="1" min="1" max="99" aria-label="Quantity"><button type="button" data-d="+" aria-label="Increase quantity">+</button></div></fieldset>
-  <button class="btn full" id="atc-btn" type="submit" style="margin-top:2rem">Add to cart</button>
-  <p class="fine" id="atc-note" role="status" style="margin-top:1rem"></p>
- </form>
- <div class="acc">
-  <details open><summary>Details</summary><p>200gsm matte stock. Colour-true inks. Printed to order, rolled in a tube, never folded.</p></details>
-  <details><summary>Shipping</summary><p>Ships in 3 business days. Worldwide tracking included.</p></details>
-  <details><summary>Bulk and business</summary><p>Ordering for an office, a venue or a campaign? <a href="design.html#contact" style="border-bottom:1px solid var(--red)">Talk to us.</a></p></details>
+<section class="pdp">
+ <div class="pd-media">
+  <video muted loop playsinline preload="none" data-src="assets/outdoor_video.mp4" aria-hidden="true"></video>
+  <div class="pdp-main"><img id="pdpmain" src="assets/adr_bike.webp" alt="Adrenaline Bike poster" width="736" height="981"></div>
+  <div class="pdp-thumbs" role="group" aria-label="Product images"><button type="button" aria-pressed="true" data-full="assets/adr_bike.webp" data-alt="Adrenaline Bike poster" aria-label="Show image 1"><img src="assets/adr_bike.webp" alt="" width="736" height="981" loading="lazy"></button><button type="button" aria-pressed="false" data-full="assets/adr_storm.webp" data-alt="Adrenaline Storm poster" aria-label="Show image 2"><img src="assets/adr_storm.webp" alt="" width="787" height="1400" loading="lazy"></button><button type="button" aria-pressed="false" data-full="assets/adr_jet.webp" data-alt="Adrenaline Jet poster" aria-label="Show image 3"><img src="assets/adr_jet.webp" alt="" width="736" height="1308" loading="lazy"></button><button type="button" aria-pressed="false" data-full="assets/aid_Elelegido.webp" data-alt="El Elegido poster" aria-label="Show image 4"><img src="assets/aid_Elelegido.webp" alt="" width="900" height="1125" loading="lazy"></button></div>
  </div>
-</div>
+ <div class="pdp-info">
+  <nav class="crumbs" aria-label="Breadcrumb"><a href="shop.html">Shop</a><span>/</span><a href="shop.html">Adrenaline</a><span>/</span>Bike</nav>
+  <div class="pd-head"><p class="kicker">Adrenaline / Poster</p><h1>Adrenaline — Bike</h1></div>
+  <div class="pd-row"><p class="price" id="price">$38.00</p><p class="fine">Drop 03 · Edition of 100 · 62 left</p></div>
+  <p class="lead">A bike at full commit. Printed to make a room feel faster.</p>
+  <form id="atc" action="cart.html">
+   <fieldset><legend>Size</legend><div class="opts"><label><input type="radio" name="size" value="A3" data-price="38" checked><span>A3<small>30 × 42 cm</small></span></label><label><input type="radio" name="size" value="A2" data-price="58"><span>A2<small>42 × 59 cm</small></span></label><label><input type="radio" name="size" value="A1" data-price="84"><span>A1<small>59 × 84 cm</small></span></label><label><input type="radio" name="size" value="50x70" data-price="72" disabled><span>50 × 70<small>cm</small></span></label></div></fieldset>
+   <div class="pd-buy">
+    <fieldset><legend>Quantity</legend><div class="qty"><button type="button" data-d="-" aria-label="Decrease quantity">−</button><input type="number" name="qty" value="1" min="1" max="99" aria-label="Quantity"><button type="button" data-d="+" aria-label="Increase quantity">+</button></div></fieldset>
+    <button class="btn" id="atc-btn" type="submit">Add to cart</button>
+   </div>
+   <p class="fine" id="atc-note" role="status"></p>
+  </form>
+  <div class="pd-ch">
+   <article class="ch"><p class="kicker">01 / Print</p><h2>200gsm matte.</h2><p>Colour-true inks on heavy matte stock. Printed to order, so every sheet is fresh.</p></article>
+   <article class="ch"><p class="kicker">02 / Packed</p><h2>Rolled, never folded.</h2><p>Shipped in a tube so it arrives flat and ready for the wall.</p></article>
+   <article class="ch"><p class="kicker">03 / Shipping</p><h2>Out in 3 days.</h2><p>Ships in 3 business days. Worldwide tracking included.</p></article>
+   <article class="ch"><p class="kicker">04 / Bulk</p><h2>Need a stack?</h2><p>Ordering for an office, a venue or a campaign? <a href="design.html#contact" style="border-bottom:1px solid var(--red)">Talk to us.</a></p></article>
+  </div>
+ </div>
 </section>
-<section class="sec"><div class="shead rv"><h2>More posters</h2><a class="btn" href="shop.html">All posters</a></div><div class="grid"><a class="card rv" href="product.html" data-cat="adrenaline" data-price="38" data-order="0">
+<section class="pdp-more" aria-labelledby="pm">
+ <div class="pm-head rv"><div><p class="kicker">Keep going</p><h2 id="pm">More posters</h2></div><a class="btn" href="shop.html">All posters</a></div>
+ <div class="pm-track"><a class="card rv" href="product.html" data-cat="adrenaline" data-price="38" data-order="0">
  <div class="img"><img src="assets/adr_storm.webp" alt="Adrenaline — Storm poster" width="787" height="1400" loading="lazy"></div>
  <div class="meta"><div class="tag"><span>Adrenaline</span><span>Poster</span></div><h3>Adrenaline — Storm</h3><div class="buy"><span class="price">From $38.00</span><span class="go"><span>View poster</span></span></div></div>
 </a><a class="card rv" href="product.html" data-cat="angelistic" data-price="42" data-order="1">
@@ -61,7 +67,9 @@
 </a><a class="card rv" href="product.html" data-cat="singles" data-price="42" data-order="2">
  <div class="img"><img src="assets/aid_Elelegido.webp" alt="El Elegido poster" width="900" height="1125" loading="lazy"></div>
  <div class="meta"><div class="tag"><span>Singles</span><span>Poster</span></div><h3>El Elegido</h3><div class="buy"><span class="price">From $42.00</span><span class="go"><span>View poster</span></span></div></div>
-</a></div></section>
+</a></div>
+</section>
+<div class="pdp-bar" aria-hidden="false"><span class="price" data-bar-price>$38.00</span><button class="btn" type="submit" form="atc">Add to cart</button></div>
 </main>
 <footer class="foot">
  <div class="big" aria-hidden="true">AID</div>
@@ -72,5 +80,6 @@
 </footer>
 <div class="cursor" aria-hidden="true"></div><div class="cursor-f" aria-hidden="true"></div>
 <script src="assets/site.js"></script>
+<script src="assets/product.js"></script>
 </body>
 </html>

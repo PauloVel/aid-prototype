@@ -216,3 +216,7 @@ Measured by scrolling through each stage in headless Chrome at 2x DPR and loggin
 - **Scroll progress is eased** (about 110ms time constant, once per frame) in Studio and Abrasive: a wheel notch no longer jumps the scene, which is what read as "not smooth".
 - **Abrasive zoom into the S is drawn on a canvas** (`.lb-hole`: a white sheet with letter-shaped holes, vector text on the GPU, no blend mode) from the moment the letters are upright; the flip phase stays DOM. If you change the heading font/size, `geometry()` in `lab.js` re-measures it.
 - Abrasive's growing video window uses transforms (like Studio's film window); reel reads all rects before writing.
+
+## Product (`product.html`, `assets/product.css`, `assets/product.js`)
+
+Same direction as the cart: no giant headline (footer AID is the only big white word), video-led split. Left, a pinned stage: looping video, the poster standing in it (leans with the pointer, turns slowly as you scroll; eased once per frame), strip of images. Right: breadcrumb, moderate title, price, size, quantity + Add to cart, then four short chapters (Print / Packed / Shipping / Bulk) that tilt in on scroll. "More posters" is one swipeable row. Mobile: price + Add to cart ride as a fixed bottom bar (`button[form=atc]`, price mirrored from `#price`). Keep ids `#pdpmain #price #atc #atc-btn #atc-note`, `.pdp-thumbs button[data-full]`, `input[name=size][data-price]`, `input[name=qty]` (site.js owns gallery, price, add to cart). No blend modes or clip-path animation on this page (see performance rules above).
