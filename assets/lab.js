@@ -26,8 +26,8 @@
       var f=io(T(p,.03+i*.035,.2+i*.035));
       s.style.transform='rotateX('+(180*(1-f))+'deg) translateY('+((1-f)*-12)+'%)';
     });
-    zoom.style.transform='scale('+Math.exp(Math.log(70)*io(T(p,.46,.84)))+')';
-    mask.style.opacity=1-T(p,.8,.9);
+    zoom.style.transform='scale('+Math.exp(Math.log(40)*io(T(p,.46,.84)))+')';
+    var mo=1-T(p,.76,.86);mask.style.opacity=mo;mask.style.visibility=mo>0?"visible":"hidden";
     hv.style.transform='scale('+(1.18-.18*T(p,.3,.9))+')';
     cue.style.opacity=1-T(p,.04,.12);
   };
