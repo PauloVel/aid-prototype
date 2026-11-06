@@ -1,17 +1,17 @@
 (function(){
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine=matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var doc=document.documentElement;
 
 
   // page transition: curtain closes on internal links, the next page lifts it once it has loaded
-  var doc=document.documentElement;
   var ptClear=function(){doc.classList.remove('pt-out','pt-in','pt-go');try{sessionStorage.removeItem('aidpt')}catch(e){}};
   if(doc.classList.contains('pt-in')){
     var lifted=false,lift=function(){
       if(lifted)return;lifted=true;
       try{sessionStorage.removeItem('aidpt')}catch(e){}
-      doc.classList.add('pt-go');
-      setTimeout(ptClear,800);
+      doc.classList.add('pt-go');flushHeld();
+      setTimeout(ptClear,2000);
     };
     if(reduce){ptClear()}
     else{
@@ -38,7 +38,12 @@
   if(b)b.addEventListener('click',function(){var o=ul.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'Close':'Menu'});
 
   // reveals
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  var held=[];
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){
+    if(doc.classList.contains('pt-in')&&!doc.classList.contains('pt-go')){held.push(e.target)}else e.target.classList.add('in');
+    io.unobserve(e.target)}})},{threshold:.12});
+  // entrance choreography: reveals that are in view while the curtain is still down play as it lifts
+  var flushHeld=function(){setTimeout(function(){held.forEach(function(el,i){setTimeout(function(){el.classList.add('in')},i*90)});held=[]},260)};
   document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
 
   // lazy video, plays only on screen
