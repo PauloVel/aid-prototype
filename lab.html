@@ -18,8 +18,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lab.css">
 </head>
-<body>
+<body class="lab">
 <a class="skip" href="#main">Skip to content</a>
 <div class="noise" aria-hidden="true"></div>
 <header class="nav">
@@ -28,20 +29,43 @@
  <button class="burger" aria-expanded="false" aria-controls="menu">Menu</button>
 </header>
 <main id="main">
-<section class="phead"><p class="kicker">@abrasivetmt / Short films</p><h1>Abrasive</h1><p class="lead">Tested in public. No filler.</p></section>
-<section class="reel rv">
- <video muted loop playsinline preload="none" poster="../assets/frame_002.webp" data-src="../assets/hero.mp4" aria-label="Abrasive Shorts reel"></video>
- <div class="reel-tag"><p class="kicker">@abrasivetmt / The reel</p><h2 style="font-size:clamp(2.5rem,7vw,6rem);margin-top:.5rem">Watch it <em class="red">work.</em></h2></div>
+<section class="lb-hero" aria-label="Abrasive">
+ <div class="lb-st">
+  <video class="lb-vid" muted loop playsinline preload="auto" data-src="assets/hero.mp4" aria-hidden="true"></video>
+  <div class="lb-mask" aria-hidden="true">
+   <div class="lb-zoom"><h1 class="lb-h1" aria-hidden="true"><span style="--i:0">A</span><span style="--i:1">B</span><span style="--i:2">R</span><span style="--i:3">A</span><span style="--i:4">S</span><span style="--i:5">I</span><span style="--i:6">V</span><span style="--i:7">E</span></h1></div>
+   <p class="lb-cue">@abrasivetmt / Short films <i>·</i> Scroll</p>
+  </div>
+  <h1 class="sr">Abrasive</h1>
+ </div>
 </section>
-<section class="sec"><div class="split"><div class="rv"><p class="kicker">@abrasivetmt</p><h2>What holds attention <em class="hollow">here</em> ends up in client campaigns.</h2><div class="btns"><a class="btn" href="https://www.instagram.com/abrasivetmt" rel="noopener">Instagram @abrasivetmt</a><a class="btn" href="https://aid-branding.myshopify.com/" rel="noopener">The store</a></div></div><div class="rv"><img src="assets/short_02.webp" alt="Abrasive Shorts still" width="1400" height="787" loading="lazy"></div></div></section>
-<section class="sec"><div class="shead rv"><h2>From the lab</h2></div><div class="grid"><a class="card rv" href="design.html" data-cat="content lab">
- <div class="img"><img src="assets/frame_002.webp" alt="Abrasive Shorts artwork" width="1400" height="787" loading="lazy"></div>
- <div class="meta"><div class="tag"><span>Content</span><span>Lab</span></div><h3>Abrasive Shorts</h3><span class="go"><span>View project</span></span></div>
-</a><a class="card rv" href="design.html" data-cat="interface product lab">
- <div class="img"><img src="assets/feel_main.webp" alt="The Store artwork" width="933" height="1400" loading="lazy"></div>
- <div class="meta"><div class="tag"><span>Interface / Product</span><span>Lab · Built by EVRABO</span></div><h3>The Store</h3><span class="go"><span>View project</span></span></div>
-</a></div></section>
-<section class="gallery"><figure class="wide"><img src="assets/frame_001.webp" alt="AID studio wall with red AID mark" width="1280" height="720" loading="lazy"></figure><figure><img src="assets/short_03.webp" alt="Lab still" width="1400" height="787" loading="lazy"></figure><figure><img src="assets/short_04.webp" alt="Lab still" width="1400" height="787" loading="lazy"></figure><figure><img src="assets/short_05.webp" alt="Lab still" width="1400" height="787" loading="lazy"></figure></section>
+<section class="lb-words" aria-label="Tested in public. No filler.">
+ <div class="lb-st">
+  <div class="lb-pan"><video muted loop playsinline preload="auto" data-src="assets/outdoor_video.mp4" aria-hidden="true"></video></div>
+  <p class="lb-w" aria-hidden="true">Tested</p>
+  <p class="lb-w" aria-hidden="true">In public.</p>
+  <p class="lb-w" aria-hidden="true">No filler.</p>
+  <h2 class="sr">Tested in public. No filler.</h2>
+ </div>
+</section>
+<section class="lb-reel" aria-label="Reel">
+ <div class="lb-st">
+  <div class="lb-track">
+   <h2 class="lb-big">Raw<br>footage.</h2>
+   <div class="lb-card lb-vc"><video muted loop playsinline preload="none" data-src="assets/hero.mp4" aria-label="Abrasive reel"></video></div>
+   <div class="lb-card"><img src="assets/short_02.webp" alt="Abrasive still" width="1400" height="787" loading="lazy"></div>
+   <h2 class="lb-big out">No<br>script.</h2>
+   <div class="lb-card"><img src="assets/short_03.webp" alt="Abrasive still" width="1400" height="787" loading="lazy"></div>
+   <div class="lb-card"><img src="assets/short_04.webp" alt="Abrasive still" width="1400" height="787" loading="lazy"></div>
+   <div class="lb-card"><img src="assets/frame_001.webp" alt="AID wall with red AID mark" width="1280" height="720" loading="lazy"></div>
+   <div class="lb-card"><img src="assets/short_05.webp" alt="Abrasive still" width="1400" height="787" loading="lazy"></div>
+  </div>
+ </div>
+</section>
+<section class="lb-end">
+ <h2 class="lb-flip" aria-label="Get abrasive."><span style="--i:0">G</span><span style="--i:1">E</span><span style="--i:2">T</span><span class="sp"> </span><span style="--i:0">A</span><span style="--i:1">B</span><span style="--i:2">R</span><span style="--i:3">A</span><span style="--i:4">S</span><span style="--i:5">I</span><span style="--i:6">V</span><span style="--i:7">E</span><span style="--i:8">.</span></h2>
+ <div class="btns rv"><a class="btn" href="https://www.instagram.com/abrasivetmt" rel="noopener">Watch on Instagram</a><a class="btn" href="https://aid-branding.myshopify.com/" rel="noopener">The store</a></div>
+</section>
 </main>
 <footer class="foot">
  <div class="big" aria-hidden="true">AID</div>
@@ -52,5 +76,6 @@
 </footer>
 <div class="cursor" aria-hidden="true"></div><div class="cursor-f" aria-hidden="true"></div>
 <script src="assets/site.js"></script>
+<script src="assets/lab.js"></script>
 </body>
 </html>

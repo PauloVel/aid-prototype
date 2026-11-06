@@ -173,3 +173,12 @@ buttons.
   emails are saved in Shopify Customers, tagged `drop-list`, with marketing consent.
 - Filter by that tag in Admin > Customers to export or email the list (Shopify Email, Klaviyo).
 - The static prototype only validates the email; nothing is stored until the theme conversion.
+
+## Abrasive (lab.html) - white theme, video + scrollytelling
+
+White page (`body.lab` overrides the colour vars in `assets/lab.css`). Four scroll stories driven by `assets/lab.js`
+(only active when motion is allowed; otherwise static sections): (1) ABRASIVE with the video inside the letters
+(white mask, `mix-blend-mode:screen`), letters flip upright from upside-down in a wave, then we zoom into the S until
+the video is full-bleed; (2) TESTED / IN PUBLIC. / NO FILLER. flip over a video window that grows to full-bleed
+(difference blend); (3) sideways reel, cards and big words tilt in 3D; (4) "Get abrasive." letters flip in.
+**The current videos (`hero.mp4`) show third-party NBA footage (logos, sponsors): replace with AID/Abrasive's own clips before publishing.**
