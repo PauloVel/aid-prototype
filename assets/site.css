@@ -628,3 +628,9 @@ html.pt-in:not(.pt-go) body>*:not(.pt-curtain),html.pt-in:not(.pt-go) body>*:not
 
 /* the two heavy scroll stories run a still grain (an animated full-screen layer costs a frame every tick) */
 body.studio .noise{animation:none}
+
+/* lite mode (auto when scrolling is slow, or ?lite): fewer full-screen effects */
+html.lite .noise{display:none}
+html.lite .nav,html.lite .cursor,html.lite .cursor-f{mix-blend-mode:normal}
+html.lite .as-st::before{display:none}
+html.lite .card img,html.lite .tile img{filter:none}

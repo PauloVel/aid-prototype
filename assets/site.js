@@ -3,6 +3,29 @@
   var fine=matchMedia('(hover: hover) and (pointer: fine)').matches;
   var doc=document.documentElement;
 
+  // ---- performance: lite mode (lighter rendering) and the ?perf HUD ----
+  // ?lite forces it, ?lite=0 clears it. It also switches itself on (and is remembered) when scrolling is measurably slow on this machine.
+  var setLite=function(on){doc.classList.toggle('lite',on);try{if(on)localStorage.setItem('aidlite','1');else localStorage.removeItem('aidlite')}catch(e){}};
+  (function(){
+    var m=location.search.match(/[?&]lite(?:=(\w+))?/);
+    if(m)setLite(m[1]!=='0');
+    else{try{if(localStorage.getItem('aidlite')==='1')doc.classList.add('lite')}catch(e){}}
+    if(/[?&]perf\b/.test(location.search)){var sc=document.createElement('script');sc.src='assets/perf.js';document.body.appendChild(sc)}
+    if(m||reduce)return;
+    // sample frame times while the page is scrolling; two slow windows in a row = lite
+    var samples=[],scr=false,sT=0,strikes=0,last=performance.now(),total=0;
+    addEventListener('scroll',function(){scr=true;clearTimeout(sT);sT=setTimeout(function(){scr=false},120)},{passive:true});
+    var f=function(t){
+      var d=t-last;last=t;
+      if(scr&&d<250){samples.push(d);if(samples.length>=75){
+        var a=samples.slice().sort(function(x,y){return x-y});samples=[];total++;
+        if(a[37]>26||a[67]>45){strikes++;if(strikes>=2){setLite(true);return}}else strikes=Math.max(0,strikes-1);
+      }}
+      if(total<40&&!doc.classList.contains('lite'))requestAnimationFrame(f);
+    };
+    requestAnimationFrame(f);
+  })();
+
 
   // page transition engine (global; works on any multi-page site, Shopify themes included).
   // 1) links are prefetched on hover/touch/focus and when the browser is idle, so the next page is already in cache
@@ -337,6 +360,7 @@
 /* studio: one continuous shot */
 (function(){
   var story=document.querySelector('.as-story');
+  var doc=document.documentElement;
   if(!story)return;
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(reduce){story.classList.add('rm')}
@@ -398,12 +422,16 @@
   }
   };
   var cover=function(w,h,ca){var ta=w/h;return ta>ca?[ca/ta,1]:[1,ta/ca]};
-  var glSize=function(){if(!gl)return;var d=Math.min(devicePixelRatio||1,1.25,Math.sqrt(2000000/Math.max(1,innerWidth*innerHeight)));cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);gl.viewport(0,0,cv.width,cv.height)};
+  var rScale=1;
+  var glSize=function(){if(!gl)return;var d=rScale*Math.min(devicePixelRatio||1,doc.classList.contains('lite')?1:1.25,Math.sqrt(2000000/Math.max(1,innerWidth*innerHeight)));cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);gl.viewport(0,0,cv.width,cv.height)};
   var vidNew=true,warmDraw=false,inView=true;
   if(vid.requestVideoFrameCallback){var vf=function(){vidNew=true;vid.requestVideoFrameCallback(vf)};vid.requestVideoFrameCallback(vf)}
   var rotH=0,paintH=0,hSize='',curP=0,dragRot=.785,dragVel=0,dragging=false,lastX=0;
   var glDraw=function(){
     if(!gl||!prog)return;
+    // the fog is soft: draw it at 75% (55% in lite) while it moves, full size again when it has cleared (hysteresis avoids flicker)
+    var wantS=(mist>.004&&mist<.975)?(doc.classList.contains('lite')?.55:.75):((mist>=.985||mist<.002)?1:rScale);
+    if(wantS!==rScale){rScale=wantS;glSize()}
     var HM=window.AIDHelmet,useH=!!(HM&&HM.ready),ca=cv.width/cv.height;
     var needB=mist>.001||warmDraw,needA=mist<.999;
     if(useH&&needB){

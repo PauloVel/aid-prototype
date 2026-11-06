@@ -28,7 +28,7 @@
     zoom.style.transformOrigin=((r4.left+r4.width/2-zr.left)/zr.width*100)+'% '+((r4.top+r4.height/2-zr.top)/zr.height*100)+'%';
     fsz=parseFloat(getComputedStyle(h1).fontSize);
     hl.forEach(function(s,i){s.style.transform=ks[i]});zoom.style.transform=kz;
-    hd=Math.min(devicePixelRatio||1,2);
+    hd=Math.min(devicePixelRatio||1,root.classList.contains('lite')?1:2);
     hole.width=Math.round(stage.clientWidth*hd);hole.height=Math.round(stage.clientHeight*hd);
     hctx.font='400 '+fsz+'px Anton';var m=hctx.measureText('A');
     holeOK=!!(m.fontBoundingBoxAscent&&document.fonts&&document.fonts.check('400 20px Anton'));
