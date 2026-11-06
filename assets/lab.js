@@ -13,7 +13,7 @@
   var vis=function(el){var r=el.getBoundingClientRect();return r.bottom>-100&&r.top<innerHeight+100};
 
   /* 1. letters flip upright in a wave, then we zoom into the S until the video fills the screen */
-  var hl=$$('.lb-h1 span:not(.sp)'),zoom=$('.lb-zoom'),mask=$('.lb-mask'),hv=$('.lb-vid'),cue=$('.lb-cue');
+  var hl=$$('.lb-h1 span:not(.sp)'),zoom=$('.lb-zoom'),mask=$('.lb-mask'),hv=$('.lb-vid'),dim=$('.lb-dim'),cue=$('.lb-cue');
   var origin=function(){
     zoom.style.transformOrigin='50% 50%';var keep=zoom.style.transform;zoom.style.transform='none';
     var zr=zoom.getBoundingClientRect(),r=hl[4].getBoundingClientRect();
@@ -30,6 +30,7 @@
     var mo=1-T(p,.76,.86);mask.style.opacity=mo;mask.style.visibility=mo>0?"visible":"hidden";
     hv.style.transform='scale('+(1.18-.18*T(p,.3,.9))+')';
     cue.style.opacity=1-T(p,.04,.12);
+    dim.style.opacity=.5*(1-T(p,.5,.84));
   };
 
   /* 2. TESTED / IN PUBLIC. / NO FILLER. flip through over a video window that grows to full-bleed */
