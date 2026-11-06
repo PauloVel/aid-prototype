@@ -612,10 +612,10 @@ html.pt-live::before,html.pt-live::after{display:none}
 @media(prefers-reduced-motion:reduce){html.pt-in::before,html.pt-in::after,.pt-curtain{display:none}}
 
 /* entrance: as the curtain lifts, the first screen of a normal page rises into place (Studio and Abrasive run their own scroll stories) */
-html.pt-go body:not(.studio):not(.lab) main>:first-child:not(.hero)>*:not(video):not(img):not(canvas){animation:ptRise 1s cubic-bezier(.2,.8,.2,1) both;animation-delay:.22s}
-html.pt-go body:not(.studio):not(.lab) main>:first-child:not(.hero)>:nth-child(2):not(video):not(img){animation-delay:.34s}
-html.pt-go body:not(.studio):not(.lab) main>:first-child:not(.hero)>:nth-child(3):not(video):not(img){animation-delay:.46s}
-html.pt-go body:not(.studio):not(.lab) main>:first-child:not(.hero)>:nth-child(n+4):not(video):not(img){animation-delay:.58s}
+html.pt-go body:not(.studio):not(.lab):not(.prod):not(.shop) main>:first-child:not(.hero)>*:not(video):not(img):not(canvas){animation:ptRise 1s cubic-bezier(.2,.8,.2,1) both;animation-delay:.22s}
+html.pt-go body:not(.studio):not(.lab):not(.prod):not(.shop) main>:first-child:not(.hero)>:nth-child(2):not(video):not(img){animation-delay:.34s}
+html.pt-go body:not(.studio):not(.lab):not(.prod):not(.shop) main>:first-child:not(.hero)>:nth-child(3):not(video):not(img){animation-delay:.46s}
+html.pt-go body:not(.studio):not(.lab):not(.prod):not(.shop) main>:first-child:not(.hero)>:nth-child(n+4):not(video):not(img){animation-delay:.58s}
 @keyframes ptRise{from{opacity:0;translate:0 5vh}to{opacity:1;translate:0 0}}
 @media(prefers-reduced-motion:reduce){html.pt-go main>:first-child>*{animation:none!important}}
 

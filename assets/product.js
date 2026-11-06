@@ -20,8 +20,8 @@
 
   /* arrival: the poster flips upright once the page transition is done */
   var arrive=function(){story.classList.add('px-go')};
-  if(window.aidAfterLift)window.aidAfterLift(arrive);else setTimeout(arrive,300);
-  setTimeout(arrive,7000);
+  if(window.aidOnLift)window.aidOnLift(arrive);else setTimeout(arrive,200);
+  setTimeout(arrive,6500);
 
   /* the zoom aims at a focal point of the print (data-fx / data-fy on the image) */
   var G={ok:false};
@@ -40,13 +40,11 @@
   };
   var drawStory=function(p){
     setBeat(p<.34?0:p<.7?1:2);
-    story.classList.toggle('px-end',p>=.72);
     if(!G.ok)return;
     var e1=io(T(p,.28,.42)),e2=io(T(p,.62,.76));
-    var ry=mix(-8,8,T(p,0,.34))*(1-e1)*(1-e2);
     var s=mix(1,G.zoom.s,e1),tx=G.zoom.tx*e1,ty=G.zoom.ty*e1;
     s=mix(s,.98,e2);tx*=1-e2;ty*=1-e2;
-    poster.style.transform='translate3d('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px,0) rotateY('+ry.toFixed(2)+'deg) scale('+s.toFixed(4)+')';
+    poster.style.transform='translate3d('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px,0) scale('+s.toFixed(4)+')';
   };
 
   /* the corridor */

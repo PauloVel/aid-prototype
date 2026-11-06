@@ -53,6 +53,10 @@
   var liftCbs=[],liftOver=false;
   var fireLift=function(){if(liftOver)return;liftOver=true;setTimeout(function(){liftCbs.splice(0).forEach(function(f){try{f()}catch(e){}})},250)};
   window.aidAfterLift=function(f){if(liftOver)setTimeout(f,0);else liftCbs.push(f)};
+  // entrances that should play AS the curtain lifts (not after it): fired when the lift starts, or just after load when there is no curtain
+  var startCbs=[],liftStarted=false;
+  var startLift=function(){if(liftStarted)return;liftStarted=true;startCbs.splice(0).forEach(function(f){try{f()}catch(e){}})};
+  window.aidOnLift=function(f){if(liftStarted)f();else startCbs.push(f)};
 
   if(doc.classList.contains('pt-in')){
     if(reduce){ptClear()}
@@ -61,7 +65,7 @@
       var lifted=false,lift=function(){
         if(lifted||going)return;lifted=true;
         try{sessionStorage.removeItem('aidpt')}catch(e){}
-        doc.classList.add('pt-go');flushHeld();
+        doc.classList.add('pt-go');startLift();flushHeld();
         slide(0,-innerHeight,720,function(){hide();fireLift();setTimeout(ptClear,1400)});
       };
       var ready=function(){
@@ -73,8 +77,8 @@
       setTimeout(lift,2600);
     }
   }
-  if(!doc.classList.contains('pt-in')||reduce){var go2=function(){setTimeout(fireLift,300)};if(document.readyState==='complete')go2();else addEventListener('load',go2)}
-  setTimeout(fireLift,6000);
+  if(!doc.classList.contains('pt-in')||reduce){var go2=function(){setTimeout(startLift,80);setTimeout(fireLift,300)};if(document.readyState==='complete')go2();else addEventListener('load',go2)}
+  setTimeout(fireLift,6000);setTimeout(startLift,6000);
   addEventListener('pageshow',function(e){if(e.persisted){hide();ptClear();going=false}});
 
   // which links get the transition
@@ -342,7 +346,7 @@
   });
 
   // pick of the week: scene activates on view, frame tilts with the pointer, size changes price
-  var wk=document.querySelector('.wk');
+  var wk=document.querySelector('.wk,[data-wk]');
   if(wk){
     new IntersectionObserver(function(es){es.forEach(function(e){wk.classList.toggle('active',e.isIntersecting)})},{threshold:.4}).observe(wk);
     var wf=wk.querySelector('.wk-frame');

@@ -18,11 +18,10 @@ body.prod .noise{animation:none}
 .px-stage{position:absolute;inset:0;z-index:2;display:grid;place-items:center;padding:4rem 0 8.5rem;perspective:1300px}
 .px-intro{perspective:1300px}
 .px-js .px-intro{opacity:0;transform:rotateX(180deg) scale(.85)}
-.px-go .px-intro{animation:pxIn 1.25s cubic-bezier(.2,.8,.2,1) both}
+.px-go .px-intro{animation:pxIn 1s .15s cubic-bezier(.2,.8,.2,1) both}
 @keyframes pxIn{from{opacity:0;transform:rotateX(180deg) scale(.85)}to{opacity:1;transform:none}}
 .px-poster{will-change:transform}
-.px-poster img{display:block;width:auto;height:auto;max-width:min(80vw,38rem);max-height:calc(100svh - 12.5rem);min-height:12rem;box-shadow:0 40px 80px -30px rgba(0,0,0,.95),0 0 0 1px rgba(240,240,240,.14);transition:box-shadow .5s}
-.px-end .px-poster img{box-shadow:0 40px 80px -30px rgba(0,0,0,.95),0 0 0 1px rgba(240,240,240,.5),0 0 70px rgba(240,240,240,.12)}
+.px-poster img{display:block;width:auto;height:auto;max-width:min(80vw,38rem);max-height:calc(100svh - 12.5rem);min-height:12rem;box-shadow:0 40px 80px -30px rgba(0,0,0,.95),0 0 0 1px rgba(240,240,240,.14)}
 
 /* one word per beat, bottom-left, flips in */
 .px-words{position:absolute;z-index:4;left:var(--pad);bottom:9.2rem;width:min(30rem,48vw);height:7rem;pointer-events:none}
@@ -44,8 +43,6 @@ body.prod .noise{animation:none}
 .px-buy .qty input{width:2.5rem;padding:.55rem 0}
 #atc-note{grid-column:1/-1;margin:0;font-size:.65rem}
 #atc-note:empty{display:none}
-.px-end .px-buy .btn{animation:pxPulse 1.8s ease-in-out infinite}
-@keyframes pxPulse{50%{box-shadow:0 0 0 6px rgba(240,240,240,.18)}}
 
 /* one line of facts */
 .px-strip{padding:1.6rem var(--pad);border-top:1px solid var(--rule);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);text-align:center}
