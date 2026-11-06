@@ -4,43 +4,90 @@
   var doc=document.documentElement;
 
 
-  // page transition: curtain closes on internal links, the next page lifts it once it has loaded
-  var ptClear=function(){doc.classList.remove('pt-out','pt-in','pt-go');try{sessionStorage.removeItem('aidpt')}catch(e){}};
+  // page transition engine (global; works on any multi-page site, Shopify themes included).
+  // 1) links are prefetched on hover/touch/focus and when the browser is idle, so the next page is already in cache
+  // 2) on click the curtain closes while the page is fetched in parallel; we leave only when it is closed AND the page is cached
+  // 3) the next page keeps the curtain until fonts + two frames are ready, then lifts it
+  // 4) the curtain is one real element driven by the Web Animations API: a click during the lift reverses it from where it is
+  var ptClear=function(){doc.classList.remove('pt-out','pt-in','pt-go','pt-live');try{sessionStorage.removeItem('aidpt')}catch(e){}};
+  var cur=null,going=false,target=null,NO=/^\/(checkouts?|account|admin)(\/|$)|\/cart\/(add|change|update|clear)/;
+  var EASE='cubic-bezier(.76,0,.24,1)';
+  var curtain=function(){
+    if(cur)return cur;
+    cur=document.createElement('div');cur.className='pt-curtain';cur.setAttribute('aria-hidden','true');cur.innerHTML='AID<i></i>';
+    document.body.appendChild(cur);return cur;
+  };
+  var curY=function(){try{return new DOMMatrix(getComputedStyle(cur).transform).m42}catch(e){return 0}};
+  var slide=function(from,to,ms,onEnd){
+    cur.getAnimations().forEach(function(a){a.cancel()});
+    cur.classList.add('on');
+    var an=cur.animate([{transform:'translate3d(0,'+from+'px,0)'},{transform:'translate3d(0,'+to+'px,0)'}],{duration:ms,easing:EASE,fill:'forwards'});
+    an.onfinish=function(){if(onEnd)onEnd()};
+    return an;
+  };
+  var hide=function(){if(!cur)return;cur.getAnimations().forEach(function(a){a.cancel()});cur.classList.remove('on','busy');cur.style.transform=''};
+
   if(doc.classList.contains('pt-in')){
-    var lifted=false,lift=function(){
-      if(lifted)return;lifted=true;
-      try{sessionStorage.removeItem('aidpt')}catch(e){}
-      doc.classList.add('pt-go');flushHeld();
-      setTimeout(ptClear,2000);
-    };
     if(reduce){ptClear()}
     else{
-      var ready=function(){var go=function(){requestAnimationFrame(function(){requestAnimationFrame(function(){setTimeout(lift,80)})})};if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);else go()};
+      var c0=curtain();c0.classList.add('on','busy');c0.style.transform='translate3d(0,0,0)';doc.classList.add('pt-live');
+      var lifted=false,lift=function(){
+        if(lifted||going)return;lifted=true;
+        try{sessionStorage.removeItem('aidpt')}catch(e){}
+        doc.classList.add('pt-go');flushHeld();
+        slide(0,-innerHeight,720,function(){hide();setTimeout(ptClear,1400)});
+      };
+      var ready=function(){var go=function(){requestAnimationFrame(function(){requestAnimationFrame(function(){setTimeout(lift,60)})})};if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);else go()};
       if(document.readyState==='complete')ready();else addEventListener('load',ready);
-      setTimeout(lift,2500);
+      setTimeout(lift,2200);
     }
   }
-  addEventListener('pageshow',function(e){if(e.persisted){ptClear();going=false}});
+  addEventListener('pageshow',function(e){if(e.persisted){hide();ptClear();going=false}});
+
+  // which links get the transition
+  var internal=function(a){
+    if(!a||(a.target&&a.target!=='_self')||a.hasAttribute('download')||a.hasAttribute('data-pt-ignore'))return null;
+    var u;try{u=new URL(a.href,location.href)}catch(x){return null}
+    if(u.origin!==location.origin||!/^https?:$/.test(u.protocol)||NO.test(u.pathname))return null;
+    if(u.pathname===location.pathname&&u.search===location.search)return null;
+    return u;
+  };
+
+  // prefetch
+  var seen={},conn=navigator.connection||{};
+  var prefetch=function(u){
+    if(!u||seen[u.href]||conn.saveData)return;seen[u.href]=1;
+    var l=document.createElement('link');l.rel='prefetch';l.as='document';l.href=u.href;document.head.appendChild(l);
+  };
+  if(!reduce){
+    var near=function(e){var a=e.target.closest&&e.target.closest('a[href]');if(a)prefetch(internal(a))};
+    document.addEventListener('pointerover',near,{passive:true});
+    document.addEventListener('touchstart',near,{passive:true});
+    document.addEventListener('focusin',near);
+    var idle=window.requestIdleCallback||function(f){setTimeout(f,1200)};
+    addEventListener('load',function(){idle(function(){document.querySelectorAll('.nav a[href], .foot a[href]').forEach(function(a){prefetch(internal(a))})})});
+  }
+
   if(!reduce)document.addEventListener('click',function(e){
     if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
-    var a=e.target.closest&&e.target.closest('a[href]');
-    if(!a||a.target||a.hasAttribute('download'))return;
-    var u;try{u=new URL(a.href,location.href)}catch(x){return}
-    if(u.origin!==location.origin||!/^https?:$/.test(u.protocol))return;
-    if(u.pathname===location.pathname&&u.search===location.search)return;
+    var a=e.target.closest&&e.target.closest('a[href]'),u=internal(a);
+    if(!u)return;
     e.preventDefault();
+    target=u;                       // fast clicking: the last link clicked wins
     if(going)return;going=true;
     try{sessionStorage.setItem('aidpt','1')}catch(x){}
     doc.classList.add('pt-out');
-    // free the main thread for the curtain: stop videos and the page's own loops
     document.querySelectorAll('video').forEach(function(v){try{v.pause()}catch(x){}});
-    var leave=function(){if(left)return;left=true;location.href=u.href};
-    var left=false;
-    // go when the curtain has really closed (not on a blind timer, which could fire before a busy page ever painted it)
-    document.addEventListener('animationend',function(ev){if(ev.animationName==='ptOut')leave()});
-    setTimeout(leave,1400);
+    var c=curtain(),H=innerHeight;
+    // where is the curtain right now? hidden = below the screen; mid-lift = somewhere above
+    var y=c.classList.contains('on')?curY():H;
+    var closed=false,fetched=false,left=false;
+    var leave=function(){if(left)return;if(closed&&fetched){left=true;c.classList.add('busy');location.href=target.href}};
+    // fetch in parallel: puts the page in the HTTP cache so it appears at once after the curtain
+    fetch(u.href,{credentials:'same-origin'}).then(function(r){return r.text()}).catch(function(){}).then(function(){fetched=true;leave()});
+    slide(y,0,Math.max(240,560*Math.min(1,Math.abs(y)/H)),function(){closed=true;c.classList.add('busy');leave()});
+    setTimeout(function(){fetched=true;closed=true;leave()},2200);
   });
-  var going=false;
 
   // mobile menu
   var b=document.querySelector('.burger'),ul=document.querySelector('.nav ul');

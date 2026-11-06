@@ -182,3 +182,12 @@ White page (`body.lab` overrides the colour vars in `assets/lab.css`). Four scro
 the video is full-bleed; (2) TESTED / IN PUBLIC. / NO FILLER. flip over a video window that grows to full-bleed
 (difference blend); (3) sideways reel, cards and big words tilt in 3D; (4) "Get abrasive." letters flip in.
 **The current videos (`hero.mp4`) show third-party NBA footage (logos, sponsors): replace with AID/Abrasive's own clips before publishing.**
+
+## Page transition (global) - `site.js` "page transition engine" + `.pt-*` in `site.css`
+
+Black AID curtain between pages. Built to survive fast clicking and to port to Shopify unchanged (plain JS/CSS, no framework):
+- **Inline head script** on every page sets `html.pt-in` when the previous page flagged a transition (sessionStorage `aidpt`), so the new page paints black from the very first frame. Keep that one-liner in the theme's `<head>` (layout/theme.liquid).
+- **Prefetch**: links are prefetched on hover/touch/focus, and nav/footer links when idle. On click the page is also fetched in parallel; we leave only when the curtain is closed AND the page is cached.
+- **One real curtain element** (Web Animations API): a click mid-lift reverses it from where it is; the last link clicked wins.
+- The new page lifts the curtain after load + fonts + two frames, then the first screen rises in (`ptRise`). Studio and Abrasive skip the rise (own scroll stories).
+- Skipped: external links, `target`, `download`, `data-pt-ignore`, modifier keys, `/checkout*`, `/account*`, `/cart/add|change|update|clear`. Reduced motion: no transition at all.
