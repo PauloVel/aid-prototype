@@ -227,3 +227,7 @@ The owner's brief: people want to buy the design poster, so **the poster first, 
 ## Performance tooling
 
 `PERFORMANCE_PLAN.md` has the glossary, ranked suspects, phases and budgets. `?perf` shows a live HUD with a "copy report" button; `?lite` / `?lite=0` force lite mode, which also turns itself on after two slow scrolling windows (remembered in localStorage `aidlite`). Studio fog is drawn at 75% (55% lite) while it moves. Machine used for testing: AMD Radeon 880M (integrated).
+
+## Rule learned from the owner's perf reports (Radeon 880M, 240 Hz)
+
+**Never animate a transform on a playing video or on any ancestor of it per frame** (scale/translate driven by scroll). Measured on the Abrasive zoom: with the hero video's scale animated, p95 frame time 12.6 ms and spikes to 66 ms; with it static, 4.3 ms. (The old 1.18 to 1 settle of the hero video was removed.) Studio's film window is fine because its video's net on-screen scale is identity. Also: the Abrasive zoom canvas runs at CSS-pixel resolution, only draws letters that touch the screen and only takes over once the zoom is under way (scale 1.3); Studio redraws the helmet on scroll only while the fog is moving.

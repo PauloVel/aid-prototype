@@ -424,7 +424,7 @@
   var cover=function(w,h,ca){var ta=w/h;return ta>ca?[ca/ta,1]:[1,ta/ca]};
   var rScale=1;
   var glSize=function(){if(!gl)return;var d=rScale*Math.min(devicePixelRatio||1,doc.classList.contains('lite')?1:1.25,Math.sqrt(2000000/Math.max(1,innerWidth*innerHeight)));cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);gl.viewport(0,0,cv.width,cv.height)};
-  var vidNew=true,warmDraw=false,inView=true;
+  var vidNew=true,warmDraw=false,inView=true,lastG=0;
   if(vid.requestVideoFrameCallback){var vf=function(){vidNew=true;vid.requestVideoFrameCallback(vf)};vid.requestVideoFrameCallback(vf)}
   var rotH=0,paintH=0,hSize='',curP=0,dragRot=.785,dragVel=0,dragging=false,lastX=0;
   var glDraw=function(){
@@ -494,14 +494,14 @@
       cv.style.opacity=T(p,.6,.63);
       film.style.opacity=T(p,.28,.33)*(1-T(p,.63,.65));
       if(onC&&!loopOn){loopOn=true;requestAnimationFrame(loop)}else if(!onC)loopOn=false;
-      if(onC)dirty=true;
+      if(onC&&(g<.999||lastG<.999))dirty=true;lastG=g;
     }else{
       film.style.opacity=T(p,.28,.33)*(1-T(p,.8,.84));
       pst.style.opacity=T(p,.74,.86);
       pst.style.transform='scale('+(1.3-.3*out(T(p,.74,.97)))+')';
     }
     var hi=T(p,.86,.94);
-    h2.style.opacity=hi>0?1:0;
+    h2.style.opacity=hi>0?1:(p>.8?.01:0); // nearly invisible a little early: its big text is painted before it slams in
     h2.style.transform='translate3d(0,'+((1-out(hi))*18)+'rem,0) scale('+(1.25-.25*out(hi))+')';
     h2.style.transformOrigin='0 100%';
     story.classList.toggle('done',p>=.97);

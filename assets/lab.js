@@ -16,19 +16,19 @@
   var vis=function(el){var r=el.getBoundingClientRect();return r.bottom>-100&&r.top<innerHeight+100};
 
   /* 1. letters flip upright in a wave (DOM), then we zoom into the S (canvas) until the video fills the screen */
-  var stage=$('.lb-st',hero),hl=$$('.lb-h1 span:not(.sp)'),h1=$('.lb-h1'),zoom=$('.lb-zoom'),mask=$('.lb-mask'),hv=$('.lb-vid'),dim=$('.lb-dim'),cue=$('.lb-cue'),hole=$('.lb-hole');
+  var stage=$('.lb-st',hero),hl=$$('.lb-h1 span:not(.sp)'),h1=$('.lb-h1'),zoom=$('.lb-zoom'),mask=$('.lb-mask'),hv=$('.lb-vw'),dim=$('.lb-dim'),cue=$('.lb-cue'),hole=$('.lb-hole');
   var hctx=hole.getContext('2d'),L=[],fsz=0,asc=0,desc=0,ox=0,oy=0,hd=1,holeOK=false,lastSc=-1,lastW=-1;
   var geometry=function(){
     // letter boxes at rest (no flip, no zoom), relative to the stage, plus the S centre: used by the canvas and as the DOM zoom origin
     var kz=zoom.style.transform,ks=hl.map(function(s){return s.style.transform});
     zoom.style.transform='none';zoom.style.transformOrigin='50% 50%';hl.forEach(function(s){s.style.transform='none'});
     var sr=stage.getBoundingClientRect(),zr=zoom.getBoundingClientRect(),r4=hl[4].getBoundingClientRect();
-    L=hl.map(function(s){var r=s.getBoundingClientRect();return {c:s.textContent,x:r.left-sr.left,top:r.top-sr.top,h:r.height}});
+    L=hl.map(function(s){var r=s.getBoundingClientRect();return {c:s.textContent,x:r.left-sr.left,top:r.top-sr.top,h:r.height,w:r.width}});
     ox=r4.left+r4.width/2-sr.left;oy=r4.top+r4.height/2-sr.top;
     zoom.style.transformOrigin=((r4.left+r4.width/2-zr.left)/zr.width*100)+'% '+((r4.top+r4.height/2-zr.top)/zr.height*100)+'%';
     fsz=parseFloat(getComputedStyle(h1).fontSize);
     hl.forEach(function(s,i){s.style.transform=ks[i]});zoom.style.transform=kz;
-    hd=Math.min(devicePixelRatio||1,root.classList.contains('lite')?1:2);
+    hd=1; // CSS pixels: on a 1.5x screen this is 2.25x fewer pixels to fill per frame
     hole.width=Math.round(stage.clientWidth*hd);hole.height=Math.round(stage.clientHeight*hd);
     hctx.font='400 '+fsz+'px Anton';var m=hctx.measureText('A');
     holeOK=!!(m.fontBoundingBoxAscent&&document.fonts&&document.fonts.check('400 20px Anton'));
@@ -39,17 +39,22 @@
     hctx.setTransform(1,0,0,1,0,0);hctx.globalCompositeOperation='source-over';hctx.fillStyle='#fff';hctx.fillRect(0,0,hole.width,hole.height);
     hctx.globalCompositeOperation='destination-out';
     hctx.setTransform(hd*sc,0,0,hd*sc,hd*ox*(1-sc),hd*oy*(1-sc));
-    hctx.font='400 '+fsz+'px Anton';hctx.textBaseline='alphabetic';hctx.fillStyle='#000';
-    for(var i=0;i<L.length;i++)hctx.fillText(L[i].c,L[i].x,L[i].top+(L[i].h-(asc+desc))/2+asc);
+    hctx.textBaseline='alphabetic';hctx.fillStyle='#000';
+    var W=stage.clientWidth,H=stage.clientHeight;
+    for(var i=0;i<L.length;i++){
+      var q=L[i],x0=ox+(q.x-ox)*sc,x1=ox+(q.x+q.w-ox)*sc,y0=oy+(q.top-oy)*sc,y1=oy+(q.top+q.h-oy)*sc;
+      if(x1<0||x0>W||y1<0||y0>H)continue; // off-screen letters are not drawn at all
+      hctx.fillText(q.c,q.x,q.top+(q.h-(asc+desc))/2+asc);
+    }
   };
   var drawHero=function(p){
-    var sc=Math.exp(Math.log(40)*io(T(p,.46,.84))),mo=1-T(p,.76,.86),useCv=holeOK&&p>=.455;
+    var sc=Math.exp(Math.log(40)*io(T(p,.46,.84))),mo=1-T(p,.76,.86),useCv=holeOK&&sc>=1.3;
     hl.forEach(function(s,i){
       var f=io(T(p,.03+i*.035,.2+i*.035));
       s.style.transform='rotateX('+(180*(1-f))+'deg) translateY('+((1-f)*-12)+'%)';
     });
     if(useCv){
-      paintHole(sc);
+      if(mo>0)paintHole(sc);
       hole.style.visibility=mo>0?'visible':'hidden';hole.style.opacity=mo;
       mask.style.visibility='hidden';
     }else{
@@ -57,7 +62,7 @@
       mask.style.opacity=mo;mask.style.visibility=mo>0?'visible':'hidden';
       hole.style.visibility='hidden';
     }
-    hv.style.transform='scale('+(1.18-.18*T(p,.3,.9))+')';
+    // (the hero video is never scaled per frame: any animated transform above a playing video makes the compositor re-resample it every frame)
     cue.style.opacity=1-T(p,.04,.12);
     var dm=.5*(1-T(p,.5,.84));dim.style.opacity=dm;dim.style.visibility=dm>0?'visible':'hidden';
   };
