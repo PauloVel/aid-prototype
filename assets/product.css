@@ -1,52 +1,97 @@
-/* Product: a video-led split. Left, a pinned stage (looping video, the poster standing in it, a strip of images). Right, the buy box, then four short chapters that tilt in as you scroll. No giant headline: the footer AID is the only big white word. */
-.pdpmain{padding:0}
-.pdpmain .pdp{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:start;border:0}
+/* Product: a pinned scroll story, not a form on a page. The poster flips in, then you scroll through its images (each one flips edge-on and swaps), then through its sizes (the poster grows to scale), and a dock that never leaves the screen holds the images, sizes, quantity, price and Add to cart.
+   Performance rules (see notes.md): transforms only, no blend modes, no clip-path animation, eased progress, reads before writes. */
+body.prod .noise{animation:none}
+.pdpx{padding:0}
+.px-st{position:relative;height:100svh;overflow:hidden;background:#000}
+.px-js .px-st{position:sticky;top:0}
+.px-js .px-story{height:700svh}
+.px-js .px-reel{height:520svh}
 
-/* pinned stage */
-.pd-media{position:sticky;top:0;height:100svh;overflow:hidden;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem;padding:6rem var(--pad) 1.75rem;border:0}
-.pd-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;filter:grayscale(.35) contrast(1.05)}
-.pd-media::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(5,5,5,.15),rgba(5,5,5,.85) 85%);pointer-events:none}
-.pd-media>*:not(video){position:relative;z-index:2}
-.pdpmain .pdp-main{width:auto;max-width:100%;aspect-ratio:auto;background:none;border:0;overflow:visible;display:grid;place-items:center;perspective:1300px}
-.pdpmain .pdp-main img{width:auto;height:auto;max-width:min(100%,34rem);max-height:calc(100svh - 16.5rem);min-height:14rem;object-fit:contain;display:block;box-shadow:0 40px 70px -30px rgba(0,0,0,.9),0 0 0 1px rgba(240,240,240,.14);transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:opacity .25s;will-change:transform}
-.pdpmain .pdp-thumbs{gap:.6rem}
-.pdpmain .pdp-thumbs button{background:#111;opacity:.6}
-.pdpmain .pdp-thumbs button img{width:clamp(2.8rem,4.6vw,4rem)}
+.px-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;filter:grayscale(.35) contrast(1.05);background:#000}
+.px-dim{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,rgba(5,5,5,.1),rgba(5,5,5,.82) 88%);pointer-events:none}
 
-/* buy box + chapters */
-.pdpmain .pdp-info{position:static;padding:7rem var(--pad) 5rem clamp(1.5rem,4vw,4rem);gap:1.6rem;perspective:1300px}
-.pdpmain .crumbs{padding:0;margin-bottom:-.4rem}
-.pd-head h1{font-size:clamp(2rem,3.4vw,3.1rem);line-height:.95;letter-spacing:0;margin-top:.6rem}
-.pd-row{display:flex;align-items:baseline;gap:1.25rem 1.75rem;flex-wrap:wrap}
-.pdpmain .pdp-info .price{font-family:'Anton',sans-serif;font-size:clamp(1.8rem,2.6vw,2.4rem);letter-spacing:.02em}
-.pd-buy{display:flex;align-items:flex-end;flex-wrap:wrap;gap:1.25rem;margin-top:1.75rem}
-.pd-buy fieldset{flex:none}
-.pd-buy .btn{flex:1 1 12rem;min-width:12rem;align-self:flex-end;padding-block:1.05rem}
-#atc-note{margin-top:1rem;min-height:1.2em}
-.pd-ch{display:grid;gap:1.1rem;margin-top:1.5rem}
-.ch{padding:clamp(1.1rem,2vw,1.6rem);border:1px solid var(--rule);background:rgba(240,240,240,.025);transform-origin:50% 50%;will-change:transform;transition:border-color .25s,background .25s}
-.ch:hover{border-color:rgba(240,240,240,.5);background:rgba(240,240,240,.05)}
-.ch h2{font-size:clamp(1.4rem,2.1vw,1.9rem);line-height:.95;margin:.5rem 0 .6rem}
-.ch p:not(.kicker){color:var(--dim);font-size:.95rem;max-width:44ch}
+/* text that frames the poster */
+.px-crumbs{position:absolute;z-index:3;left:var(--pad);top:5rem;padding:0}
+.px-head{position:absolute;z-index:3;left:var(--pad);top:7.2rem;width:min(25rem,32vw);display:grid;gap:.9rem}
+.px-head h1{font-size:clamp(2rem,3.4vw,3.1rem);line-height:.95;letter-spacing:0}
+.px-head .lead{font-size:.95rem}
+.px-meta{position:absolute;z-index:3;right:var(--pad);top:7.2rem;text-align:right;opacity:0}
+.px-count{font-family:'Anton',sans-serif;font-size:clamp(1.4rem,2vw,1.8rem);letter-spacing:.06em;color:var(--dim)}
+.px-count b{font-weight:400;color:var(--fg)}
+.px-cap{margin-top:.35rem;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--dim)}
+.px-size{position:absolute;z-index:3;right:var(--pad);top:50%;transform:translateY(-50%);text-align:right;opacity:0;perspective:700px}
+.px-sz-n{font-family:'Anton',sans-serif;font-size:clamp(2.4rem,4.4vw,4rem);line-height:1;text-transform:uppercase}
+.px-sz-d{margin-top:.4rem;font-size:.75rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
+.px-sz-n.pop{animation:pxPop .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes pxPop{from{transform:rotateX(90deg);opacity:0}to{transform:none;opacity:1}}
+.px-hint{position:absolute;z-index:3;left:50%;bottom:8.4rem;transform:translateX(-50%);font-size:.65rem;letter-spacing:.4em;text-transform:uppercase;color:var(--dim)}
 
-/* more posters: one row you can swipe */
-.pdp-more{padding:clamp(3rem,6vw,5rem) 0 clamp(3rem,6vw,5rem);border-top:1px solid var(--rule)}
-.pm-head{display:flex;justify-content:space-between;align-items:end;gap:1rem;padding:0 var(--pad);margin-bottom:1.75rem}
-.pm-head h2{font-size:clamp(1.8rem,3vw,2.6rem);margin-top:.5rem}
-.pm-track{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(14rem,22vw,20rem);gap:clamp(1rem,2vw,1.75rem);overflow-x:auto;padding:0 var(--pad) 1rem;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:rgba(240,240,240,.3) transparent}
-.pm-track .card{scroll-snap-align:start}
+/* the poster */
+.px-stage{position:absolute;inset:0;z-index:2;display:grid;place-items:center;padding:4.5rem 0 9.5rem;perspective:1300px}
+.px-intro{perspective:1300px}
+.px-js .px-intro{opacity:0;transform:rotateX(180deg) scale(.85)}
+.px-go .px-intro{animation:pxIn 1.25s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pxIn{from{opacity:0;transform:rotateX(180deg) scale(.85)}to{opacity:1;transform:none}}
+.px-poster{will-change:transform;transform:scale(.86)}
+.px-poster img{display:block;width:auto;height:auto;max-width:min(78vw,34rem);max-height:calc(100svh - 15rem);min-height:12rem;box-shadow:0 40px 80px -30px rgba(0,0,0,.95),0 0 0 1px rgba(240,240,240,.14)}
 
-/* mobile bar */
-.pdp-bar{display:none}
+/* the dock: images, sizes, quantity, price, add to cart, always on screen */
+.px-dock{position:absolute;z-index:5;left:0;right:0;bottom:0;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.9rem clamp(1rem,2.5vw,2.5rem);padding:2.2rem var(--pad) 1.2rem;background:linear-gradient(to top,rgba(5,5,5,.94) 55%,rgba(5,5,5,0))}
+.px-dock .pdp-thumbs{display:flex;gap:.5rem;flex-wrap:nowrap;justify-content:flex-start}
+.px-dock .pdp-thumbs button{background:#111;opacity:.55}
+.px-dock .pdp-thumbs button img{width:clamp(2.2rem,3.4vw,3rem)}
+.px-sizes{border:0;padding:0;min-width:0}
+.px-dock .opts{gap:.45rem;justify-content:center}
+.px-dock .opts span{padding:.5rem .8rem;font-size:.68rem}
+.px-dock .opts small{display:none}
+.px-dock .opts input:not(:checked)+span.peek{border-color:var(--red);color:var(--red)}
+.px-buy{display:flex;align-items:center;gap:1rem}
+.px-buy .price{font-family:'Anton',sans-serif;font-size:clamp(1.5rem,2.2vw,2rem);letter-spacing:.02em;min-width:5ch;text-align:right}
+.px-buy .btn{padding:.9rem 1.6rem;white-space:nowrap}
+.px-buy .qty button{width:2.3rem}
+.px-buy .qty input{width:2.5rem;padding:.55rem 0}
+#atc-note{grid-column:1/-1;margin:0;font-size:.65rem}
+#atc-note:empty{display:none}
+
+/* facts */
+.px-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.px-facts article{padding:clamp(1.75rem,4vw,3.5rem) var(--pad);border-right:1px solid var(--rule)}
+.px-facts article:last-child{border-right:0}
+.px-facts h2{font-size:clamp(1.4rem,2.1vw,1.9rem);line-height:.95;margin:.6rem 0 .7rem}
+.px-facts p:not(.kicker){color:var(--dim);font-size:.95rem;max-width:36ch}
+
+/* more posters: sideways reel, posters tilt in 3D as they pass the centre */
+.px-rst{position:relative;height:100svh;overflow:hidden;display:flex;align-items:center;perspective:1400px;background:var(--bg)}
+.px-js .px-rst{position:sticky;top:0}
+.px-track{display:flex;align-items:center;gap:clamp(1.5rem,4vw,4rem);padding:0 var(--pad);will-change:transform}
+.px-rh{flex:none;display:grid;gap:1rem;justify-items:start;width:min(22rem,70vw)}
+.px-rh h2{font-size:clamp(1.8rem,3vw,2.6rem)}
+.px-rc{flex:none;position:relative;display:block;height:62svh;background:#111;overflow:hidden;will-change:transform;box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
+.px-rc img{height:100%;width:auto;display:block}
+.px-rm{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:2.5rem 1.1rem 1rem;background:linear-gradient(to top,rgba(5,5,5,.9),transparent)}
+.px-rm b{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:1.25rem;letter-spacing:.02em}
+.px-rm i{font-style:normal;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+html:not(.px-js) .px-rst{height:auto;overflow-x:auto;padding:3rem 0}
+
 @media(max-width:900px){
- .pdpmain .pdp{grid-template-columns:1fr}
- .pd-media{position:relative;height:auto;min-height:76svh;padding:6rem var(--pad) 1.5rem}
- .pdpmain .pdp-main img{max-height:56svh}
- .pdpmain .pdp-info{padding:2rem var(--pad) 7rem}
- .pd-buy .btn{width:100%}
- .pdp-bar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;align-items:center;justify-content:space-between;gap:1rem;padding:.8rem var(--pad);background:rgba(5,5,5,.96);border-top:1px solid var(--rule)}
- .pdp-bar .price{font-family:'Anton',sans-serif;font-size:1.6rem;letter-spacing:.02em}
- .pdp-bar .btn{padding-inline:1.6rem}
- .pdpmain~.foot{padding-bottom:6.5rem}
+ .px-head{top:6.4rem;width:calc(100% - 2*var(--pad))}
+ .px-head .lead,.px-head .fine{display:none}
+ .px-crumbs{display:none}
+ .px-meta{top:6.4rem}
+ .px-size{top:auto;bottom:11.5rem;transform:none}
+ .px-stage{padding:8.5rem 0 11rem}
+ .px-poster img{max-height:calc(100svh - 24rem);max-width:80vw}
+ .px-dock{grid-template-columns:minmax(0,1fr);padding-top:1.6rem;gap:.7rem}
+ .px-dock .pdp-thumbs{justify-content:center}
+ .px-dock .opts{justify-content:center}
+ .px-buy{justify-content:space-between}
+ .px-buy{gap:.7rem}
+ .px-buy .btn{flex:1;min-width:0;padding-inline:.8rem}
+ .px-buy .price{min-width:0}
+ .px-hint{display:none}
+ .px-facts{grid-template-columns:1fr 1fr}
+ .px-facts article:nth-child(2){border-right:0}
+ .px-facts article:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+ .px-rc{height:52svh}
 }
-@media(prefers-reduced-motion:reduce){.pdpmain .pdp-main img,.ch{transform:none!important;opacity:1!important;will-change:auto}}
+@media(prefers-reduced-motion:reduce){.px-intro,.px-poster{animation:none!important;transform:none!important;opacity:1!important}}
