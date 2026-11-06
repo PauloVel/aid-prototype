@@ -14,10 +14,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=Zen+Kaku+Gothic+New:wght@300&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/Fonts/Anton-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/Fonts/SpaceGrotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/cart.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -27,27 +27,41 @@
  <nav aria-label="Main"><ul id="menu"><li><a href="shop.html">Shop</a></li><li><a href="design.html">Studio</a></li><li><a class="cartlink" href="cart.html" aria-current="page">Cart <span data-cart-count>0</span></a></li></ul></nav>
  <button class="burger" aria-expanded="false" aria-controls="menu">Menu</button>
 </header>
-<main id="main">
-<section class="phead"><p class="kicker">Your order</p><h1>Cart</h1></section>
-<section class="sec">
+<main id="main" class="ctmain">
+<h1 class="sr">Cart</h1>
 <!-- SHOPIFY: sections/main-cart.liquid. Lines = cart.items, totals = cart.total_price | money, checkout = form action="/cart" with name="checkout" -->
-<div class="cart cart-wrap" id="cart">
- <h2 class="sr">Items in your cart</h2>
- <ul class="lines"><li class="line" data-price="38"><a href="product.html"><img src="assets/adr_bike.webp" alt="Adrenaline — Bike poster" width="736" height="981" loading="lazy"></a>
- <div><h3>Adrenaline — Bike</h3><p class="opt">Size: A3 · 30 × 42 cm</p><div class="qty"><button type="button" data-d="-" aria-label="Decrease quantity">−</button><input type="number" value="1" min="1" max="99" aria-label="Quantity for Adrenaline — Bike"><button type="button" data-d="+" aria-label="Increase quantity">+</button></div><button type="button" class="rm">Remove</button></div>
- <p class="price tot">$38.00</p></li><li class="line" data-price="58"><a href="product.html"><img src="assets/aid_Elelegido.webp" alt="El Elegido poster" width="900" height="1125" loading="lazy"></a>
- <div><h3>El Elegido</h3><p class="opt">Size: A2 · 42 × 59 cm</p><div class="qty"><button type="button" data-d="-" aria-label="Decrease quantity">−</button><input type="number" value="2" min="1" max="99" aria-label="Quantity for El Elegido"><button type="button" data-d="+" aria-label="Increase quantity">+</button></div><button type="button" class="rm">Remove</button></div>
- <p class="price tot">$116.00</p></li></ul>
- <aside class="sum" aria-label="Order summary" aria-live="polite">
-  <div class="row"><span>Subtotal</span><span id="sub">$0.00</span></div>
-  <div class="row"><span>Shipping</span><span>At checkout</span></div>
-  <div class="row total"><span>Total</span><strong id="total">$0.00</strong></div>
-  <button class="btn full" type="button">Checkout</button>
-  <p class="fine">Secure checkout by Shopify. Taxes and shipping calculated next.</p>
+<div class="ct cart-wrap" id="cart">
+ <aside class="ct-media" aria-label="Order summary">
+  <video muted loop playsinline preload="none" data-src="assets/outdoor_video.mp4" aria-hidden="true"></video>
+  <div class="ct-top"><p class="kicker">Your order</p><p class="ct-n"><b data-ct-n>0</b> <span data-ct-w>posters</span></p></div>
+  <ul class="ct-strip" aria-label="Posters in your cart"></ul>
+  <div class="sum" aria-live="polite">
+   <div class="row"><span>Subtotal</span><span id="sub">$0.00</span></div>
+   <div class="row"><span>Shipping</span><span>At checkout</span></div>
+   <div class="row total"><span>Total</span><strong id="total">$0.00</strong></div>
+   <button class="btn full" type="button">Checkout</button>
+   <p class="fine">Secure checkout by Shopify. Taxes and shipping calculated next.</p>
+  </div>
  </aside>
+ <div class="ct-list">
+  <h2 class="sr">Items in your cart</h2>
+  <ul class="lines">
+   <li class="line" data-price="38"><a class="ln-img" href="product.html"><img src="assets/adr_bike.webp" alt="Adrenaline — Bike poster" width="736" height="981" loading="lazy"></a>
+    <div class="ln-info"><p class="kicker">Adrenaline</p><h3>Adrenaline — Bike</h3><p class="opt">Size A3 · 30 × 42 cm</p><p class="unit">$38.00 each</p>
+     <div class="ln-act"><div class="qty"><button type="button" data-d="-" aria-label="Decrease quantity">−</button><input type="number" value="1" min="1" max="99" aria-label="Quantity for Adrenaline — Bike"><button type="button" data-d="+" aria-label="Increase quantity">+</button></div><button type="button" class="rm">Remove</button></div></div>
+    <p class="price tot">$38.00</p></li>
+   <li class="line" data-price="58"><a class="ln-img" href="product.html"><img src="assets/aid_Elelegido.webp" alt="El Elegido poster" width="900" height="1125" loading="lazy"></a>
+    <div class="ln-info"><p class="kicker">Singles</p><h3>El Elegido</h3><p class="opt">Size A2 · 42 × 59 cm</p><p class="unit">$58.00 each</p>
+     <div class="ln-act"><div class="qty"><button type="button" data-d="-" aria-label="Decrease quantity">−</button><input type="number" value="2" min="1" max="99" aria-label="Quantity for El Elegido"><button type="button" data-d="+" aria-label="Increase quantity">+</button></div><button type="button" class="rm">Remove</button></div></div>
+    <p class="price tot">$116.00</p></li>
+  </ul>
+  <p class="ct-more"><a class="btn" href="shop.html">Keep shopping</a></p>
+ </div>
 </div>
-<div class="empty" id="empty" hidden><h2>Empty</h2><p class="lead">Nothing here. That's a waste of a wall.</p><div class="btns"><a class="btn" href="shop.html">Shop posters</a></div></div>
-</section>
+<div class="empty ct-empty" id="empty" hidden>
+ <video muted loop playsinline preload="none" data-src="assets/outdoor_video.mp4" aria-hidden="true"></video>
+ <div class="ct-e"><p class="kicker">Your order</p><h2>Nothing here yet.</h2><p class="lead">That's a waste of a wall.</p><div class="btns"><a class="btn" href="shop.html">Shop posters</a></div></div>
+</div>
 </main>
 <footer class="foot">
  <div class="big" aria-hidden="true">AID</div>
@@ -58,5 +72,6 @@
 </footer>
 <div class="cursor" aria-hidden="true"></div><div class="cursor-f" aria-hidden="true"></div>
 <script src="assets/site.js"></script>
+<script src="assets/cart.js"></script>
 </body>
 </html>

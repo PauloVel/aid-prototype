@@ -191,3 +191,9 @@ Black AID curtain between pages. Built to survive fast clicking and to port to S
 - **One real curtain element** (Web Animations API): a click mid-lift reverses it from where it is; the last link clicked wins.
 - The new page lifts the curtain after load + fonts + two frames, then the first screen rises in (`ptRise`). Studio and Abrasive skip the rise (own scroll stories).
 - Skipped: external links, `target`, `download`, `data-pt-ignore`, modifier keys, `/checkout*`, `/account*`, `/cart/add|change|update|clear`. Reduced motion: no transition at all.
+
+## Fonts and Cart
+
+- **Fonts are self-hosted** in `assets/Fonts/` (Anton + Space Grotesk latin woff2), declared at the top of `site.css` and `<link rel="preload">`ed in every `<head>`; Google Fonts links were removed. Shopify: upload the woff2 files to theme assets and point the `@font-face` urls at `{{ 'Anton-latin.woff2' | asset_url }}`. (Zen Kaku was dropped: nothing used `.jp`.)
+- **Page intros wait for the curtain**: while `html.pt-in` (curtain down) every CSS animation on the page is paused, so a page's own entrance (home hero etc.) plays in view when the curtain lifts instead of finishing unseen.
+- **Cart (`cart.html`, `assets/cart.css`, `assets/cart.js`)**: no giant headline (the footer AID is the only big white word on this page). Split layout: pinned left panel with looping video, a strip of every poster in the cart (click to jump to it, qty badge), totals and Checkout; right, the posters as large cards that tilt in on scroll. Mobile: totals + Checkout ride as a fixed bottom bar. Empty state is a compact video panel. Keep ids `#cart #sub #total #empty` and `.line[data-price] .tot input .rm` (site.js does the maths).

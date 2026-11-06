@@ -1,0 +1,61 @@
+/* Cart: a video-led split. Left, a pinned panel (video, a strip of every poster in the cart, totals, checkout). Right, the posters, big, tilting in as you scroll. No giant headline: the footer AID is the only big word. */
+.ctmain{padding:0}
+.ct{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);align-items:start;min-height:100svh}
+
+/* pinned panel */
+.ct-media{position:sticky;top:0;height:100svh;overflow:hidden;background:#000;display:flex;flex-direction:column;justify-content:flex-end;gap:1.5rem;padding:6.5rem var(--pad) 2rem}
+.ct-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;filter:grayscale(.35) contrast(1.05)}
+.ct-media::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,.92) 0%,rgba(5,5,5,.55) 45%,rgba(5,5,5,.1) 100%);pointer-events:none}
+.ct-media>*:not(video){position:relative;z-index:2}
+.ct-top{margin-bottom:auto}
+.ct-n{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(1.6rem,2.6vw,2.4rem);letter-spacing:.04em;margin-top:.4rem;line-height:1}
+.ct-n b{font-weight:400;color:var(--red)}
+.ct-strip{display:flex;flex-wrap:wrap;gap:.65rem}
+.ct-strip button{position:relative;display:block;width:clamp(3.2rem,5vw,4.4rem);aspect-ratio:4/5;padding:0;background:#111;border:1px solid rgba(240,240,240,.35);cursor:pointer;overflow:hidden;transition:border-color .2s,transform .2s}
+.ct-strip button:hover,.ct-strip button:focus-visible{border-color:var(--red);transform:translateY(-3px)}
+.ct-strip img{width:100%;height:100%;object-fit:cover;display:block}
+.ct-strip b{position:absolute;right:0;bottom:0;background:#050505;color:#f0f0f0;font:700 .62rem/1 'Space Grotesk',sans-serif;letter-spacing:.08em;padding:.3rem .4rem}
+.ct-media .sum{position:static;border:0;border-top:1px solid rgba(240,240,240,.3);padding:1.25rem 0 0;background:none;gap:1rem}
+.ct-media .sum .row{color:#c9c9c9}
+.ct-media .sum .total{border-top:1px solid rgba(240,240,240,.18);color:#f0f0f0}
+.ct-media .sum .total strong{font-size:clamp(2rem,3vw,2.8rem)}
+
+/* posters */
+.ct-list{padding:7rem var(--pad) 5rem clamp(1.5rem,4vw,4rem);perspective:1300px}
+.lines{border-top:0;display:grid;gap:clamp(1.5rem,3vw,2.5rem)}
+.line{display:grid;grid-template-columns:clamp(9rem,17vw,16rem) 1fr auto;gap:clamp(1.25rem,2.5vw,2.25rem);align-items:center;padding:clamp(1rem,2vw,1.5rem);border:1px solid var(--rule);background:rgba(240,240,240,.025);transform-origin:50% 50%;will-change:transform;transition:border-color .25s,background .25s}
+.line.hl,.line:hover{border-color:rgba(240,240,240,.5);background:rgba(240,240,240,.05)}
+.line .ln-img{display:block;overflow:hidden;box-shadow:0 25px 50px -25px rgba(0,0,0,.8)}
+.line img{width:100%;aspect-ratio:4/5;object-fit:cover;border:0;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.line:hover img{transform:scale(1.04)}
+.line h3{font-size:clamp(1.5rem,2.4vw,2.2rem);line-height:.95}
+.line .opt{margin:.6rem 0 .15rem}
+.line .unit{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-bottom:1.1rem}
+.ln-act{display:flex;align-items:center;flex-wrap:wrap;gap:1rem 1.25rem}
+.line .rm{margin-left:0}
+.line .tot{font-family:'Anton',sans-serif;font-size:clamp(1.4rem,2.2vw,2rem);align-self:start;text-align:right}
+.ct-more{margin-top:2.5rem}
+
+/* empty */
+.ct-empty{position:relative;min-height:100svh;overflow:hidden;display:flex;align-items:flex-end;text-align:left;padding:7rem var(--pad) 4rem;background:#000;justify-items:start}
+.ct-empty video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45}
+.ct-empty::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(5,5,5,.9),rgba(5,5,5,.1))}
+.ct-e{position:relative;z-index:2;display:grid;gap:1rem;justify-items:start}
+.ct-empty h2{font-size:clamp(2.2rem,5vw,4rem);color:#f0f0f0;-webkit-text-stroke:0}
+.ct-empty[hidden]{display:none}
+
+@media(max-width:900px){
+ .ct{grid-template-columns:1fr}
+ .ct-media{position:relative;height:auto;min-height:46svh;padding:6rem var(--pad) 1.25rem}
+ /* totals + checkout ride along as a bar so checkout is always one tap away */
+ .ct-media .sum{position:fixed;top:auto;left:0;right:0;bottom:0;z-index:40;background:rgba(5,5,5,.96);border-top:1px solid var(--rule);padding:.8rem var(--pad);grid-template-columns:1fr auto;align-items:center;gap:.4rem 1rem}
+ .ct-media .sum .row:not(.total){display:none}
+ .ct-media .sum .total{border:0;padding:0}
+ .ct-media .sum .fine{display:none}
+ .ct-media .sum .btn{width:auto;padding-inline:1.6rem}
+ .ct-list{padding:2rem var(--pad) 8rem}
+ .line{grid-template-columns:5.5rem 1fr;align-items:start}
+ .line .tot{grid-column:2;text-align:left;align-self:auto}
+}
+@media(prefers-reduced-motion:reduce){.line{transform:none!important;opacity:1!important;will-change:auto}}
+@media(max-width:900px){.ctmain~.foot{padding-bottom:6.5rem}}

@@ -1,3 +1,6 @@
+/* self-hosted fonts (assets/Fonts): same-origin, preloaded in every <head>, so type is ready before the page paints */
+@font-face{font-family:'Anton';font-style:normal;font-weight:400;font-display:block;src:url(Fonts/Anton-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(Fonts/SpaceGrotesk-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 :root{--bg:#050505;--fg:#f0f0f0;--dim:#a0a0a0;--red:#ff1e1e;--rule:rgba(240,240,240,.22);--pad:clamp(1rem,4vw,3rem)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -608,13 +611,16 @@ html.pt-live::before,html.pt-live::after{display:none}
 @media(prefers-reduced-motion:reduce){html.pt-in::before,html.pt-in::after,.pt-curtain{display:none}}
 
 /* entrance: as the curtain lifts, the first screen of a normal page rises into place (Studio and Abrasive run their own scroll stories) */
-html.pt-go body:not(.studio):not(.lab) main>:first-child>*{animation:ptRise 1s cubic-bezier(.2,.8,.2,1) both;animation-delay:.22s}
-html.pt-go body:not(.studio):not(.lab) main>:first-child>:nth-child(2){animation-delay:.34s}
-html.pt-go body:not(.studio):not(.lab) main>:first-child>:nth-child(3){animation-delay:.46s}
-html.pt-go body:not(.studio):not(.lab) main>:first-child>:nth-child(n+4){animation-delay:.58s}
+html.pt-go body:not(.studio):not(.lab) main>:first-child:not(.hero)>*:not(video):not(img):not(canvas){animation:ptRise 1s cubic-bezier(.2,.8,.2,1) both;animation-delay:.22s}
+html.pt-go body:not(.studio):not(.lab) main>:first-child:not(.hero)>:nth-child(2):not(video):not(img){animation-delay:.34s}
+html.pt-go body:not(.studio):not(.lab) main>:first-child:not(.hero)>:nth-child(3):not(video):not(img){animation-delay:.46s}
+html.pt-go body:not(.studio):not(.lab) main>:first-child:not(.hero)>:nth-child(n+4):not(video):not(img){animation-delay:.58s}
 @keyframes ptRise{from{opacity:0;translate:0 5vh}to{opacity:1;translate:0 0}}
 @media(prefers-reduced-motion:reduce){html.pt-go main>:first-child>*{animation:none!important}}
 
 /* keep the main thread free while the curtain moves: the grain layer is the page's costliest paint */
 html.pt-out .noise,html.pt-in:not(.pt-go) .noise{visibility:hidden}
 html.pt-out *,html.pt-in:not(.pt-go) *{scroll-behavior:auto!important}
+
+/* page intros wait for the curtain: a page's own load animations (home hero, etc.) stay at their first frame until it lifts, then play in view */
+html.pt-in:not(.pt-go) body>*:not(.pt-curtain),html.pt-in:not(.pt-go) body>*:not(.pt-curtain) *{animation-play-state:paused!important}
