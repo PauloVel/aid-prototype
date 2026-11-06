@@ -12,7 +12,7 @@ body.lab .cursor{background:#fff}body.lab .cursor-f{border-color:#fff}
 .lb-mask{position:absolute;inset:0;background:#fff;mix-blend-mode:screen;color:#000;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .lb-zoom{}
 .lb-h1{display:flex;perspective:900px;font-size:min(24vw,48svh);letter-spacing:-.01em;line-height:1;white-space:nowrap;color:#000}
-.lb-h1 span{display:inline-block;will-change:transform}
+.lb-h1 span{display:inline-block}
 .lb-js .lb-h1 span{transform:rotateX(180deg)}
 .lb-cue{position:absolute;left:var(--pad);right:var(--pad);bottom:1.4rem;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:#000}
 .lb-cue i{font-style:normal;margin:0 .6em}
