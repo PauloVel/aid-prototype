@@ -614,3 +614,7 @@ html.pt-go body:not(.studio):not(.lab) main>:first-child>:nth-child(3){animation
 html.pt-go body:not(.studio):not(.lab) main>:first-child>:nth-child(n+4){animation-delay:.58s}
 @keyframes ptRise{from{opacity:0;translate:0 5vh}to{opacity:1;translate:0 0}}
 @media(prefers-reduced-motion:reduce){html.pt-go main>:first-child>*{animation:none!important}}
+
+/* keep the main thread free while the curtain moves: the grain layer is the page's costliest paint */
+html.pt-out .noise,html.pt-in:not(.pt-go) .noise{visibility:hidden}
+html.pt-out *,html.pt-in:not(.pt-go) *{scroll-behavior:auto!important}

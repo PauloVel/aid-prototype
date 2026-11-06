@@ -15,11 +15,12 @@
     };
     if(reduce){ptClear()}
     else{
-      if(document.readyState==='complete')setTimeout(lift,120);else addEventListener('load',function(){setTimeout(lift,120)});
+      var ready=function(){var go=function(){requestAnimationFrame(function(){requestAnimationFrame(function(){setTimeout(lift,80)})})};if(document.fonts&&document.fonts.ready)document.fonts.ready.then(go);else go()};
+      if(document.readyState==='complete')ready();else addEventListener('load',ready);
       setTimeout(lift,2500);
     }
   }
-  addEventListener('pageshow',function(e){if(e.persisted)ptClear()});
+  addEventListener('pageshow',function(e){if(e.persisted){ptClear();going=false}});
   if(!reduce)document.addEventListener('click',function(e){
     if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
     var a=e.target.closest&&e.target.closest('a[href]');
@@ -28,10 +29,18 @@
     if(u.origin!==location.origin||!/^https?:$/.test(u.protocol))return;
     if(u.pathname===location.pathname&&u.search===location.search)return;
     e.preventDefault();
+    if(going)return;going=true;
     try{sessionStorage.setItem('aidpt','1')}catch(x){}
     doc.classList.add('pt-out');
-    setTimeout(function(){location.href=u.href},520);
+    // free the main thread for the curtain: stop videos and the page's own loops
+    document.querySelectorAll('video').forEach(function(v){try{v.pause()}catch(x){}});
+    var leave=function(){if(left)return;left=true;location.href=u.href};
+    var left=false;
+    // go when the curtain has really closed (not on a blind timer, which could fire before a busy page ever painted it)
+    document.addEventListener('animationend',function(ev){if(ev.animationName==='ptOut')leave()});
+    setTimeout(leave,1400);
   });
+  var going=false;
 
   // mobile menu
   var b=document.querySelector('.burger'),ul=document.querySelector('.nav ul');
