@@ -2,6 +2,37 @@
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine=matchMedia('(hover: hover) and (pointer: fine)').matches;
 
+
+  // page transition: curtain closes on internal links, the next page lifts it once it has loaded
+  var doc=document.documentElement;
+  var ptClear=function(){doc.classList.remove('pt-out','pt-in','pt-go');try{sessionStorage.removeItem('aidpt')}catch(e){}};
+  if(doc.classList.contains('pt-in')){
+    var lifted=false,lift=function(){
+      if(lifted)return;lifted=true;
+      try{sessionStorage.removeItem('aidpt')}catch(e){}
+      doc.classList.add('pt-go');
+      setTimeout(ptClear,800);
+    };
+    if(reduce){ptClear()}
+    else{
+      if(document.readyState==='complete')setTimeout(lift,120);else addEventListener('load',function(){setTimeout(lift,120)});
+      setTimeout(lift,2500);
+    }
+  }
+  addEventListener('pageshow',function(e){if(e.persisted)ptClear()});
+  if(!reduce)document.addEventListener('click',function(e){
+    if(e.defaultPrevented||e.button||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+    var a=e.target.closest&&e.target.closest('a[href]');
+    if(!a||a.target||a.hasAttribute('download'))return;
+    var u;try{u=new URL(a.href,location.href)}catch(x){return}
+    if(u.origin!==location.origin||!/^https?:$/.test(u.protocol))return;
+    if(u.pathname===location.pathname&&u.search===location.search)return;
+    e.preventDefault();
+    try{sessionStorage.setItem('aidpt','1')}catch(x){}
+    doc.classList.add('pt-out');
+    setTimeout(function(){location.href=u.href},520);
+  });
+
   // mobile menu
   var b=document.querySelector('.burger'),ul=document.querySelector('.nav ul');
   if(b)b.addEventListener('click',function(){var o=ul.classList.toggle('open');b.setAttribute('aria-expanded',o);b.textContent=o?'Close':'Menu'});
@@ -366,6 +397,9 @@
   function req(){if(!tick){tick=true;requestAnimationFrame(upd)}}
   addEventListener('scroll',req,{passive:true});
   addEventListener('resize',function(){glSize();req()});glSize();
+  /* warm-up: when the helmet is ready, draw it once off-screen so shaders compile and buffers upload before the first drag */
+  addEventListener('aidhelmet',function(){setTimeout(function(){if(gl&&prog&&window.AIDHelmet&&window.AIDHelmet.ready){try{glDraw()}catch(e){}}},250)});
+  if(window.AIDHelmet&&window.AIDHelmet.ready)dispatchEvent(new Event('aidhelmet'));
   (pst.complete?Promise.resolve():new Promise(function(r){pst.addEventListener('load',r)})).then(req);
   req();
 })();
