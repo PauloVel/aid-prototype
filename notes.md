@@ -248,3 +248,13 @@ White page, lots of air, one idea per screen (modelled on Abrasive, deliberately
 - The deck (poster stack) was rejected too. **Shop wall now: every poster gets its own screen**, big (80svh), flips in, holds, leaves, alternating sides with name/price/View poster on the opposite side (centred on phones). 1000svh. Decks and stacks are rejected; Gallery Walk stays archived as `gallery-walk-v1`.
 - **Product** was too busy: the dock with quantity stepper, header lines and noise overlay are gone. Now a calm right-hand panel (name, edition, sizes, price, Add to cart; quantity is a hidden input = 1), footage behind kept. After the story: **four more posters, each on its own white screen** (flip in on arrival), then "Hang it." on white, then the footer.
 - **Studio on phones** (`site.css`, max-width 700px): "Be unmistak-able." is 36vw, lifted off the bottom; "World on reach." is 27vw wrapping on three lines inside the margins.
+
+## Home (`index.html`, `assets/home.css`, `assets/home.js`) - rebuilt Nov 2026
+
+Black theme, almost no copy: the page says "athletes, outdoors, risk-takers" with footage and giant words, in the voice of Abrasive. Old home (grid, paragraphs, buttons everywhere) kept in `work/archive/index.v1.html`.
+- **A** (520svh): the hero film behind giant AID that flips upright in a wave, then flips away; words *Athletes. / Outdoors. / Risk.* flip through (middle one arrives upside down). Film button (triangle, boom transition) stays until the words start.
+- **B** (440svh): outdoor film in a window that grows to full-bleed (transform + counter-scaled video, net scale 1); words *Go first. / Fall. / Go again.*
+- **C** (480svh): *Loud walls.* hollow word with three columns of posters drifting past (middle column the other way); "Shop the posters" appears at the end. Two columns on phones.
+- **D** (420svh): five raw frames as hard cuts, ABRASIVE letters flip in, counter, "Watch Abrasive" at the end.
+- **E**: "Your move." letters flip in; Shop / Watch Abrasive buttons and a quiet Studio link.
+- The old studio pitch, "Safe is invisible", the tilt poster stage and the reel strip were removed from the home (Studio has its own page). Footage note: the hero film and several Abrasive stills are third-party NBA footage and must be replaced before publishing.
