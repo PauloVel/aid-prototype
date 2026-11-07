@@ -1,64 +1,75 @@
-/* Home: one pinned statement, rough on purpose. AID (hero film) > NOT > SAFE. (black on a red slab) > ON PURPOSE.
-   Hard cuts, a slam and a shake on every cut, a slow push inside each beat. One film, no images. Below: three doors and the developer partner.
-   Performance (notes.md): transforms/opacity only, no blend modes/filters/clip-path animation, no transform on the playing film. */
-body.home .noise{opacity:.06;animation:none}
+/* Home: hero (film + AID) > "Be one of one." on white with the identity mark you fall into > Bold (an image that grows to full-bleed) > EVRABO (sliding word) > Studio (parallax).
+   Each beat uses a different mechanism; words only accompany what is shown. Pinned only when JS runs (html.hp-js).
+   Performance (notes.md): transforms/opacity only, no blend modes/filters/clip-path animation, no scroll-driven transform on the playing film. */
+body.home .noise{opacity:.05;animation:none}
 .hp-st{position:relative;height:100svh;overflow:hidden;background:#000;color:#f0f0f0}
 .hp-js .hp-st{position:sticky;top:0}
-.hp-js .hp-s{height:520svh}
-.hp-b{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;margin:0}
+.hp-js .hp-h{height:200svh}.hp-js .hp-i{height:460svh}.hp-js .hp-bd{height:420svh}
+.hp-aid,.hp-iw,.hp-bw,.hp-sdw,.hp-mq{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;margin:0}
 
+/* hero */
 .hp-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
 .hp-shade{position:absolute;inset:0;background:#000;opacity:.4;pointer-events:none}
-.hp-red{position:absolute;inset:0;background:#ff1e1e;visibility:hidden}
-.hp-flash{position:absolute;inset:0;z-index:7;background:#fff;opacity:0;pointer-events:none}
-.hp-flash.go{animation:hpFlash .22s ease-out}
-@keyframes hpFlash{from{opacity:.85}to{opacity:0}}
-.hp-st.shake{animation:hpShake .28s linear}
-@keyframes hpShake{0%{transform:translate3d(0,0,0)}15%{transform:translate3d(-14px,8px,0)}30%{transform:translate3d(12px,-10px,0)}45%{transform:translate3d(-9px,-5px,0)}60%{transform:translate3d(7px,6px,0)}80%{transform:translate3d(-3px,2px,0)}100%{transform:translate3d(0,0,0)}}
-.hp-js .hp-st.shake{animation-name:hpShakeS}
-@keyframes hpShakeS{0%{translate:0 0}15%{translate:-14px 8px}30%{translate:12px -10px}45%{translate:-9px -5px}60%{translate:7px 6px}80%{translate:-3px 2px}100%{translate:0 0}}
-
-.hp-b{position:absolute;z-index:3;display:grid;visibility:hidden;line-height:.8;letter-spacing:-.015em;color:#fff}
-.hp-b b{font-weight:400;display:block;will-change:transform;transform-origin:0 100%}
-.hp-b.on{visibility:visible;animation:hpSlam .2s cubic-bezier(.1,.9,.2,1) both}
-@keyframes hpSlam{from{transform:scale(1.4);opacity:0}30%{opacity:1}to{transform:none;opacity:1}}
-/* hero: AID bleeds off the bottom-left corner */
-.b0{left:-.02em;bottom:-.03em;font-size:min(46vw,72svh)}
-/* the three words fill the width */
-.b1,.b2,.b3{left:var(--pad);right:var(--pad);top:50%;margin-top:-.42em;justify-items:start}
-.b1{font-size:min(50vw,84svh)}
-.b2{font-size:min(41vw,72svh);color:#000;margin-top:-.4em}
-.b3{font-size:min(25vw,38svh);line-height:.9;margin-top:-.85em}
+.hp-aid{position:absolute;z-index:3;left:-.02em;bottom:-.03em;font-size:min(46vw,72svh);line-height:.8;letter-spacing:-.015em;color:#fff;will-change:transform}
 .hp-cue{position:absolute;left:var(--pad);top:6rem;z-index:3;font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#d0d0d0}
-.hp-s .film-btn{z-index:6}
-html:not(.hp-js) .hp-b{position:static;visibility:visible;font-size:clamp(3rem,14vw,9rem);color:#fff;padding:0 var(--pad)}
-html:not(.hp-js) .hp-st{height:auto;display:grid;gap:1rem;padding:7rem 0 3rem}
-html:not(.hp-js) .hp-red,html:not(.hp-js) .hp-flash,html:not(.hp-js) .hp-cue,html:not(.hp-js) .hp-shade{display:none}
-html:not(.hp-js) .hp-vid{position:relative;height:40svh}
+.hp-h .film-btn{z-index:6}
 
-/* doors: hard-ruled rows */
-.hp-doors{border-bottom:1px solid var(--rule)}
-.hp-doors a{display:grid;grid-template-columns:3.5rem 1fr auto;align-items:baseline;gap:1rem;padding:1.4rem var(--pad) 1.2rem;border-top:1px solid var(--rule);transition:color .15s,background .15s}
-.hp-doors i{font-style:normal;font-size:.72rem;letter-spacing:.3em;color:var(--dim)}
-.hp-doors span{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(3.4rem,13vw,13rem);line-height:.92;letter-spacing:-.01em}
-.hp-doors em{font-style:normal;font-family:'Anton',sans-serif;font-size:clamp(2rem,6vw,6rem);transition:transform .2s}
-.hp-doors a:hover,.hp-doors a:focus-visible{background:var(--fg);color:#000}
-.hp-doors a:hover i{color:#000}
-.hp-doors a:hover em{transform:translateX(.3em)}
+/* be one of one: white stage, the mark rotates and we fall into its hub (red shows through the veins) */
+.hp-i .hp-st{background:#fff;color:#000}
+.hp-iw{position:absolute;z-index:1;line-height:.8;letter-spacing:-.015em;color:#000;will-change:transform}
+.hp-iw.a{left:var(--pad);top:5.4rem;font-size:min(34vw,56svh)}
+.hp-iw.b{right:var(--pad);bottom:1.4rem;text-align:right;font-size:min(20vw,34svh);line-height:.84}
+.hp-disc{position:absolute;z-index:2;left:38%;top:52%;width:min(68vw,84svh);aspect-ratio:1024/911;margin:calc(min(68vw,84svh)*-.4448) 0 0 calc(min(68vw,84svh)*-.5);transform-origin:61.2% 40%;will-change:transform}
+.hp-disc img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hp-disc .rd{position:absolute;inset:0;z-index:2;background:#ff1e1e;-webkit-mask:url(OnIdentity.png) center/100% 100% no-repeat;mask:url(OnIdentity.png) center/100% 100% no-repeat;-webkit-mask-source-type:luminance;mask-mode:luminance}
+.hp-black{position:absolute;inset:0;z-index:3;background:#000;opacity:0;pointer-events:none}
+html:not(.hp-js) .hp-i .hp-st{height:auto;min-height:100svh;display:grid;place-items:center;padding:7rem var(--pad) 3rem}
+html:not(.hp-js) .hp-iw,html:not(.hp-js) .hp-disc{position:relative;inset:auto;margin:0;left:auto;top:auto}
+html:not(.hp-js) .hp-disc{width:min(70vw,30rem)}
 
-/* developer partner */
-.hp-dev{padding:5rem var(--pad) 6rem;display:grid;gap:1rem;justify-items:start}
-.hp-evr{font-family:'Anton',sans-serif;text-transform:uppercase;font-size:clamp(3.4rem,13vw,13rem);line-height:.9;color:transparent;-webkit-text-stroke:2px var(--fg);transition:color .15s,-webkit-text-stroke-color .15s}
-.hp-evr em{font-style:normal}
-.hp-evr:hover,.hp-evr:focus-visible{color:var(--fg)}
-.hp-dev .fine{margin:0}
+/* bold: an image grows from a small frame to full-bleed, the word slams in front of it */
+.hp-fr{position:absolute;inset:0;z-index:2;overflow:hidden;background:#000;transform:scale(.3,.52);will-change:transform}
+.hp-fi{position:absolute;inset:0;transform:scale(3.3333,1.9231)}
+.hp-fi img{width:100%;height:100%;object-fit:cover;display:block}
+.hp-fr::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.6),rgba(0,0,0,.15) 60%)}
+.hp-bw{position:absolute;z-index:1;left:0;right:0;top:50%;margin-top:-.43em;text-align:center;font-size:min(46vw,80svh);line-height:.86;letter-spacing:-.015em;color:#fff;will-change:transform}
+.hp-bw.front{z-index:3;animation:hpSlam .22s cubic-bezier(.1,.9,.2,1) both}
+@keyframes hpSlam{from{transform:scale(1.35);opacity:0}30%{opacity:1}to{transform:none;opacity:1}}
+.hp-cap{position:absolute;z-index:4;left:var(--pad);bottom:2.4rem;margin:0;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:#e0e0e0}
+.hp-acts{position:absolute;z-index:4;right:var(--pad);bottom:2.2rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:flex-end}
+.hp-acts .btn{background:rgba(0,0,0,.5)}
+.hp-js .hp-cap,.hp-js .hp-acts{opacity:0;visibility:hidden}
+html:not(.hp-js) .hp-bd .hp-st{height:auto;min-height:100svh;display:grid;align-content:center;gap:1.5rem;padding:7rem var(--pad) 3rem}
+html:not(.hp-js) .hp-fr{position:relative;transform:none;height:50svh}
+html:not(.hp-js) .hp-fi{transform:none}
+html:not(.hp-js) .hp-bw,html:not(.hp-js) .hp-cap,html:not(.hp-js) .hp-acts{position:static;margin:0}
+
+/* EVRABO: the word slides sideways as you scroll */
+.hp-ev{padding:6rem 0 5rem;overflow:hidden;display:grid;gap:2rem;border-top:1px solid var(--rule)}
+.hp-ev .kicker{padding:0 var(--pad);margin:0}
+.hp-mq{display:flex;gap:.35em;width:max-content;font-size:clamp(7rem,26vw,28rem);line-height:.85;color:transparent;-webkit-text-stroke:2px var(--fg);will-change:transform}
+.hp-mq span:nth-child(even){color:var(--fg);-webkit-text-stroke:0}
+.hp-evb{display:flex;align-items:center;flex-wrap:wrap;gap:1.2rem 2rem;padding:0 var(--pad)}
+.hp-evb .fine{margin:0}
+
+/* studio: the image drifts, the word rises */
+.hp-sd{position:relative;height:100svh;overflow:hidden;background:#000;border-top:1px solid var(--rule)}
+.hp-sdi{position:absolute;left:0;top:-12%;width:100%;height:124%;object-fit:cover;opacity:.7;will-change:transform}
+.hp-sd::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,0) 65%)}
+.hp-sdc{position:absolute;z-index:2;left:var(--pad);right:var(--pad);bottom:2.6rem;display:grid;gap:1.2rem;justify-items:start}
+.hp-sdc .kicker{margin:0}
+.hp-sdw{font-size:min(30vw,48svh);line-height:.82;letter-spacing:-.015em;will-change:transform}
+html:not(.hp-js) .hp-sdi{top:0;height:100%}
 
 @media(max-width:700px){
- .b0{font-size:56vw}
- .b1{font-size:60vw}
- .b2{font-size:40vw}
- .b3{font-size:24.5vw}
- .hp-s .film-btn{width:5.6rem}
- .hp-doors a{grid-template-columns:2.4rem 1fr auto}
+ .hp-aid{font-size:56vw}
+ .hp-iw.a{font-size:44vw}.hp-iw.b{font-size:30vw}
+ .hp-disc{left:50%;width:92vw;margin:calc(92vw*-.4448) 0 0 calc(92vw*-.5)}
+ .hp-fr{transform:scale(.56,.4)}.hp-fi{transform:scale(1.7857,2.5)}
+ .hp-bw{font-size:50vw}
+ .hp-acts{left:var(--pad);right:var(--pad);bottom:1.4rem;justify-content:flex-start}
+ .hp-cap{bottom:5.6rem}
+ .hp-sdw{font-size:36vw}
+ .hp-h .film-btn{width:5.6rem}
 }
-@media(prefers-reduced-motion:reduce){.hp-b.on,.hp-st.shake,.hp-flash.go{animation:none}}
+@media(prefers-reduced-motion:reduce){.hp-bw.front{animation:none}}

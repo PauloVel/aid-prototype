@@ -249,12 +249,14 @@ White page, lots of air, one idea per screen (modelled on Abrasive, deliberately
 - **Product** was too busy: the dock with quantity stepper, header lines and noise overlay are gone. Now a calm right-hand panel (name, edition, sizes, price, Add to cart; quantity is a hidden input = 1), footage behind kept. After the story: **four more posters, each on its own white screen** (flip in on arrival), then "Hang it." on white, then the footer.
 - **Studio on phones** (`site.css`, max-width 700px): "Be unmistak-able." is 36vw, lifted off the bottom; "World on reach." is 27vw wrapping on three lines inside the margins.
 
-## Home (`index.html`, `assets/home.css`, `assets/home.js`) - third take, Nov 2026
+## Home (`index.html`, `assets/home.css`, `assets/home.js`) - fourth take, Nov 2026
 
-The owner wants **a statement, rough and punchy: one quality of AID, one film, no piles of images/videos, no repeated effects, no letter flips.** Earlier takes (flip stages, claimed lines, 3D fly-through) were rejected; see git history.
-- **One pinned statement (520svh):** the hero film with AID bleeding off the bottom-left corner > hard cut **NOT** (white, film nearly black) > hard cut **SAFE.** (black on a full red slab) > hard cut **ON PURPOSE.** (film back). Every cut slams, flashes white and shakes the stage; inside a beat the word slowly pushes in with the scroll (a transform on the word only, never on the film).
-- **Doors:** three hard-ruled rows (Posters, Abrasive, Studio); hover inverts. No images.
-- **Software developer partner:** hollow EVRABO link with "AID designs it. EVRABO builds it." The footer line now reads "Software developer partner: EVRABO" on every page.
+The story is told by what is shown; words only accompany it (no word-by-word statements). Order: hero > identity > Bold > EVRABO > Studio > footer. Each beat uses a different mechanism.
+- **Hero** (200svh, approved by the owner): the film behind AID bleeding off the bottom-left; scrolling sinks AID and fades the film to black.
+- **Be one of one.** (white stage, 460svh): "Be" and "one of one." drift apart (like Studio's "Be unmistakable"), `OnIdentity.png` (black disc, opaque white veins, transparent outside) turns and we fall into its hub; the veins are tinted red by a luminance-masked red layer (`.rd`, needs mask-mode: luminance, Chrome 120+/Safari 15.4+; without it the veins stay white). Ends in black.
+- **Bold** (420svh): a small frame of the image grows to full-bleed (transform + counter-scaled image), BOLD sits behind it, then slams in front; a caption and the Shop / Watch Abrasive buttons arrive at the end. **The image is a placeholder (`FEWOFUS1.webp`): swap the `src` in `.hp-fi`.**
+- **EVRABO**: "Software developer partner", a huge outlined EVRABO row that slides sideways as the section passes, "AID designs it. EVRABO builds it.", Visit button.
+- **Studio**: `BK_passage.jpg` drifts (parallax), the word STUDIO rises, Enter the studio button.
 - Hero film is third-party NBA footage: replace before publishing.
 
 ## Studio, Add spice
