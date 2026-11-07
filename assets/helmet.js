@@ -18,6 +18,11 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     api.canvas = renderer.domElement;
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x050505);
+    /* the snowboard shot sits behind the helmet, cover-fitted to the canvas */
+    const IA = 992 / 808; let bgTex = null;
+    const fitBg = (w, h) => { if (!bgTex) return; const a = w / h;
+      if (a > IA) { bgTex.repeat.set(1, IA / a); bgTex.offset.set(0, (1 - IA / a) / 2); } else { bgTex.repeat.set(a / IA, 1); bgTex.offset.set((1 - a / IA) / 2, 0); } };
+    new THREE.TextureLoader().load('assets/snow_hor.jpg', (t) => { t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping; bgTex = t; scene.background = t; fitBg(renderer.domElement.width, renderer.domElement.height); });
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.01, 10);
     const pivot = new THREE.Group(); scene.add(pivot);
     let R = 1, W = 2, H = 1;
@@ -78,6 +83,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       if (w === W && h === H) return;
       W = w; H = h; renderer.setSize(w, h, false);
       lineMats.forEach((m) => m.resolution.set(w, h));
+      fitBg(w, h);
       const a = w / h, hh = R * .58 * (a < 1 ? 1 / Math.max(a, .6) : 1);
       camera.top = hh; camera.bottom = -hh; camera.left = -hh * a; camera.right = hh * a;
       if (a >= 1) camera.setViewOffset(w, h, -w * .15, 0, w, h); else camera.clearViewOffset();

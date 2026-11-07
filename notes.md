@@ -249,10 +249,13 @@ White page, lots of air, one idea per screen (modelled on Abrasive, deliberately
 - **Product** was too busy: the dock with quantity stepper, header lines and noise overlay are gone. Now a calm right-hand panel (name, edition, sizes, price, Add to cart; quantity is a hidden input = 1), footage behind kept. After the story: **four more posters, each on its own white screen** (flip in on arrival), then "Hang it." on white, then the footer.
 - **Studio on phones** (`site.css`, max-width 700px): "Be unmistak-able." is 36vw, lifted off the bottom; "World on reach." is 27vw wrapping on three lines inside the margins.
 
-## Home (`index.html`, `assets/home.css`, `assets/home.js`) - rebuilt twice, Nov 2026
+## Home (`index.html`, `assets/home.css`, `assets/home.js`) - third take, Nov 2026
 
-Black, a statement not a shuffle. The first take (five stages, letters and words flipping again and again, a lab copy) was rejected: **do not repeat letter flips or word flips on the home**. Old versions: `work/archive/index.v1.html` (original) and git history.
-1. **Statement** (640svh): the hero film behind giant AID; AID drifts up and leaves; three hollow lines (*Athletes. Outdoors. Risk-takers.*) are claimed one by one (outline fills to solid) while the backdrop changes film > outdoor film > still (WHYDG). Only one film plays at a time; the film button is there until AID leaves.
-2. **Fly-through** (760svh): the camera flies forward through posters and frames in 3D depth (transforms only) and ends inside a huge *Go first.*, then fades to black.
-3. **Close**: *Your move.* rises out of a mask over a dim frame; Shop / Watch Abrasive buttons, quiet Studio link.
-- The images and videos are placeholders (the owner is replacing them); the hero film and several frames are third-party NBA footage and must be replaced before publishing.
+The owner wants **a statement, rough and punchy: one quality of AID, one film, no piles of images/videos, no repeated effects, no letter flips.** Earlier takes (flip stages, claimed lines, 3D fly-through) were rejected; see git history.
+- **One pinned statement (520svh):** the hero film with AID bleeding off the bottom-left corner > hard cut **NOT** (white, film nearly black) > hard cut **SAFE.** (black on a full red slab) > hard cut **ON PURPOSE.** (film back). Every cut slams, flashes white and shakes the stage; inside a beat the word slowly pushes in with the scroll (a transform on the word only, never on the film).
+- **Doors:** three hard-ruled rows (Posters, Abrasive, Studio); hover inverts. No images.
+- **Software developer partner:** hollow EVRABO link with "AID designs it. EVRABO builds it." The footer line now reads "Software developer partner: EVRABO" on every page.
+- Hero film is third-party NBA footage: replace before publishing.
+
+## Studio, Add spice
+The helmet scene's background is now `assets/snow_hor.jpg` (cover-fitted, set in `helmet.js`), under the fog shader.
