@@ -634,3 +634,11 @@ html.lite .noise{display:none}
 html.lite .nav,html.lite .cursor,html.lite .cursor-f{mix-blend-mode:normal}
 html.lite .as-st::before{display:none}
 html.lite .card img,html.lite .tile img{filter:none}
+
+/* studio on phones: the hero phrase and "World on reach." fill the width instead of shrinking to the bottom */
+@media(max-width:700px){
+ .st-h1{bottom:20svh;font-size:36vw;line-height:.9}
+ .st-h1 span:last-child{font-size:.62em;padding-left:.04em;hyphens:manual}
+ .st-ids{bottom:auto;top:5.6rem}
+ .st-line{right:var(--pad);bottom:16svh;font-size:27vw;line-height:.86}
+}

@@ -33,6 +33,10 @@
     dim.style.opacity=(mix(mix(1,.3,io(T(p,.28,.42))),.75,io(T(p,.62,.76)))).toFixed(3);
   };
 
+  /* more posters: each flips in as it arrives */
+  var mio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');mio.unobserve(e.target)}})},{threshold:.35});
+  $$('.px-mp').forEach(function(el){mio.observe(el)});
+
   /* the close: letters flip in when it arrives; "Back to the poster" scrolls up */
   new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)flip.classList.add('in')})},{threshold:.4}).observe(flip);
   var top=$('[data-top]');

@@ -1,6 +1,6 @@
 /* Shop: a gallery wall you walk along (see shop.css).
    1) Pick of the week: the poster arrives alone (flip-in as the page transition lifts), then slides aside while the buy panel comes in.
-   2) The wall: a deck of every poster; the top print is tossed up and away (3D fold) and the next rises; the collection word flips when the chapter changes; chapters at the bottom jump.
+   2) The wall: every poster gets its own screen: it flips in big, holds, leaves, sides alternate; the collection word flips when the chapter changes; chapters at the bottom jump.
    3) The drop list: its heading flips in.
    Progress is eased once per frame; every layout read happens before the writes. site.js owns the pick's price and add to cart. */
 (function(){
@@ -43,7 +43,7 @@
     if(i===on)return;on=i;var c=cards[i];
     cn.textContent=c.dataset.n;cpz.textContent=c.dataset.p;cv.href=c.getAttribute('href');
     cnt.textContent=(i<9?'0':'')+(i+1);
-    cap.classList.remove('pop');void cap.offsetWidth;cap.classList.add('pop');
+    cap.classList.toggle('r',i%2===0);cap.classList.remove('pop');void cap.offsetWidth;cap.classList.add('pop');
     cards.forEach(function(el,j){el.style.pointerEvents=j===i?'auto':'none';el.tabIndex=j===i?0:-1});
     var k=0;chIdx.forEach(function(s,j){if(i>=s)k=j});
     if(k!==chOn){chOn=k;
@@ -52,21 +52,16 @@
     }
   };
   var drawWall=function(p){
-    var f=p*(N-1),mob=innerWidth<=900,vh=innerHeight;
+    var u=p*(N-1),mob=innerWidth<=900,vh=innerHeight,vw=innerWidth;
     cards.forEach(function(el,i){
-      var r=i-f,t,o,ty,s,rx=0,rz=0,tx=0;
-      if(r<0){ /* tossed: lifts up, folds back, drifts sideways */
-        t=cl(-r);var e=inn(t);
-        ty=-e*vh*.9;rx=-e*80;rz=(i%2?1:-1)*e*9;tx=(i%2?1:-1)*e*innerWidth*.12;s=1;o=1-T(t,.55,1);
-      }else{ /* waiting behind the top print */
-        var d=Math.min(r,3);
-        s=1-.06*d;ty=d*vh*.018;o=1-T(r,2.2,3.2);
-        if(r<1)s=1-.06*io(r);
-      }
-      el.style.transform='translate(-50%,-50%) translate3d('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px,'+(-Math.min(Math.max(r,0),3)*60).toFixed(1)+'px) rotateX('+rx.toFixed(2)+'deg) rotateZ('+rz.toFixed(2)+'deg) scale('+s.toFixed(4)+')';
+      var d=u-i,sg=i%2?1:-1,e=io(T(d,-.5,-.2)),x=io(T(d,.2,.5)),o=cl(e*1.6)*(1-cl(x*1.6)),ty=0,rx=0,s=1;
+      if(d<0){var q=1-e;ty=-sg*q*vh*.45;rx=sg*q*75;s=1-.12*q}
+      else{ty=-sg*x*vh*.45;rx=-sg*x*75;s=1-.12*x}
+      var tx=mob?0:sg*vw*.17;
+      el.style.transform='translate(-50%,-50%) translate3d('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px,0) rotateX('+rx.toFixed(2)+'deg) scale('+s.toFixed(4)+')';
       el.style.opacity=o.toFixed(3);sv(el,o>.01);
     });
-    setTop(Math.min(N-1,Math.round(f)));
+    setTop(Math.min(N-1,Math.round(u)));
   };
 
   /* the drop list heading flips in */
