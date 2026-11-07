@@ -71,7 +71,8 @@
       var ready=function(){
         var go=function(){requestAnimationFrame(function(){requestAnimationFrame(function(){setTimeout(lift,60)})})};
         var vids=[].slice.call(document.querySelectorAll('video[data-pt-wait]')).map(function(v){return new Promise(function(res){if(v.readyState>=2)return res();v.addEventListener('loadeddata',res,{once:true});setTimeout(res,1600)})});
-        Promise.all([document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()].concat(vids)).then(go);
+        var imgs=[].slice.call(document.querySelectorAll('img[data-pt-wait]')).map(function(im){return new Promise(function(res){var d=function(){(im.decode?im.decode():Promise.resolve()).then(res,res)};if(im.complete)d();else{im.addEventListener('load',d,{once:true});im.addEventListener('error',res,{once:true})}setTimeout(res,2200)})});
+        Promise.all([document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()].concat(vids,imgs)).then(go);
       };
       if(document.readyState==='complete')ready();else addEventListener('load',ready);
       setTimeout(lift,2600);

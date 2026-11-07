@@ -281,3 +281,5 @@ Assumption: "keep the helmet 3d, reimagine its structure" was read as the Studio
 - Unreferenced images moved to work/unused-assets (2.1 MB); not to be uploaded to Shopify.
 - Studio zoom image is rally.webp (1200 px wide: it is upscaled on large screens; supply a >=1920 px version for a sharper full-bleed).
 - Visor: red faceted crystal shader (one ShaderMaterial + three additive halo shells), no transmission/bloom pass.
+- Loading gate: images the Studio page needs (ring posters, phone screens, zoom image, helmet poster) are eager + `data-pt-wait`; site.js now makes the page curtain wait for `img[data-pt-wait]` to be decoded (max 2.2 s). The helmet starts loading at idle just after the page settles instead of near the stage.
+- BK_passage.jpg stays on the home page (Studio badge); rally.webp is only the Studio hero image.
