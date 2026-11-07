@@ -84,7 +84,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       W = w; H = h; renderer.setSize(w, h, false);
       lineMats.forEach((m) => m.resolution.set(w, h));
       fitBg(w, h);
-      const a = w / h, hh = R * .58 * (a < 1 ? 1 / Math.max(a, .6) : 1);
+      const a = w / h, hh = R * .58 * (a < 1 ? 1 / Math.max(a, .3) : 1);
       camera.top = hh; camera.bottom = -hh; camera.left = -hh * a; camera.right = hh * a;
       if (a >= 1) camera.setViewOffset(w, h, -w * .15, 0, w, h); else camera.clearViewOffset();
       camera.updateProjectionMatrix();
