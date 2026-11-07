@@ -24,21 +24,12 @@
   };
   new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)vid.play().catch(function(){});else vid.pause()})},{threshold:0}).observe($('.hp-st',H));
 
-  /* be one of one: words drift apart, the mark turns and we fall into its hub */
-  var I=$('.hp-i'),wa=$('.hp-iw.a',I),wb=$('.hp-iw.b',I),disc=$('.hp-disc',I),blk=$('.hp-black',I),dW=0,hx=0,hy=0,smax=40;
-  var measureI=function(){
-    disc.style.transform='none';
-    dW=disc.offsetWidth;var dH=disc.offsetHeight;
-    hx=(.612-.5)*dW;hy=(.40-.5)*dH;
-    smax=1.08*Math.hypot(innerWidth,innerHeight)/2/(.1123*dW);
-  };
+  /* be one of one: the rows slide in opposite directions, the coin turns a full revolution */
+  var I=$('.hp-i'),rws=$$('.hp-rw',I),coin=$('.hp-coin',I);
   var drawI=function(p){
-    var a=out(T(p,.06,.5));
-    wa.style.transform='translate3d('+(-45*a).toFixed(2)+'vw,'+(-30*a).toFixed(2)+'vh,0)';
-    wb.style.transform='translate3d('+(40*a).toFixed(2)+'vw,'+(25*a).toFixed(2)+'vh,0)';
-    var e=io(T(p,.4,.93)),s=Math.exp(Math.log(smax)*e),rot=-30+120*p;
-    disc.style.transform='translate3d('+(-hx*e).toFixed(1)+'px,'+(-hy*e).toFixed(1)+'px,0) rotate('+rot.toFixed(2)+'deg) scale('+s.toFixed(4)+')';
-    blk.style.opacity=T(p,.88,.98).toFixed(3);
+    var e=io(T(p,.02,.98));
+    rws.forEach(function(r,i){var d=i===1?1:-1,x=d>0?(-50+50*e):(-50*e);r.style.transform='translate3d('+x.toFixed(2)+'%,0,0)'});
+    coin.style.transform='rotateZ(-10deg) rotateY('+(e*360+20).toFixed(2)+'deg) rotateX('+(8*Math.sin(e*6.283)).toFixed(2)+'deg)';
   };
 
   /* bold: the frame grows to full-bleed, then BOLD slams in front */
@@ -53,14 +44,18 @@
     var co=T(p,.78,.9);cap.style.opacity=co;acts.style.opacity=co;sv(cap,co>0);sv(acts,co>0);
   };
 
-  /* evrabo: the word slides left while the section passes */
-  var E=$('.hp-ev'),mq=$('.hp-mq',E),mw=0;
-  var measureE=function(){mq.style.transform='none';mw=Math.max(0,mq.scrollWidth-innerWidth)};
-  var drawE=function(){var p=pass(E);mq.style.transform='translate3d('+(-mw*p).toFixed(1)+'px,0,0)'};
+  /* evrabo: the line between AID and EVRABO draws, the names settle in */
+  var E=$('.hp-ev'),ln=$('.hp-ln',E),eb=$('.hp-evr b',E),en=$('.hp-evn',E);
+  var drawE=function(){
+    var p=pass(E),g=out(T(p,.34,.6)),n=out(T(p,.28,.5));
+    ln.style.transform='scaleX('+g.toFixed(4)+')';
+    eb.style.opacity=n;eb.style.transform='translate3d('+((1-n)*-6).toFixed(2)+'vw,0,0)';
+    en.style.opacity=n;en.style.transform='translate3d('+((1-n)*6).toFixed(2)+'vw,0,0)';
+  };
 
-  /* studio: the image drifts, the word rises */
-  var D=$('.hp-sd'),di=$('.hp-sdi',D),dw=$('.hp-sdw',D);
-  var drawD=function(){var p=pass(D);di.style.transform='translate3d(0,'+((p-.5)*-14).toFixed(2)+'%,0)';dw.style.transform='translate3d(0,'+((1-out(T(p,.3,.62)))*110).toFixed(1)+'%,0)'};
+  /* studio: the image drifts, the badge turns */
+  var D=$('.hp-sd'),di=$('.hp-sdi',D),bg=$('.hp-badge svg',D);
+  var drawD=function(){var p=pass(D);di.style.transform='translate3d(0,'+((p-.5)*-12).toFixed(2)+'%,0)';bg.style.transform='rotate('+(p*540).toFixed(1)+'deg)'};
 
   var tick=false,sm={h:0,i:0,b:0},first=true,tLast=0,K=1,need=false;
   var ease=function(key,el,visible){
@@ -78,8 +73,8 @@
   };
   var req=function(){if(!tick){tick=true;requestAnimationFrame(draw)}};
   addEventListener('scroll',req,{passive:true});
-  addEventListener('resize',function(){measureI();measureE();first=true;req()});
-  var init=function(){measureI();measureE();first=true;draw()};
+  addEventListener('resize',function(){first=true;req()});
+  var init=function(){first=true;draw()};
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(init);
   init();
 })();

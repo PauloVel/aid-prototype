@@ -253,10 +253,10 @@ White page, lots of air, one idea per screen (modelled on Abrasive, deliberately
 
 The story is told by what is shown; words only accompany it (no word-by-word statements). Order: hero > identity > Bold > EVRABO > Studio > footer. Each beat uses a different mechanism.
 - **Hero** (200svh, approved by the owner): the film behind AID bleeding off the bottom-left; scrolling sinks AID and fades the film to black.
-- **Be one of one.** (white stage, 460svh): "Be" and "one of one." drift apart (like Studio's "Be unmistakable"), `OnIdentity.png` (black disc, opaque white veins, transparent outside) turns and we fall into its hub; the veins are tinted red by a luminance-masked red layer (`.rd`, needs mask-mode: luminance, Chrome 120+/Safari 15.4+; without it the veins stay white). Ends in black.
+- **Be one of one.** (black stage, 380svh): three rows of ONE OF ONE (outline / solid / outline) slide in opposite directions behind a coin, the identity mark (`OnIdentity.png` used as a mask: off-white disc + a luminance-masked red layer for the veins), which makes one full turn in 3D with the scroll. Needs `mask-mode: luminance` (Chrome 120+/Safari 15.4+). The earlier white version with the fall into the hub was rejected.
 - **Bold** (420svh): a small frame of the image grows to full-bleed (transform + counter-scaled image), BOLD sits behind it, then slams in front; a caption and the Shop / Watch Abrasive buttons arrive at the end. **The image is a placeholder (`FEWOFUS1.webp`): swap the `src` in `.hp-fi`.**
-- **EVRABO**: "Software developer partner", a huge outlined EVRABO row that slides sideways as the section passes, "AID designs it. EVRABO builds it.", Visit button.
-- **Studio**: `BK_passage.jpg` drifts (parallax), the word STUDIO rises, Enter the studio button.
+- **EVRABO**: calm lockup, "Software developer partner" label, AID ---- EVRABO with a red line that draws as the section passes; EVRABO is the link (evrabo.com). The sliding outlined word was rejected.
+- **Studio**: full-bleed `BK_passage.jpg` drifting, one round "Enter" badge with rotating "AID STUDIO" text (turns with the scroll). A giant word was rejected here: it repeated the footer's giant AID.
 - Hero film is third-party NBA footage: replace before publishing.
 
 ## Studio, Add spice
