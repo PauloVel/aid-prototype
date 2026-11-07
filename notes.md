@@ -270,3 +270,14 @@ Kept: the 3D helmet (`helmet.js`, model, snow background). Everything else was r
 3. **Interface** (420svh): a phone turns in 3D while its screen (a small replica of the shop product page) scrolls with the page.
 4. **Product** (460svh): the helmet is drawn straight into the page (no fog shader), turns with the scroll and can be dragged; "Add spice." slams up at the end. Fallback: the WHYDG poster if three.js cannot load.
 Assumption: "keep the helmet 3d, reimagine its structure" was read as the Studio page (the only page with the helmet).
+
+## Efficiency pass (Shopify-oriented)
+- Helmet model slimmed offline: hidden sponsor meshes, unused textures/normals/UVs removed, meshopt re-encoded: 1.94 MB -> 0.69 MB.
+- three.js: unminified 1.3 MB build replaced by the r170 minified build (0.69 MB). On Shopify load it from the CDN or as a theme asset; the importmap in design.html is the only place to change.
+- The helmet (three.js + model, ~1.4 MB) loads only when the helmet stage is ~2.5 screens away (studio.js), not on page load. Poster fallback until then.
+- Snow background darkened offline (assets/snow_dark.jpg, 50 KB); the runtime canvas/LUT pass is gone.
+- Videos: home/lab background uses hero_bg.mp4 (H.264, 720p, 24 fps, no audio, 2.2 MB, was 4.5 MB HEVC); outdoor_video.mp4 re-encoded 1.3 MB -> 0.45 MB. film.html keeps the original hero.mp4 (has sound, HEVC: re-encode to H.264 if Firefox support matters).
+- Dead code removed: the old Studio `.as-story` block in site.js (-11 KB) and its CSS in site.css.
+- Unreferenced images moved to work/unused-assets (2.1 MB); not to be uploaded to Shopify.
+- Studio zoom image is rally.webp (1200 px wide: it is upscaled on large screens; supply a >=1920 px version for a sharper full-bleed).
+- Visor: red faceted crystal shader (one ShaderMaterial + three additive halo shells), no transmission/bloom pass.

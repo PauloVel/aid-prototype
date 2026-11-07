@@ -1,5 +1,5 @@
 /* AID Studio: the helmet, drawn as lines. Orthographic camera for a flat 2D-drawing look; the shell is
-   filled flat white with black contour lines, the visor is glossy red, and a slightly inflated back-face
+   filled flat white with black contour lines, the visor is a glowing red crystal, and a slightly inflated back-face
    hull rings the shell with a black contour. The model leans a touch off-axis; it turns by dragging. */
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -22,15 +22,9 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const IA = 992 / 808; let bgTex = null;
     const fitBg = (w, h) => { if (!bgTex) return; const a = w / h;
       if (a > IA) { bgTex.repeat.set(1, IA / a); bgTex.offset.set(0, (1 - IA / a) / 2); } else { bgTex.repeat.set(a / IA, 1); bgTex.offset.set((1 - a / IA) / 2, 0); } };
-    new THREE.TextureLoader().load('assets/snow_hor.jpg', (t0) => {
-      /* darker and harder: a gamma curve baked into a canvas copy so the helmet stands out against it */
-      const im = t0.image, cv = document.createElement('canvas'); cv.width = im.width; cv.height = im.height;
-      const cx = cv.getContext('2d'); cx.drawImage(im, 0, 0);
-      try { const d = cx.getImageData(0, 0, cv.width, cv.height), a = d.data, lut = new Uint8ClampedArray(256);
-        for (let i = 0; i < 256; i++) { const v = i / 255; lut[i] = Math.round(255 * Math.pow(v, 1.9) * 0.78); }
-        for (let i = 0; i < a.length; i += 4) { a[i] = lut[a[i]]; a[i + 1] = lut[a[i + 1]]; a[i + 2] = lut[a[i + 2]]; }
-        cx.putImageData(d, 0, 0); } catch (e) {}
-      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
+    /* already darkened and contrast-boosted offline (snow_dark.jpg), so nothing is processed in the browser */
+    new THREE.TextureLoader().load('assets/snow_dark.jpg', (t) => {
+      t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
       bgTex = t; scene.background = t; fitBg(renderer.domElement.width, renderer.domElement.height); });
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.01, 10);
     const pivot = new THREE.Group(); scene.add(pivot);
@@ -45,8 +39,33 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const halo = new LineMaterial({ color: 0xf4f4f0, linewidth: 7, depthWrite: false });
     const lineMats = [ink, halo];
     const rim = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.FrontSide });
-    /* The visor is the one glossy piece: deep red with a tight specular streak from two lights that only it can see. */
-    const visorMat = new THREE.MeshPhongMaterial({ color: 0xab0900, specular: 0xffffff, shininess: 90, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1 });
+    /* The visor is a glowing red crystal: faceted normals, a hot core that cools towards the edge, bright facet glints,
+       and three additive shells that bloom a red halo around it. One tiny shader, no extra render passes. */
+    const visorMat = new THREE.ShaderMaterial({
+      uniforms: { uT: { value: 0 } }, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1,
+      vertexShader: 'varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+      fragmentShader: `varying vec3 vN; uniform float uT;
+        void main(){
+          vec3 N = normalize(vN); if(!gl_FrontFacing) N = -N;
+          vec3 q = floor(N * 2.2 + 0.5);
+          vec3 F = normalize(mix(N, q / 2.2, 0.97) + 1e-4);
+          float h = fract(sin(dot(q, vec3(12.9898, 78.233, 37.719))) * 43758.5453);
+          float fr = pow(1.0 - abs(F.z), 1.6);
+          vec3 deep = vec3(0.16, 0.0, 0.015), hot = vec3(1.0, 0.06, 0.04);
+          vec3 c = mix(hot * 1.15, deep, smoothstep(0.0, 0.85, fr));
+          c *= 0.45 + 1.0 * h;
+          c += vec3(1.0, 0.25, 0.15) * 0.9 * pow(fr, 2.2) * (0.5 + h);
+          vec3 L1 = normalize(vec3(0.55, 0.75, 0.9)), L2 = normalize(vec3(-0.7, -0.2, 0.7));
+          float s1 = pow(max(dot(reflect(-L1, F), vec3(0.0, 0.0, 1.0)), 0.0), 38.0);
+          float s2 = pow(max(dot(reflect(-L2, F), vec3(0.0, 0.0, 1.0)), 0.0), 60.0);
+          c += vec3(1.0, 0.82, 0.78) * (s1 * 1.6 + s2 * 0.9);
+          c *= 0.94 + 0.06 * sin(uT * 2.4);
+          gl_FragColor = vec4(c, 1.0);
+        }` });
+    const haloMats = [[0.04, 0.5], [0.09, 0.22], [0.16, 0.1]].map(([g, a]) => new THREE.ShaderMaterial({
+      uniforms: { uG: { value: 0 }, uA: { value: a }, uK: { value: g } }, side: THREE.BackSide, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+      vertexShader: 'uniform float uG; varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position + normal * uG, 1.0); }',
+      fragmentShader: 'uniform float uA; varying vec3 vN; void main(){ gl_FragColor = vec4(1.0, 0.07, 0.04, 1.0) * uA * (0.55 + 0.45 * abs(vN.z)); }' }));
     const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(1.5, 1.8, 2.5); scene.add(key);
     const kicker = new THREE.DirectionalLight(0xffffff, 0.8); kicker.position.set(-2, -1, 1.5); scene.add(kicker);
     scene.add(new THREE.AmbientLight(0xffffff, 0.55));
@@ -65,6 +84,9 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
         const eg = new LineSegmentsGeometry().fromEdgesGeometry(new THREE.EdgesGeometry(o.geometry, 24));
         const lb = new LineSegments2(eg, halo); lb.renderOrder = 1; o.add(lb);
         const lw = new LineSegments2(eg, ink); lw.renderOrder = 2; o.add(lw);
+        if (n === VISOR) {
+          haloMats.forEach((hm) => { const hmesh = new THREE.Mesh(o.geometry, hm); hmesh.renderOrder = 3; o.add(hmesh); });
+        }
         if (n === SHELL) {
           const sb = new THREE.Mesh(o.geometry, rim);
           sb.scale.setScalar(1.034);
@@ -78,6 +100,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const center = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
       model.position.sub(center);
       R = Math.max(size.x, size.y, size.z);
+      haloMats.forEach((hm) => { hm.uniforms.uG.value = R * hm.uniforms.uK.value; });
       camera.near = R / 100; camera.far = R * 50;
       camera.position.set(R * .7, R * .22, R * 1.95); camera.lookAt(0, 0, 0);
       W = H = 0;
@@ -100,6 +123,7 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     };
     api.render = (rot) => {
       if (!api.ready) return;
+      visorMat.uniforms.uT.value = performance.now() / 1000;
       pivot.rotation.set(0, rot, -.16);
       renderer.render(scene, camera);
     };

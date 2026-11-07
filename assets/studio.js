@@ -14,7 +14,7 @@
   /* 1. be unmistakable: identical tiles, the one that is you grows to fill the screen */
   var gw=$('.sx-gw',Hh),full=$('.sx-full',Hh),h1=$('.sx-h1',Hh),cue=$('.sx-cue',Hh),fade=$('.sx-fade',Hh),dimH=$('.sx-hdim',Hh);
   var grid=document.createElement('div');grid.className='sx-g';
-  for(var gi=0;gi<63;gi++){var t=document.createElement('div');t.className='sx-t';if(gi===31){t.className+=' me';t.style.backgroundImage='url(assets/BK_passage.jpg)'}grid.appendChild(t)}
+  for(var gi=0;gi<63;gi++){var t=document.createElement('div');t.className='sx-t';if(gi===31){t.className+=' me';t.style.backgroundImage='url(assets/rally.webp)'}grid.appendChild(t)}
   gw.appendChild(grid);var me=grid.children[31];
   var drawH=function(p){
     var mob=innerWidth<=700,S=100/(mob?22:16),e=io(T(p,.06,.74)),s=Math.exp(Math.log(S)*e);
@@ -59,6 +59,9 @@
     HM=m;hv.insertBefore(m.canvas,hv.firstChild);hv.classList.add('on');sizeKey='';startLoop();
   };
   addEventListener('aidhelmet',attach);
+  /* three.js + the model (about 1.3 MB) are only fetched when the helmet stage is a couple of screens away */
+  var loadHelmet=function(){var s=document.createElement('script');s.type='module';s.src='assets/helmet.js';document.head.appendChild(s)};
+  if('IntersectionObserver' in window){var io2=new IntersectionObserver(function(es){if(es.some(function(e){return e.isIntersecting})){io2.disconnect();loadHelmet()}},{rootMargin:'250% 0px'});io2.observe(P)}else loadHelmet();
   var fit=function(){
     if(!HM)return;var d=Math.min(devicePixelRatio||1,root.classList.contains('lite')?1:1.25),w=Math.round(hv.clientWidth*d),h=Math.round(hv.clientHeight*d),k=w+'x'+h;
     if(k!==sizeKey){sizeKey=k;HM.setSize(w,h)}

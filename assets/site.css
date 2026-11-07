@@ -570,33 +570,6 @@ legend{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--
 @media(max-width:800px){.sd-stage{grid-template-columns:1fr}.sd-obj{border-right:0}}
 @media(prefers-reduced-motion:reduce){.sd-obj svg,.sd-contact h2{transition:none}}
 
-/* studio: one continuous shot */
-.as-story{height:820vh;position:relative}
-.as-st{position:sticky;top:0;height:100svh;overflow:hidden;background:#000;isolation:isolate}
-.as-st>*{position:absolute}
-.st-hero{inset:-6% 0;width:100%;height:112%;object-fit:cover;z-index:1;will-change:transform}
-.as-st::before{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0) 60%);pointer-events:none}
-.st-h1{z-index:3;left:var(--pad);right:var(--pad);bottom:clamp(2.5rem,7vw,6rem);display:flex;flex-direction:column;font-size:clamp(6rem,25vw,28rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em;will-change:transform,opacity}
-.st-h1 span{display:block;will-change:transform}
-.st-h1 span:last-child{font-size:.5em;padding-left:.1em}
-.st-ids{z-index:3;right:var(--pad);bottom:42vh;display:grid;grid-template-columns:repeat(2,auto);justify-content:end;gap:.35em .3em;font-family:'Anton',sans-serif;font-size:clamp(1rem,2.4vw,2.2rem);letter-spacing:.12em;line-height:1;color:#fff;will-change:transform,opacity}
-.st-ids b{font-weight:400}
-.st-ids b:last-child{grid-column:2;justify-self:end}
-.st-film{inset:0;z-index:4;opacity:0;visibility:hidden;overflow:hidden;border-radius:1.2rem;transform:scale(.28);transform-origin:50% 50%;will-change:transform,opacity}
-.st-in{position:absolute;inset:0;transform:scale(3.5714);transform-origin:50% 50%}
-.st-film video{width:100%;height:100%;object-fit:cover;display:block}
-.st-in::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,0) 55%)}
-.st-line{z-index:5;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(5rem,17vw,20rem);line-height:.85;letter-spacing:-.02em;color:#fff;opacity:0;will-change:transform,opacity}
-.st-poster{inset:0;width:100%;height:100%;object-fit:cover;z-index:6;opacity:0;will-change:transform}
-.st-cv{inset:0;width:100%;height:100%;z-index:7;opacity:0;pointer-events:none}
-.as-story.gl .st-poster{width:1px;height:1px}
-.st-h2{z-index:8;left:var(--pad);bottom:clamp(2.5rem,6vw,5rem);font-size:clamp(6rem,22vw,26rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em;opacity:0;will-change:transform,opacity}
-.as-story{touch-action:pan-y}
-.as-story.live{cursor:grab;-webkit-user-select:none;user-select:none;touch-action:pan-y}.as-story.grab{cursor:grabbing}
-.as-story.rm{height:auto}.as-story.rm .as-st{position:relative;height:auto;display:grid}
-.as-story.rm .as-st>*{position:relative;grid-area:1/1}
-.as-story.rm .st-film,.as-story.rm .st-line,.as-story.rm .st-cv,.as-story.rm .st-poster{display:none}
-.as-story.rm .st-h2{display:none}
 
 
 /* page transition. Before JS runs, html.pt-in paints a static black cover (set by the inline head script) so the new page never flashes.
@@ -635,10 +608,3 @@ html.lite .nav,html.lite .cursor,html.lite .cursor-f{mix-blend-mode:normal}
 html.lite .as-st::before{display:none}
 html.lite .card img,html.lite .tile img{filter:none}
 
-/* studio on phones: the hero phrase and "World on reach." fill the width instead of shrinking to the bottom */
-@media(max-width:700px){
- .st-h1{bottom:20svh;font-size:36vw;line-height:.9}
- .st-h1 span:last-child{font-size:.62em;padding-left:.04em;hyphens:manual}
- .st-ids{bottom:auto;top:5.6rem}
- .st-line{right:var(--pad);bottom:16svh;font-size:27vw;line-height:.86}
-}
