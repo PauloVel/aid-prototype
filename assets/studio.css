@@ -8,20 +8,34 @@ body.studio .noise{opacity:.05;animation:none}
 .sx-js .sx-hero{height:300svh}.sx-js .sx-camp{height:340svh}.sx-js .sx-ui{height:420svh}.sx-js .sx-prod{height:460svh}
 .sx-k{position:absolute;z-index:5;left:var(--pad);top:6rem;margin:0;color:var(--fg)}
 
-/* 1 */
-.sx-himg{position:absolute;inset:-6% 0;width:100%;height:112%;object-fit:cover;will-change:transform,opacity}
+/* 1: a field of identical tiles; the one that is you grows until it is the whole screen */
+.sx-gw{position:absolute;inset:0;overflow:hidden;background:#050505}
+.sx-g{position:absolute;left:50%;top:50%;display:grid;gap:2vh 2vw;grid-template-columns:repeat(9,16vw);grid-template-rows:repeat(7,16vh);transform:translate(-50%,-50%);transform-origin:50% 50%}
+.sx-t{background:#151515;box-shadow:inset 0 0 0 1px rgba(240,240,240,.07)}
+.sx-t.me{position:relative;background:#000 center/cover no-repeat;box-shadow:0 0 0 2px #ff1e1e}
+.sx-full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.sx-js .sx-full{opacity:0}
 .sx-hdim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,0) 60%);pointer-events:none}
+.sx-fade{position:absolute;inset:0;z-index:4;background:#000;opacity:0;pointer-events:none}
 .sx-h1{position:absolute;z-index:3;left:var(--pad);right:var(--pad);bottom:clamp(2.5rem,7vw,6rem);display:flex;flex-direction:column;font-size:clamp(6rem,25vw,28rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase}
-.sx-h1 span{display:block;will-change:transform}
+.sx-h1 span{display:block}
 .sx-h1 span:last-child{font-size:.5em;padding-left:.1em}
 .sx-cue{position:absolute;z-index:3;left:var(--pad);top:6rem;font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#d0d0d0;margin:0}
+.sx-js .sx-hdim{opacity:0}
 
-/* 2: the fan */
-.sx-fan{position:absolute;inset:0;display:grid;place-items:end center;padding-bottom:12svh;perspective:1400px}
-.sx-c{grid-area:1/1;width:min(30vw,19rem);height:auto;display:block;transform-origin:50% 130%;box-shadow:0 30px 60px -25px rgba(0,0,0,.95);will-change:transform;background:#111}
+/* 2: a ring of posters, the page turns it */
+.sx-ring{position:absolute;inset:0;perspective:1900px;perspective-origin:50% 42%}
+.sx-rot{position:absolute;left:50%;top:44%;width:0;height:0;transform-style:preserve-3d;will-change:transform}
+.sx-c{position:absolute;left:calc(var(--cw)/-2);top:0;width:var(--cw);max-width:none;height:auto;display:block;backface-visibility:hidden;box-shadow:0 30px 60px -25px rgba(0,0,0,.95);background:#111;translate:0 -50%;will-change:transform,opacity}
+.sx-ring{--cw:min(25vw,20rem)}
+.sx-cc{position:absolute;z-index:5;left:0;right:0;bottom:2.4rem;margin:0;text-align:center;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.sx-cc b{font-family:'Anton',sans-serif;font-weight:400;font-size:1.6rem;letter-spacing:.04em;color:#fff}
+.sx-cc span{margin-left:1.2rem;color:#fff}
 html:not(.sx-js) .sx-camp .sx-st,html:not(.sx-js) .sx-ui .sx-st{height:auto;min-height:100svh;padding:8rem 0 3rem}
-html:not(.sx-js) .sx-fan{position:static;display:flex;gap:1rem;overflow-x:auto;padding:0 var(--pad)}
-html:not(.sx-js) .sx-c{width:40vw;max-width:14rem}
+html:not(.sx-js) .sx-ring{position:static;perspective:none}
+html:not(.sx-js) .sx-rot{position:static;display:flex;gap:1rem;overflow-x:auto;padding:0 var(--pad);width:auto;height:auto}
+html:not(.sx-js) .sx-c{position:static;translate:none;width:40vw;max-width:14rem;flex:none}
+html:not(.sx-js) .sx-cc{display:none}
 
 /* 3: the phone */
 .sx-dw{position:absolute;inset:0;display:grid;place-items:center;perspective:1500px}
@@ -54,7 +68,8 @@ html:not(.sx-js) .sx-prod .sx-st{height:70svh}
 @media(max-width:700px){
  .sx-h1{bottom:20svh;font-size:36vw;line-height:.9}
  .sx-h1 span:last-child{font-size:.62em;padding-left:.04em}
- .sx-c{width:46vw}
+ .sx-g{grid-template-columns:repeat(9,22vw);grid-template-rows:repeat(7,22vh)}
+ .sx-ring{--cw:44vw}
  .sx-dev{width:62vw}
  .sx-spice{font-size:30vw;bottom:5svh}
 }

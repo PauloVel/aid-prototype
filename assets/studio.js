@@ -11,25 +11,36 @@
   var prog=function(el){var r=el.getBoundingClientRect(),tot=r.height-innerHeight;return tot>0?cl(-r.top/tot):0};
   var vis=function(el){var r=el.getBoundingClientRect();return r.bottom>-100&&r.top<innerHeight+100};
 
-  /* 1. be unmistakable */
-  var himg=$('.sx-himg',Hh),sp=$$('.sx-h1 span',Hh),h1=$('.sx-h1',Hh),cue=$('.sx-cue',Hh);
+  /* 1. be unmistakable: identical tiles, the one that is you grows to fill the screen */
+  var gw=$('.sx-gw',Hh),full=$('.sx-full',Hh),h1=$('.sx-h1',Hh),cue=$('.sx-cue',Hh),fade=$('.sx-fade',Hh),dimH=$('.sx-hdim',Hh);
+  var grid=document.createElement('div');grid.className='sx-g';
+  for(var gi=0;gi<63;gi++){var t=document.createElement('div');t.className='sx-t';if(gi===31){t.className+=' me';t.style.backgroundImage='url(assets/BK_passage.jpg)'}grid.appendChild(t)}
+  gw.appendChild(grid);var me=grid.children[31];
   var drawH=function(p){
-    var a=io(T(p,.1,.62));
-    himg.style.transform='scale('+(1+1.4*inn(T(p,.04,.6))).toFixed(4)+')';himg.style.opacity=(1-T(p,.48,.7)).toFixed(3);
-    sp[0].style.transform='translate3d('+(-45*a).toFixed(2)+'vw,'+(-30*a).toFixed(2)+'vh,0)';
-    sp[1].style.transform='translate3d('+(40*a).toFixed(2)+'vw,'+(25*a).toFixed(2)+'vh,0)';
-    h1.style.opacity=(1-T(p,.3,.5)).toFixed(3);cue.style.opacity=1-T(p,0,.08);
+    var mob=innerWidth<=700,S=100/(mob?22:16),e=io(T(p,.06,.74)),s=Math.exp(Math.log(S)*e);
+    me.style.boxShadow=p<.5?'0 0 0 2px rgba(255,30,30,'+(1-T(p,.3,.5)).toFixed(2)+')':'none';
+    grid.style.transform='translate(-50%,-50%) scale('+s.toFixed(4)+')';
+    full.style.opacity=io(T(p,.62,.78)).toFixed(3);
+    dimH.style.opacity=T(p,.5,.7).toFixed(3);
+    cue.style.opacity=1-T(p,0,.06);
+    fade.style.opacity=io(T(p,.88,1)).toFixed(3);
+    h1.style.opacity=(1-T(p,.86,.97)).toFixed(3);
   };
 
-  /* 2. campaigns: the posters fan out */
-  var C=$('.sx-camp'),cs=$$('.sx-c',C);
+  /* 2. campaigns: a ring of posters turns with the page */
+  var C=$('.sx-camp'),ring=$('.sx-rot',C),cs=$$('.sx-c',C),ccB=$('.sx-cc b',C),ccS=$('.sx-cc span',C),NC=cs.length,R=0,shown=-1,STEP=360/NC;
+  var measureC=function(){var w=cs[0].offsetWidth||200;R=w/2/Math.tan(Math.PI/NC)*1.25};
   var drawC=function(p){
-    var f=io(T(p,.06,.6)),mob=innerWidth<=700,sx=mob?15:11,k=io(T(p,.68,.95));
+    var e=io(T(p,.05,.95)),rot=-e*(NC-1)*STEP;
+    ring.style.transform='translate3d(0,0,'+(-R*.55).toFixed(1)+'px) rotateX(-5deg) rotateY('+rot.toFixed(2)+'deg)';
+    var near=0,best=-2;
     cs.forEach(function(el,i){
-      var c=i-2,mid=i===2;
-      var x=c*sx*f,y=Math.abs(c)*Math.abs(c)*1.3*f-(mid?k*4:0),r=c*12*f,z=mid?k*160:0;
-      el.style.transform='translate3d('+x.toFixed(2)+'vw,'+(y-f*2).toFixed(2)+'vh,'+z.toFixed(1)+'px) rotate('+r.toFixed(2)+'deg)';
+      var ang=(i*STEP+rot)*Math.PI/180,cz=Math.cos(ang),f=Math.max(0,cz);f=f*f*f;
+      el.style.transform='rotateY('+(i*STEP)+'deg) translateZ('+(R+150*f).toFixed(1)+'px)';
+      el.style.opacity=(.18+.82*f).toFixed(3);
+      if(cz>best){best=cz;near=i}
     });
+    if(near!==shown){shown=near;ccB.textContent='0'+(near+1);ccS.textContent=cs[near].dataset.n}
   };
 
   /* 3. interface: the phone turns, its screen scrolls with the page */
@@ -87,9 +98,9 @@
   };
   var req=function(){if(!tick){tick=true;requestAnimationFrame(draw)}};
   addEventListener('scroll',req,{passive:true});
-  addEventListener('resize',function(){measureU();sizeKey='';first=true;req()});
-  var init=function(){measureU();first=true;draw();attach()};
+  addEventListener('resize',function(){measureU();measureC();sizeKey='';first=true;req()});
+  var init=function(){measureU();measureC();first=true;draw();attach()};
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(init);
-  var imgs=$$('img',U);imgs.forEach(function(i){if(!i.complete)i.addEventListener('load',function(){measureU();req()})});
+  $$('img',U).concat($$('img',C)).forEach(function(i){if(!i.complete)i.addEventListener('load',function(){measureU();measureC();req()})});
   init();
 })();

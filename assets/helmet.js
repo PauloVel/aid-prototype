@@ -22,7 +22,16 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const IA = 992 / 808; let bgTex = null;
     const fitBg = (w, h) => { if (!bgTex) return; const a = w / h;
       if (a > IA) { bgTex.repeat.set(1, IA / a); bgTex.offset.set(0, (1 - IA / a) / 2); } else { bgTex.repeat.set(a / IA, 1); bgTex.offset.set((1 - a / IA) / 2, 0); } };
-    new THREE.TextureLoader().load('assets/snow_hor.jpg', (t) => { t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping; bgTex = t; scene.background = t; fitBg(renderer.domElement.width, renderer.domElement.height); });
+    new THREE.TextureLoader().load('assets/snow_hor.jpg', (t0) => {
+      /* darker and harder: a gamma curve baked into a canvas copy so the helmet stands out against it */
+      const im = t0.image, cv = document.createElement('canvas'); cv.width = im.width; cv.height = im.height;
+      const cx = cv.getContext('2d'); cx.drawImage(im, 0, 0);
+      try { const d = cx.getImageData(0, 0, cv.width, cv.height), a = d.data, lut = new Uint8ClampedArray(256);
+        for (let i = 0; i < 256; i++) { const v = i / 255; lut[i] = Math.round(255 * Math.pow(v, 1.9) * 0.78); }
+        for (let i = 0; i < a.length; i += 4) { a[i] = lut[a[i]]; a[i + 1] = lut[a[i + 1]]; a[i + 2] = lut[a[i + 2]]; }
+        cx.putImageData(d, 0, 0); } catch (e) {}
+      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
+      bgTex = t; scene.background = t; fitBg(renderer.domElement.width, renderer.domElement.height); });
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.01, 10);
     const pivot = new THREE.Group(); scene.add(pivot);
     let R = 1, W = 2, H = 1;

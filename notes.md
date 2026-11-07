@@ -260,13 +260,13 @@ The story is told by what is shown; words only accompany it (no word-by-word sta
 - Hero film is third-party NBA footage: replace before publishing.
 
 ## Studio, Add spice
-The helmet scene's background is now `assets/snow_hor.jpg` (cover-fitted, set in `helmet.js`), under the fog shader.
+The helmet scene's background is `assets/snow_hor.jpg` (cover-fitted, set in `helmet.js`), darkened with a gamma curve baked into a canvas copy (pow 1.9 x .78) so the helmet stands out.
 
 ## Studio, reimagined (`design.html`, `assets/studio.css`, `assets/studio.js`) - Nov 2026
 
 Kept: the 3D helmet (`helmet.js`, model, snow background). Everything else was rebuilt as four pinned stories on black, each with its own mechanism (the old one-continuous-shot with the fog shader and `.as-story` is no longer used; its code in site.js stays dormant and returns early). Contact form unchanged.
-1. **Be unmistakable** (300svh): the photo pushes in, the two words tear apart (eased), the shot falls to black.
-2. **Campaigns** (340svh): five posters fan out like a hand of cards; the centre one steps forward.
+1. **Be unmistakable** (300svh): a field of 63 identical dark tiles with one (red-ringed, the photo) that grows until it is the whole screen (a crisp full-bleed copy cross-fades in at the end), headline over it, then black. (The old push-in/tear-apart was replaced.)
+2. **Campaigns** (340svh): eight posters on a 3D ring that the page turns; the front one steps forward, caption with index and name. (The card fan was replaced.)
 3. **Interface** (420svh): a phone turns in 3D while its screen (a small replica of the shop product page) scrolls with the page.
 4. **Product** (460svh): the helmet is drawn straight into the page (no fog shader), turns with the scroll and can be dragged; "Add spice." slams up at the end. Fallback: the WHYDG poster if three.js cannot load.
 Assumption: "keep the helmet 3d, reimagine its structure" was read as the Studio page (the only page with the helmet).
