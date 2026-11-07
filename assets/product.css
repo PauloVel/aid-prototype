@@ -1,12 +1,11 @@
 /* Product: the poster first, then Add to cart. One pinned stage, three one-word beats (Look / Closer / Yours), and a dock that never leaves the screen.
-   Below it, the other posters are a gallery corridor you walk down (3D depth, driven by scroll).
+   The poster never changes size; the footage behind it brightens and dims. Below: a closing headline whose letters flip in.
    Performance rules (notes.md): transforms only, no blend modes, no CSS filters, no clip-path animation, eased progress, reads before writes. */
 body.prod .noise{animation:none}
 .pdpx{padding:0}
 .px-st{position:relative;height:100svh;overflow:hidden;background:#000}
 .px-js .px-st{position:sticky;top:0}
 .px-js .px-story{height:420svh}
-.px-js .px-cor{height:560svh}
 
 .px-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4;background:#000}
 .px-dim{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,rgba(5,5,5,.1),rgba(5,5,5,.86) 90%);pointer-events:none}
@@ -17,10 +16,10 @@ body.prod .noise{animation:none}
 /* the poster */
 .px-stage{position:absolute;inset:0;z-index:2;display:grid;place-items:center;padding:4rem 0 8.5rem;perspective:1300px}
 .px-intro{perspective:1300px}
-.px-js .px-intro{opacity:0;transform:rotateX(180deg) scale(.85)}
+.px-js .px-intro{opacity:0;transform:rotateX(180deg)}
 .px-go .px-intro{animation:pxIn 1s .15s cubic-bezier(.2,.8,.2,1) both}
-@keyframes pxIn{from{opacity:0;transform:rotateX(180deg) scale(.85)}to{opacity:1;transform:none}}
-.px-poster{will-change:transform}
+@keyframes pxIn{from{opacity:0;transform:rotateX(180deg)}to{opacity:1;transform:none}}
+.px-dim{will-change:opacity}
 .px-poster img{display:block;width:auto;height:auto;max-width:min(80vw,38rem);max-height:calc(100svh - 12.5rem);min-height:12rem;box-shadow:0 40px 80px -30px rgba(0,0,0,.95),0 0 0 1px rgba(240,240,240,.14)}
 
 /* one word per beat, bottom-left, flips in */
@@ -48,23 +47,16 @@ body.prod .noise{animation:none}
 .px-strip{padding:1.6rem var(--pad);border-top:1px solid var(--rule);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);text-align:center}
 .px-strip i{font-style:normal;color:var(--red);margin:0 1em}
 
-/* the corridor: other posters hang on two walls, scrolling walks you down the gallery */
-.px-cst{position:relative;height:100svh;overflow:hidden;background:var(--bg);perspective:1100px;perspective-origin:50% 42%}
-.px-js .px-cst{position:sticky;top:0}
-.px-cst::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 42%,rgba(240,240,240,.09),transparent 55%);pointer-events:none}
-.px-ch{position:absolute;z-index:3;left:var(--pad);top:6rem}
-.px-ch h2{font-size:clamp(1.8rem,3vw,2.6rem);margin-top:.5rem}
-.px-cw{position:absolute;inset:0;transform-style:preserve-3d}
-.px-cp{position:absolute;left:50%;top:46%;width:min(23vw,20rem);display:block;box-shadow:0 30px 60px -25px rgba(0,0,0,.95);will-change:transform,opacity;background:#111}
-.px-cp img{width:100%;height:auto;display:block}
-.px-cl{position:absolute;z-index:4;left:50%;bottom:2.8rem;transform:translateX(-50%);text-align:center;display:grid;gap:.4rem;opacity:0;visibility:hidden}
-.px-cl b{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(1.6rem,3vw,2.4rem);letter-spacing:.02em}
-.px-cl i{font-style:normal;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim)}
-.px-call{position:absolute;z-index:4;right:var(--pad);bottom:2.6rem;opacity:0;visibility:hidden}
-html:not(.px-js) .px-cst{height:auto;perspective:none;padding:3rem 0;overflow:visible}
-html:not(.px-js) .px-cw{position:static;display:flex;gap:1rem;overflow-x:auto;padding:0 var(--pad)}
-html:not(.px-js) .px-cp{position:relative;left:auto;top:auto;flex:none;width:16rem}
-html:not(.px-js) .px-ch,html:not(.px-js) .px-cl,html:not(.px-js) .px-call{position:static;opacity:1;visibility:visible;transform:none;padding:0 var(--pad) 1rem}
+/* the close: the headline's letters flip in when it arrives, then two quiet links */
+.px-end{min-height:100svh;display:grid;align-content:center;justify-items:start;gap:3rem;padding:8rem var(--pad) 5rem;perspective:900px;background:var(--bg)}
+.px-flip{display:flex;flex-wrap:wrap;font-size:clamp(4.4rem,17vw,17rem);line-height:.86}
+.px-flip span{display:inline-block;transform:rotateX(180deg);opacity:0;transition:transform 1s cubic-bezier(.2,.8,.2,1) calc(var(--i)*.07s),opacity .3s calc(var(--i)*.07s)}
+.px-flip.in span{transform:none;opacity:1}
+.px-flip .sp{width:.25em}
+html:not(.px-js) .px-flip span{transform:none;opacity:1}
+.px-endb{display:flex;align-items:center;flex-wrap:wrap;gap:1.4rem 2.4rem}
+.px-link{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;border-bottom:1px solid var(--fg);padding-bottom:.2rem}
+.px-link:hover{color:var(--red);border-color:var(--red)}
 html:not(.px-js) .px-w:first-child{opacity:1;visibility:visible}
 
 @media(max-width:900px){
@@ -81,6 +73,5 @@ html:not(.px-js) .px-w:first-child{opacity:1;visibility:visible}
  .px-buy .btn{flex:1;min-width:0;padding-inline:.8rem}
  .px-buy .price{min-width:0}
  .px-strip{letter-spacing:.2em;font-size:.62rem}
- .px-cp{width:44vw}
 }
 @media(prefers-reduced-motion:reduce){.px-intro,.px-poster{animation:none!important;transform:none!important;opacity:1!important}}

@@ -1,6 +1,6 @@
 /* Shop: a gallery wall you walk along (see shop.css).
    1) Pick of the week: the poster arrives alone (flip-in as the page transition lifts), then slides aside while the buy panel comes in.
-   2) The wall: a sideways track of every poster, chaptered by collection; posters tilt in 3D as they pass the centre; the collection names at the bottom jump between chapters.
+   2) The wall: a deck of every poster; the top print is tossed up and away (3D fold) and the next rises; the collection word flips when the chapter changes; chapters at the bottom jump.
    3) The drop list: its heading flips in.
    Progress is eased once per frame; every layout read happens before the writes. site.js owns the pick's price and add to cart. */
 (function(){
@@ -34,23 +34,39 @@
     buy.style.transform=mob?'translate3d(0,'+((1-bo)*30).toFixed(1)+'px,0)':'translate3d('+((1-bo)*50).toFixed(1)+'px,-50%,0)';
   };
 
-  /* the wall */
-  var wall=$('.sp-wall'),track=$('.sp-track'),cards=$$('.sp-card',track),words=$$('.sp-cw',track),chaps=$$('.sp-chap button'),tw=0,cx=[],on=-1;
-  var measure=function(){
-    track.style.transform='none';tw=Math.max(1,track.scrollWidth-innerWidth);
-    cx=words.map(function(w){return Math.max(0,w.offsetLeft-innerWidth*.08)});
-  };
+  /* the wall: a deck. f = which print is on top (0..N-1, continuous) */
+  var wall=$('.sp-wall'),deck=$('.sp-deck'),cards=$$('.sp-card',deck),words=$$('.sp-cw'),chaps=$$('.sp-chap button'),cap=$('.sp-cap'),cn=$('.sp-cn'),cpz=$('.sp-cpz'),cv=$('.sp-view'),cnt=$('.sp-count b'),N=cards.length,on=-1,chOn=-1;
+  var chIdx=words.map(function(w){return cards.findIndex(function(c){return c.dataset.cat===w.dataset.ch})});
   var yFor=function(p){var r=wall.getBoundingClientRect(),tot=r.height-innerHeight;return scrollY+r.top+tot*p};
-  chaps.forEach(function(b,k){b.addEventListener('click',function(){scrollTo({top:yFor(cx[k]/tw),behavior:'smooth'})})});
+  chaps.forEach(function(b,k){b.addEventListener('click',function(){scrollTo({top:yFor(chIdx[k]/(N-1)),behavior:'smooth'})})});
+  var setTop=function(i){
+    if(i===on)return;on=i;var c=cards[i];
+    cn.textContent=c.dataset.n;cpz.textContent=c.dataset.p;cv.href=c.getAttribute('href');
+    cnt.textContent=(i<9?'0':'')+(i+1);
+    cap.classList.remove('pop');void cap.offsetWidth;cap.classList.add('pop');
+    cards.forEach(function(el,j){el.style.pointerEvents=j===i?'auto':'none';el.tabIndex=j===i?0:-1});
+    var k=0;chIdx.forEach(function(s,j){if(i>=s)k=j});
+    if(k!==chOn){chOn=k;
+      words.forEach(function(w,j){var o=j===k;w.style.opacity=o?1:0;w.style.visibility=o?'visible':'hidden';w.classList.remove('pop');if(o){void w.offsetWidth;w.classList.add('pop')}});
+      chaps.forEach(function(b,j){b.classList.toggle('on',j===k)});
+    }
+  };
   var drawWall=function(p){
-    var x=-tw*p,c=innerWidth/2;
-    track.style.transform='translate3d('+x.toFixed(1)+'px,0,0)';
-    var oc=cards.map(function(el){var r=el.getBoundingClientRect();return (r.left+r.width/2-c)/innerWidth});
-    var ow=words.map(function(el){var r=el.getBoundingClientRect();return (r.left+r.width/2-c)/innerWidth});
-    cards.forEach(function(el,i){var o=oc[i],d=cl(Math.abs(o)*1.5);el.style.transform='rotateY('+(-(o>0?1:-1)*34*inn(d))+'deg) scale('+(1-.1*d)+')'});
-    words.forEach(function(el,i){var o=ow[i];el.style.transform='rotateX('+(cl(Math.abs(o))*30*(o>0?1:-1))+'deg)'});
-    var k=0;for(var i=0;i<cx.length;i++)if(-x>=cx[i]-innerWidth*.55)k=i;
-    if(k!==on){on=k;chaps.forEach(function(b,j){b.classList.toggle('on',j===k)})}
+    var f=p*(N-1),mob=innerWidth<=900,vh=innerHeight;
+    cards.forEach(function(el,i){
+      var r=i-f,t,o,ty,s,rx=0,rz=0,tx=0;
+      if(r<0){ /* tossed: lifts up, folds back, drifts sideways */
+        t=cl(-r);var e=inn(t);
+        ty=-e*vh*.9;rx=-e*80;rz=(i%2?1:-1)*e*9;tx=(i%2?1:-1)*e*innerWidth*.12;s=1;o=1-T(t,.55,1);
+      }else{ /* waiting behind the top print */
+        var d=Math.min(r,3);
+        s=1-.06*d;ty=d*vh*.018;o=1-T(r,2.2,3.2);
+        if(r<1)s=1-.06*io(r);
+      }
+      el.style.transform='translate(-50%,-50%) translate3d('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px,'+(-Math.min(Math.max(r,0),3)*60).toFixed(1)+'px) rotateX('+rx.toFixed(2)+'deg) rotateZ('+rz.toFixed(2)+'deg) scale('+s.toFixed(4)+')';
+      el.style.opacity=o.toFixed(3);sv(el,o>.01);
+    });
+    setTop(Math.min(N-1,Math.round(f)));
   };
 
   /* the drop list heading flips in */
@@ -73,8 +89,8 @@
   };
   var req=function(){if(!tick){tick=true;requestAnimationFrame(draw)}};
   addEventListener('scroll',req,{passive:true});
-  addEventListener('resize',function(){measure();first=true;req()});
-  var init=function(){measure();first=true;draw()};
+  addEventListener('resize',function(){first=true;req()});
+  var init=function(){first=true;draw()};
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(init);
   init();
 })();

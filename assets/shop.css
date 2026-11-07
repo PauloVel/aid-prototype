@@ -1,5 +1,5 @@
 /* Shop: a gallery wall you walk along. White page, lots of air, one idea per screen.
-   1) the pick of the week hangs alone, then slides aside to be bought; 2) a sideways wall of every poster, chaptered by collection, posters tilt as they pass; 3) the drop list.
+   1) the pick of the week hangs alone, then slides aside to be bought; 2) a deck of every poster: the top print is tossed away, the next rises, collections are chapters; 3) the drop list.
    Performance rules (notes.md): transforms only, no blend modes, no CSS filters, no clip-path animation, eased progress, reads before writes. */
 body.shop{--bg:#f4f4f1;--fg:#0a0a0a;--dim:#55554f;--rule:rgba(0,0,0,.16)}
 body.shop .noise{opacity:.045;animation:none}
@@ -11,7 +11,7 @@ body.shop .cursor{background:#0a0a0a}body.shop .cursor-f{border-color:#0a0a0a}
 .sp-st{position:relative;height:100svh;overflow:hidden;background:var(--bg)}
 .sp-js .sp-st{position:sticky;top:0}
 .sp-js .sp-pick{height:320svh}
-.sp-js .sp-wall{height:900svh}
+.sp-js .sp-wall{height:760svh}
 
 /* 1. the pick of the week */
 .sp-top{position:absolute;z-index:3;left:var(--pad);top:5.4rem}
@@ -42,24 +42,34 @@ body.shop .cursor{background:#0a0a0a}body.shop .cursor-f{border-color:#0a0a0a}
 html:not(.sp-js) .sp-st{height:auto;min-height:100svh;display:grid;gap:2rem;padding:6rem var(--pad) 3rem}
 html:not(.sp-js) .sp-top,html:not(.sp-js) .sp-stage,html:not(.sp-js) .sp-word,html:not(.sp-js) .sp-buy{position:static;width:auto}
 
-/* 2. the wall: posters hang on a white wall, collections are chapters */
-.sp-wst{position:relative;height:100svh;overflow:hidden;display:flex;align-items:center;perspective:1500px;background:var(--bg)}
+/* 2. the wall: a deck of prints. The top poster is tossed up and away (3D flip), the next one rises into its place; the collection word flips when the chapter changes */
+.sp-wst{position:relative;height:100svh;overflow:hidden;background:var(--bg);perspective:1600px;perspective-origin:50% 40%}
 .sp-js .sp-wst{position:sticky;top:0}
-.sp-track{display:flex;align-items:center;gap:clamp(3.5rem,8vw,8rem);padding:0 max(var(--pad),10vw) 0 var(--pad);will-change:transform}
-.sp-cw{flex:none;font-size:clamp(4rem,13vw,12rem);line-height:.82;color:transparent;-webkit-text-stroke:1.5px var(--fg);white-space:nowrap;will-change:transform}
-.sp-card{flex:none;position:relative;display:block;will-change:transform}
-.sp-card:nth-of-type(odd){margin-top:-7svh}
-.sp-card:nth-of-type(even){margin-top:7svh}
-.sp-card img{display:block;height:48svh;width:auto;box-shadow:0 40px 60px -40px rgba(0,0,0,.5);background:#e6e6e1}
-.sp-cm{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;margin-top:1.1rem;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
-.sp-cm b{font-family:'Anton',sans-serif;font-weight:400;font-size:1.15rem;letter-spacing:.02em;color:var(--fg)}
+.sp-words{position:absolute;inset:0;z-index:1;display:grid;place-items:center;perspective:900px;pointer-events:none}
+.sp-cw{grid-area:1/1;font-size:clamp(4rem,15vw,15rem);line-height:.82;color:transparent;-webkit-text-stroke:1.5px var(--fg);white-space:nowrap;opacity:0;visibility:hidden}
+.sp-cw.pop{animation:spPop .7s cubic-bezier(.2,.8,.2,1)}
+.sp-deck{position:absolute;inset:0;z-index:2;transform-style:preserve-3d;pointer-events:none}
+.sp-card{position:absolute;left:50%;top:46%;display:block;will-change:transform,opacity;transform-origin:50% 0;backface-visibility:hidden}
+.sp-card img{display:block;height:min(58svh,40rem);width:auto;max-width:78vw;box-shadow:0 40px 70px -35px rgba(0,0,0,.55);background:#e6e6e1}
 .sp-card.so img{opacity:.35}
 .sp-tag{position:absolute;top:.9rem;left:.9rem;background:var(--fg);color:var(--bg);font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;padding:.35rem .6rem}
+.sp-cm{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;margin-top:1rem;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.sp-cm b{font-family:'Anton',sans-serif;font-weight:400;font-size:1.15rem;letter-spacing:.02em;color:var(--fg)}
+.sp-js .sp-cm{display:none}
+.sp-cap{position:absolute;z-index:4;left:var(--pad);bottom:5.4rem;display:grid;gap:.5rem;justify-items:start;perspective:700px}
+.sp-cn{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(1.8rem,3.4vw,3.2rem);line-height:.9;letter-spacing:.01em}
+.sp-cpz{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.sp-cap.pop .sp-cn{animation:spPop .55s cubic-bezier(.2,.8,.2,1)}
+.sp-count{position:absolute;z-index:4;right:var(--pad);bottom:5.4rem;font-size:.7rem;letter-spacing:.3em;color:var(--dim)}
+.sp-count b{font-family:'Anton',sans-serif;font-weight:400;font-size:1.6rem;letter-spacing:.04em;color:var(--fg)}
 .sp-chap{position:absolute;z-index:4;left:50%;bottom:2rem;transform:translateX(-50%);display:flex;gap:2.2rem}
 .sp-chap button{background:none;border:0;color:var(--dim);font:inherit;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;cursor:pointer;padding:.4rem 0;border-bottom:1px solid transparent;transition:color .25s,border-color .25s}
 .sp-chap button:hover,.sp-chap button.on{color:var(--fg);border-color:var(--fg)}
-html:not(.sp-js) .sp-wst{height:auto;display:block;overflow-x:auto;padding:3rem 0}
-html:not(.sp-js) .sp-chap{display:none}
+html:not(.sp-js) .sp-wst{height:auto;perspective:none;padding:3rem 0}
+html:not(.sp-js) .sp-words,html:not(.sp-js) .sp-cap,html:not(.sp-js) .sp-count,html:not(.sp-js) .sp-chap{display:none}
+html:not(.sp-js) .sp-deck{position:static;display:flex;gap:1.5rem;overflow-x:auto;padding:0 var(--pad);pointer-events:auto}
+html:not(.sp-js) .sp-card{position:relative;left:auto;top:auto;flex:none}
+html:not(.sp-js) .sp-card img{height:42svh}
 
 /* 3. the drop list */
 .sp-join{min-height:100svh;display:grid;align-content:center;gap:3rem;padding:8rem var(--pad) 5rem;perspective:900px}
@@ -81,8 +91,9 @@ html:not(.sp-js) .sp-flip span{transform:none;opacity:1}
  .sp-hint{display:none}
  .sp-buy{right:var(--pad);left:var(--pad);width:auto;top:auto;bottom:1.5rem;transform:none;gap:.9rem;background:rgba(244,244,241,.96);padding:1rem 0 0}
  .sp-buy h2{font-size:1.8rem}
- .sp-card img{height:42svh}
- .sp-card:nth-of-type(odd){margin-top:-4svh}.sp-card:nth-of-type(even){margin-top:4svh}
+ .sp-card{top:40%}
+ .sp-card img{height:46svh}
+ .sp-cap{bottom:4.6rem}.sp-count{bottom:4.8rem}
  .sp-chap{gap:1.2rem;bottom:1.4rem}
 }
 @media(prefers-reduced-motion:reduce){.sp-intro,.sp-poster,.sp-word h1{animation:none!important;transform:none!important;opacity:1!important}}
