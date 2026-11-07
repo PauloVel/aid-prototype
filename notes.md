@@ -249,12 +249,10 @@ White page, lots of air, one idea per screen (modelled on Abrasive, deliberately
 - **Product** was too busy: the dock with quantity stepper, header lines and noise overlay are gone. Now a calm right-hand panel (name, edition, sizes, price, Add to cart; quantity is a hidden input = 1), footage behind kept. After the story: **four more posters, each on its own white screen** (flip in on arrival), then "Hang it." on white, then the footer.
 - **Studio on phones** (`site.css`, max-width 700px): "Be unmistak-able." is 36vw, lifted off the bottom; "World on reach." is 27vw wrapping on three lines inside the margins.
 
-## Home (`index.html`, `assets/home.css`, `assets/home.js`) - rebuilt Nov 2026
+## Home (`index.html`, `assets/home.css`, `assets/home.js`) - rebuilt twice, Nov 2026
 
-Black theme, almost no copy: the page says "athletes, outdoors, risk-takers" with footage and giant words, in the voice of Abrasive. Old home (grid, paragraphs, buttons everywhere) kept in `work/archive/index.v1.html`.
-- **A** (520svh): the hero film behind giant AID that flips upright in a wave, then flips away; words *Athletes. / Outdoors. / Risk.* flip through (middle one arrives upside down). Film button (triangle, boom transition) stays until the words start.
-- **B** (440svh): outdoor film in a window that grows to full-bleed (transform + counter-scaled video, net scale 1); words *Go first. / Fall. / Go again.*
-- **C** (480svh): *Loud walls.* hollow word with three columns of posters drifting past (middle column the other way); "Shop the posters" appears at the end. Two columns on phones.
-- **D** (420svh): five raw frames as hard cuts, ABRASIVE letters flip in, counter, "Watch Abrasive" at the end.
-- **E**: "Your move." letters flip in; Shop / Watch Abrasive buttons and a quiet Studio link.
-- The old studio pitch, "Safe is invisible", the tilt poster stage and the reel strip were removed from the home (Studio has its own page). Footage note: the hero film and several Abrasive stills are third-party NBA footage and must be replaced before publishing.
+Black, a statement not a shuffle. The first take (five stages, letters and words flipping again and again, a lab copy) was rejected: **do not repeat letter flips or word flips on the home**. Old versions: `work/archive/index.v1.html` (original) and git history.
+1. **Statement** (640svh): the hero film behind giant AID; AID drifts up and leaves; three hollow lines (*Athletes. Outdoors. Risk-takers.*) are claimed one by one (outline fills to solid) while the backdrop changes film > outdoor film > still (WHYDG). Only one film plays at a time; the film button is there until AID leaves.
+2. **Fly-through** (760svh): the camera flies forward through posters and frames in 3D depth (transforms only) and ends inside a huge *Go first.*, then fades to black.
+3. **Close**: *Your move.* rises out of a mask over a dim frame; Shop / Watch Abrasive buttons, quiet Studio link.
+- The images and videos are placeholders (the owner is replacing them); the hero film and several frames are third-party NBA footage and must be replaced before publishing.
