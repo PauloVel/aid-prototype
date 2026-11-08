@@ -12,7 +12,7 @@
   var vis=function(el){var r=el.getBoundingClientRect();return r.bottom>-100&&r.top<innerHeight+100};
 
   /* 1. be unmistakable: identical tiles, the one that is you grows to fill the screen */
-  var nar=$('.sx-lines',Hh),gw=$('.sx-gw',Hh),full=$('.sx-full',Hh),h1=$('.sx-h1',Hh),cue=$('.sx-cue',Hh),fade=$('.sx-fade',Hh),dimH=$('.sx-hdim',Hh);
+  var gw=$('.sx-gw',Hh),full=$('.sx-full',Hh),h1=$('.sx-h1',Hh),cue=$('.sx-cue',Hh),fade=$('.sx-fade',Hh),dimH=$('.sx-hdim',Hh);
   var grid=document.createElement('div');grid.className='sx-g';
   for(var gi=0;gi<63;gi++){var t=document.createElement('div');t.className='sx-t';if(gi===31){t.className+=' me';t.style.backgroundImage='url(assets/rally.webp)'}grid.appendChild(t)}
   gw.appendChild(grid);var me=grid.children[31];
@@ -24,17 +24,13 @@
     dimH.style.opacity=T(p,.5,.7).toFixed(3);
     cue.style.opacity=1-T(p,0,.06);
     fade.style.opacity=io(T(p,.88,1)).toFixed(3);
-    var ls=nar.children,seg=[[0,.24,.3],[.3,.56,.62],[.64,.97,1.01]];
-    for(var li=0;li<3;li++){var a=seg[li];ls[li].style.opacity=((li?T(p,a[0],a[0]+.05):1)*(1-T(p,a[1],a[2]))).toFixed(3)}
-    nar.parentNode.style.opacity=(1-T(p,.9,.97)).toFixed(3);
     h1.style.opacity=(1-T(p,.86,.97)).toFixed(3);
   };
 
   /* 2. campaigns: a ring of posters turns with the page */
   var C=$('.sx-camp'),ring=$('.sx-rot',C),cs=$$('.sx-c',C),ccB=$('.sx-cc b',C),ccS=$('.sx-cc span',C),NC=cs.length,R=0,shown=-1,STEP=360/NC;
   var measureC=function(){var w=cs[0].offsetWidth||200;R=w/2/Math.tan(Math.PI/NC)*1.25};
-  var chap=function(sec,p){var e=$('.sx-ch',sec),k=T(p,.02,.09);e.style.opacity=(k*(1-T(p,.93,1))).toFixed(3);e.style.transform='translate3d(0,'+((1-out(k))*14).toFixed(1)+'px,0)'};
-  var drawC=function(p){chap(C,p);
+  var drawC=function(p){
     var e=io(T(p,.05,.95)),rot=-e*(NC-1)*STEP;
     ring.style.transform='translate3d(0,0,'+(-R*.55).toFixed(1)+'px) rotateX(-5deg) rotateY('+rot.toFixed(2)+'deg)';
     var near=0,best=-2;
@@ -50,7 +46,7 @@
   /* 3. interface: the phone turns, its screen scrolls with the page */
   var U=$('.sx-ui'),dev=$('.sx-dev',U),scr=$('.sx-scr',U),inn2=$('.sx-in',U),range=0;
   var measureU=function(){inn2.style.transform='none';range=Math.max(0,inn2.offsetHeight-scr.offsetHeight)};
-  var drawU=function(p){chap(U,p);
+  var drawU=function(p){
     var e=io(T(p,.04,.96)),sc=io(T(p,.1,.92));
     dev.style.transform='rotateY('+(-24+48*e).toFixed(2)+'deg) rotateX('+(10-10*e).toFixed(2)+'deg)';
     inn2.style.transform='translate3d(0,'+(-range*sc).toFixed(1)+'px,0)';
@@ -83,21 +79,13 @@
   hv.addEventListener('pointermove',function(e){if(!dragging)return;var dx=e.clientX-lastX;lastX=e.clientX;drag+=dx*.011;vel=dx*.011});
   var end=function(){dragging=false;hv.classList.remove('grab')};
   hv.addEventListener('pointerup',end);hv.addEventListener('pointercancel',end);
-  var endEl=$('.sx-end',P);
   var drawP=function(p){
-    chap(P,p);endEl.style.opacity=T(p,.8,.9).toFixed(3);
     hp=p;startLoop();
     var hi=T(p,.55,.72),o=out(hi);
     spice.style.opacity=hi>0?1:(p>.5?.01:0);
     spice.style.transform='translate3d(0,'+((1-o)*18).toFixed(2)+'rem,0) scale('+(1.25-.25*o).toFixed(4)+')';spice.style.transformOrigin='0 100%';
   };
 
-  var rail=$('.sx-rail'),rl=$$('li',rail),secs=[Hh,C,U,P],ra=-2;
-  var railUpdate=function(){
-    var m=innerHeight*.5,a=-1;
-    secs.forEach(function(s,i){var r=s.getBoundingClientRect();if(r.top<=m&&r.bottom>m)a=i});
-    if(a!==ra){ra=a;rail.classList.toggle('on',a>-1);rl.forEach(function(x,i){x.classList.toggle('on',i===a)})}
-  };
   var tick=false,sm={h:0,c:0,u:0,p:0},first=true,tLast=0,K=1,need=false;
   var ease=function(key,el,visible){
     var t=prog(el);
@@ -110,7 +98,6 @@
     var vh=vis(Hh),vc=vis(C),vu=vis(U),vp=vis(P);
     var ph=ease('h',Hh,vh),pc=ease('c',C,vc),pu=ease('u',U,vu),pp=ease('p',P,vp);first=false;
     if(vh)drawH(ph);if(vc)drawC(pc);if(vu)drawU(pu);if(vp)drawP(pp);
-    railUpdate();
     if(need)req();
   };
   var req=function(){if(!tick){tick=true;requestAnimationFrame(draw)}};

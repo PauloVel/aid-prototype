@@ -246,7 +246,7 @@
     pb.addEventListener('click',function(){fv.play().catch(function(){})});
     fv.addEventListener('click',function(){if(fv.paused)fv.play().catch(function(){});else fv.pause()});
     fv.addEventListener('play',function(){showPlay(false)});
-    fv.addEventListener('pause',function(){showPlay(true)});
+    fv.addEventListener('pause',function(){if(!doc.classList.contains('pt-out'))showPlay(true)});
     // timed captions, timecode and progress follow the film
     var caps=[].slice.call(document.querySelectorAll('.cap')),ftc=document.getElementById('ftc'),fp=document.getElementById('fprog'),cur=-1;
     var tick=function(){
