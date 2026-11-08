@@ -1,8 +1,9 @@
-/* Studio (see studio.css). One continuous story, no copy, driven by eased scroll progress:
-   1. a moment: footage shows only through the headline letters, the page zooms into a letter until the footage is the whole screen
-   2. the footage is framed down to a poster, in place, and becomes the first poster of a ring of campaigns (same video, same spot)
-   3. the ring explodes away, a phone rises with the same footage on its screen, and zooms open
-   4. the 3D helmet fades up out of the black; it turns with the scroll and can be dragged; "Add spice." slams in.
+/* Studio (see studio.css). The story is told with footage, posters and objects, driven by eased scroll progress:
+   1. footage and the AID mark; the mark blows past the camera and the work slams in, poster after poster, faster and faster (flash + shake),
+      then the pile snaps into a 3D ring of campaigns that the page turns, and flies apart
+   2. motion: three films side by side; each takes over the whole screen in turn
+   3. a phone rises with the shop; its last product photo is a live render of the 3D helmet; it zooms open
+   4. the helmet fades up out of the black; it turns with the scroll and can be dragged; "Add spice." slams in.
    Skipped for reduced motion (static sections + poster fallback). */
 (function(){
   var Hh=document.querySelector('.sx-hero');
@@ -13,77 +14,74 @@
   var cl=function(v){return Math.min(1,Math.max(0,v))},T=function(p,a,b){return cl((p-a)/(b-a))};
   var io=function(t){return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2},out=function(t){return 1-Math.pow(1-t,3)};
   var prog=function(el){var r=el.getBoundingClientRect(),tot=r.height-innerHeight;return tot>0?cl(-r.top/tot):0};
-  var vis=function(el){var r=el.getBoundingClientRect();return r.bottom>-100&&r.top<innerHeight+100};
+  var vis=function(el,m){m=m===undefined?100:m;var r=el.getBoundingClientRect();return r.bottom>-m&&r.top<innerHeight+m};
   var vplay=function(v,on){if(!v)return;if(on){if(v.paused)v.play().catch(function(){})}else if(!v.paused)v.pause()};
+  var warm=function(v){if(v&&!v._w){v._w=1;v.preload='auto';try{v.load()}catch(e){}}};
 
-  /* the ring moves into the hero stage so the poster frame and the first poster are the same object */
-  var stage=$('.sx-st',Hh),C=$('.sx-camp'),ringEl=$('.sx-ring',C),ccEl=$('.sx-cc',C),kick=$('.sx-k',C);
-  stage.appendChild(ringEl);stage.appendChild(ccEl);stage.appendChild(kick);
-
-  var vid=$('.sx-vid',Hh),mask=$('.sx-mask',Hh),h1=$('.sx-h1',Hh),cue=$('.sx-cue',Hh);
-  var ring=$('.sx-rot',ringEl),cs=$$('.sx-c',ringEl),cv=cs[0],ccB=$('b',ccEl),ccS=$('span',ccEl),NC=cs.length,R=0,shown=-1,STEP=360/NC;
-  var G={S:30,ox:0,oy:0,dx:0,dy:0,s:1,L:0},handed=false;
-  var A_END=.46; /* share of the hero scroll used by the zoom and the framing; the rest is the ring */
-
-  /* ring geometry: cards on a circle, the page turns it; the first card is the footage */
+  /* 1. footage, mark, slam, ring */
+  var world=$('.sx-world',Hh),vid=$('.sx-vid',Hh),mark=$('.sx-mark',Hh),flash=$('.sx-flash',Hh),cue=$('.sx-cue',Hh),kick=$('.sx-kc',Hh),ccEl=$('.sx-cc',Hh);
+  var ringEl=$('.sx-ring',Hh),ring=$('.sx-rot',Hh),cs=$$('.sx-c',ringEl),NC=cs.length,R=0,shown=-1,STEP=360/NC;
+  var ccB=$('b',ccEl),ccS=$('span',ccEl);
+  /* where each poster lands in the pile (fractions of the screen), its tilt, and when it slams in: the gaps get shorter and shorter */
+  var PX=[-.29,.27,-.10,.17,-.34,.06,.33,-.21,0],PY=[-.08,.09,.15,-.13,.12,-.03,-.12,.03,0],PR=[-6,5,-3,7,-8,2,-5,4,0];
+  var SL0=.10,SL1=.5,SW=.016,TS=[];
+  for(var si=0;si<NC;si++)TS.push(SL0+(SL1-SL0)*Math.pow(si/(NC-1),.72));
+  var PILE=1.5; /* the pile is bigger than the ring */
   var measureC=function(){var w=cs[0].offsetWidth||200;R=w/2/Math.tan(Math.PI/NC)*1.25};
-  var drawC=function(p){
-    var f=io(T(p,0,.22)),rot=-io(T(p,.16,.93))*(NC-1)*STEP,x=T(p,.9,1);
-    ring.style.transform='translate3d(0,0,'+(-R*.55-x*x*R*2.2).toFixed(1)+'px) rotateX(-5deg) rotateY('+rot.toFixed(2)+'deg)';
-    var near=0,best=-2;
+  var drawH=function(p){
+    var vw=innerWidth,vh=innerHeight;
+    /* the mark blows past the camera */
+    var m=io(T(p,0,.09));
+    mark.style.transform='translate(-50%,-50%) scale('+(1+m*m*9).toFixed(3)+') rotate('+(p*60).toFixed(2)+'deg)';
+    mark.style.opacity=(1-T(p,.04,.095)).toFixed(3);
+    cue.style.opacity=(1-T(p,0,.04)).toFixed(3);
+    vid.style.opacity=(1-.8*T(p,.1,.52)).toFixed(3);
+    /* ring state */
+    var f=io(T(p,.54,.68)),rot=-io(T(p,.64,.93))*(NC-1)*STEP,x=T(p,.93,1);
+    ring.style.transform='translate3d(0,0,'+(-R*.55*f-x*x*R*2.2).toFixed(1)+'px) rotateX('+(-5*f).toFixed(2)+'deg) rotateY('+rot.toFixed(2)+'deg)';
+    var near=0,best=-2,amp=0,fl=0;
     cs.forEach(function(el,i){
+      var t=TS[i],a=T(p,t,t+SW),sl=out(a);
+      var hit=p>=t&&p<t+.032?1-(p-t)/.032:0;amp+=hit;fl=Math.max(fl,hit);
       var ang=(i*STEP+rot)*Math.PI/180,cz=Math.cos(ang),fr=Math.max(0,cz);fr=fr*fr*fr;
-      var k=i?f:1;
-      el.style.transform='rotateY('+(i*STEP)+'deg) translateZ('+((R+150*fr)*(i?(.25+.75*f):1)).toFixed(1)+'px)';
-      el.style.opacity=((.18+.82*fr)*k*(1-x)).toFixed(3);
+      var s=(PILE+(1-PILE)*f)*(1+.5*(1-sl)*(1-f));
+      var tx=PX[i]*vw*(1-f),ty=PY[i]*vh*(1-f),rz=PR[i]*(1-f),tz=i*3*(1-f);
+      el.style.transform='translate3d('+tx.toFixed(1)+'px,'+ty.toFixed(1)+'px,'+tz.toFixed(1)+'px) rotateZ('+rz.toFixed(2)+'deg) rotateY('+(i*STEP*f).toFixed(2)+'deg) translateZ('+((R+150*fr)*f).toFixed(1)+'px) scale('+s.toFixed(4)+')';
+      var ringO=.18+.82*fr,o=T(p,t,t+SW*.35)*(1-f)+ringO*f*(a>0?1:0);
+      el.style.opacity=(o*(1-x)).toFixed(3);
       if(cz>best){best=cz;near=i}
     });
     if(near!==shown){shown=near;ccB.textContent='0'+(near+1);ccS.textContent=cs[near].dataset.n}
-    var cap=T(p,.06,.2)*(1-T(p,.9,1));ccEl.style.opacity=cap.toFixed(3);kick.style.opacity=cap.toFixed(3);
+    /* impact: flash and shake */
+    flash.style.opacity=(fl*.28).toFixed(3);
+    var sh=Math.min(1.6,amp);
+    world.style.transform=sh>0?'translate3d('+(sh*9*Math.sin(p*2600)).toFixed(1)+'px,'+(sh*7*Math.cos(p*2100)).toFixed(1)+'px,0)':'none';
+    var cap=T(p,.68,.75)*(1-T(p,.92,.97));ccEl.style.opacity=cap.toFixed(3);kick.style.opacity=cap.toFixed(3);
   };
 
-  /* geometry shared by the two halves: where the first poster sits at the start of the ring, and which letter we zoom into */
-  var measureH=function(){
-    mask.style.transform='none';vid.style.transform='none';vid.style.clipPath='none';
-    drawC(0);
-    var sr=stage.getBoundingClientRect(),vw=sr.width,vh=sr.height,cr=cv.getBoundingClientRect();
-    var tw=cr.width,th=cr.height,tcx=cr.left-sr.left+tw/2,tcy=cr.top-sr.top+th/2;
-    G.s=th/vh;G.dx=tcx-vw/2;G.dy=tcy-vh/2;G.L=Math.max(0,(vw-tw/G.s)/2);
-    var sp=h1.firstElementChild,tn=sp.firstChild,rg=document.createRange();rg.setStart(tn,0);rg.setEnd(tn,1);
-    var br=rg.getBoundingClientRect(),F=parseFloat(getComputedStyle(sp).fontSize);
-    G.ox=br.left-sr.left+br.width*.2;G.oy=br.top-sr.top+br.height*.5;
-    G.S=Math.max(12,vw*1.5/(F*.12));
-    mask.style.transformOrigin=G.ox.toFixed(1)+'px '+G.oy.toFixed(1)+'px';
+  /* 2. motion: three films, each takes the whole screen in turn */
+  var M=$('.sx-mo'),pn=$('.sx-pn',M),ps=$$('.sx-p',M),pv=ps.map(function(e){return $('video',e)}),km=$('.sx-km',M);
+  var drawM=function(p){
+    pn.style.setProperty('--sw',pn.clientWidth+'px');
+    var act=[io(T(p,.28,.4))*(1-io(T(p,.46,.58))),io(T(p,.46,.58))*(1-io(T(p,.64,.76))),io(T(p,.64,.76))];
+    var K=16,w=act.map(function(a){return 1+K*a}),tot=w[0]+w[1]+w[2];
+    ps.forEach(function(el,i){
+      var y=(1-out(T(p,.02+.07*i,.16+.07*i)))*105;
+      el.style.width=(w[i]/tot*100).toFixed(3)+'%';
+      el.style.transform='translate3d(0,'+y.toFixed(2)+'%,0)';
+    });
+    pn.style.opacity=(1-io(T(p,.95,1))).toFixed(3);
+    km.style.opacity=(T(p,.1,.18)*(1-T(p,.24,.32))).toFixed(3);
   };
 
-  var drawH=function(p){
-    var pa=T(p,0,A_END),pc=T(p,A_END,1);
-    /* zoom through the letter */
-    var z=io(T(pa,.03,.4)),s=Math.exp(Math.log(G.S)*z);
-    mask.style.transform='scale('+s.toFixed(3)+')';
-    mask.style.opacity=(1-T(pa,.28,.42)).toFixed(3);
-    cue.style.opacity=(1-T(pa,0,.05)).toFixed(3);
-    /* footage drifts while it is the whole screen, then frames down to the poster */
-    var k=io(T(pa,.6,.94)),sc=(1+.04*T(pa,.4,.6))+(G.s-(1+.04))*k;
-    vid.style.transform='translate3d('+(G.dx*k).toFixed(1)+'px,'+(G.dy*k).toFixed(1)+'px,0) scale('+sc.toFixed(4)+')';
-    vid.style.clipPath=k>0?'inset(0px '+(G.L*k).toFixed(1)+'px 0px '+(G.L*k).toFixed(1)+'px)':'none';
-    /* handoff: the ring (whose first card is the same footage at the same place) takes over from the full-screen video */
-    var on=pa>=.999;
-    if(on!==handed){handed=on;if(on){try{cv.currentTime=vid.currentTime}catch(e){}}}
-    vid.style.visibility=on?'hidden':'visible';
-    ringEl.style.visibility=on?'visible':'hidden';ccEl.style.visibility=kick.style.visibility=ringEl.style.visibility;
-    if(on)drawC(pc);
-  };
-
-  /* 3. interface: the phone rises, turns, its screen (with the same footage) scrolls, then it zooms open */
-  var U=$('.sx-ui'),dev=$('.sx-dev',U),scr=$('.sx-scr',U),inn2=$('.sx-in',U),dw=$('.sx-dw',U),pv=$('.sx-pv',U),range=0;
+  /* 3. interface: the phone rises, turns, its screen scrolls, then it zooms open */
+  var U=$('.sx-ui'),dev=$('.sx-dev',U),scr=$('.sx-scr',U),inn2=$('.sx-in',U),dw=$('.sx-dw',U),range=0;
   var measureU=function(){inn2.style.transform='none';range=Math.max(0,inn2.offsetHeight-scr.offsetHeight)};
   var drawU=function(p){
     var e=io(T(p,.1,.9)),sc=io(T(p,.14,.86)),rise=out(T(p,0,.16)),zo=io(T(p,.88,1));
     dev.style.transform='translate3d(0,'+((1-rise)*85).toFixed(1)+'svh,0) rotateY('+(-24+48*e).toFixed(2)+'deg) rotateX('+(10-10*e).toFixed(2)+'deg) scale('+(1+2.6*zo).toFixed(3)+')';
     dw.style.opacity=(1-T(p,.93,1)).toFixed(3);
     inn2.style.transform='translate3d(0,'+(-range*sc).toFixed(1)+'px,0)';
-    vplay(pv,p>0&&p<1);
   };
 
   /* 4. product: the helmet fades up out of the black */
@@ -118,13 +116,13 @@
   hv.addEventListener('pointerup',end);hv.addEventListener('pointercancel',end);
   var drawP=function(p){
     hp=p;startLoop();
-    var up=io(T(p,0,.14));hv.style.opacity=up.toFixed(3);
+    hv.style.opacity=io(T(p,0,.14)).toFixed(3);
     var hi=T(p,.55,.72),o=out(hi);
     spice.style.opacity=hi>0?1:(p>.5?.01:0);
     spice.style.transform='translate3d(0,'+((1-o)*18).toFixed(2)+'rem,0) scale('+(1.25-.25*o).toFixed(4)+')';spice.style.transformOrigin='0 100%';
   };
 
-  var tick=false,sm={h:0,u:0,p:0},first=true,tLast=0,K=1,need=false;
+  var tick=false,sm={h:0,m:0,u:0,p:0},first=true,tLast=0,K=1,need=false;
   var ease=function(key,el,visible){
     var t=prog(el);
     if(first||!visible)sm[key]=t;else{sm[key]+=(t-sm[key])*K;if(Math.abs(t-sm[key])<.0004)sm[key]=t;else need=true}
@@ -133,16 +131,19 @@
   var draw=function(){
     tick=false;
     var now=performance.now(),dt=Math.min(64,now-tLast||16);tLast=now;K=1-Math.exp(-dt/80);need=false;
-    var vh=vis(Hh),vu=vis(U),vp=vis(P);
-    var ph=ease('h',Hh,vh),pu=ease('u',U,vu),pp=ease('p',P,vp);first=false;
-    if(vh){drawH(ph);vplay(vid,ph<A_END);vplay(cv,ph>=A_END)}else{vplay(vid,false);vplay(cv,false)}
-    if(vu)drawU(pu);else vplay(pv,false);
+    var vh=vis(Hh),vm=vis(M),vu=vis(U),vp=vis(P);
+    var ph=ease('h',Hh,vh),pm=ease('m',M,vm),pu=ease('u',U,vu),pp=ease('p',P,vp);first=false;
+    if(vh)drawH(ph);vplay(vid,vh&&ph<.55);
+    if(vis(M,innerHeight*2.5))pv.forEach(warm);
+    if(vm)drawM(pm);
+    pv.forEach(function(v){vplay(v,vm)});
+    if(vu)drawU(pu);
     if(vp)drawP(pp);
     if(need)req();
   };
   var req=function(){if(!tick){tick=true;requestAnimationFrame(draw)}};
   addEventListener('scroll',req,{passive:true});
-  var remeasure=function(){measureC();measureH();measureU();sizeKey='';first=true;req()};
+  var remeasure=function(){measureC();measureU();sizeKey='';first=true;req()};
   addEventListener('resize',remeasure);
   var init=function(){remeasure();draw();attach()};
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(init);
