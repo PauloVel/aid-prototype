@@ -247,16 +247,22 @@
     fv.addEventListener('click',function(){if(fv.paused)fv.play().catch(function(){});else fv.pause()});
     fv.addEventListener('play',function(){showPlay(false)});
     fv.addEventListener('pause',function(){if(!doc.classList.contains('pt-out'))showPlay(true)});
-    // timed captions, timecode and progress follow the film
-    var caps=[].slice.call(document.querySelectorAll('.cap')),ftc=document.getElementById('ftc'),fp=document.getElementById('fprog'),cur=-1;
+    // lyric-style captions and the progress line follow the film
+    var caps=[].slice.call(document.querySelectorAll('.cap')),fl=document.getElementById('flines'),fp=document.getElementById('fprog'),capNow=-2;
+    var place=function(k){
+      caps.forEach(function(c,i){c.classList.toggle('on',i===k);c.classList.toggle('prev',i===k-1);c.classList.toggle('next',i===k+1)});
+      var c=caps[k];
+      fl.classList.toggle('end',!!(c&&c.dataset.end));
+      if(c)fl.style.transform='translate3d(0,'+(-(c.offsetTop+c.offsetHeight/2)).toFixed(1)+'px,0)';
+    };
     var tick=function(){
       var t=fv.currentTime,d=fv.duration||1,k=-1;
       caps.forEach(function(c,i){if(t>=parseFloat(c.dataset.t))k=i});
-      if(k!==cur){caps.forEach(function(c,i){c.classList.toggle('on',i===k)});cur=k}
-      ftc.textContent=('0'+Math.floor(t/60)).slice(-2)+':'+('0'+Math.floor(t%60)).slice(-2);
+      if(k!==capNow){capNow=k;place(k)}
       fp.style.width=(t/d*100).toFixed(2)+'%';
       if(!fv.paused)requestAnimationFrame(tick);
     };
+    addEventListener('resize',function(){if(capNow>-1)place(capNow)});
     fv.addEventListener('play',function(){requestAnimationFrame(tick)});
     fv.addEventListener('seeked',tick);
     fv.addEventListener('loadedmetadata',tick);

@@ -61,38 +61,29 @@ h1,h2,h3{font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.9;
 .boom.go{animation:boomgo .55s cubic-bezier(.7,0,.9,.4) forwards}
 @keyframes boomgo{to{clip-path:polygon(calc(var(--bx) - 260vmax) calc(var(--by) + 160vmax),var(--bx) calc(var(--by) - 280vmax),calc(var(--bx) + 260vmax) calc(var(--by) + 160vmax))}}
 
-/* the film page — sound on, words with impact */
-.film-hero{position:relative;height:100svh;overflow:hidden;background:#000;border-bottom:1px solid var(--rule)}
-.film-hero video{width:100%;height:100%;object-fit:cover}
-.play{position:absolute;inset:11svh 0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;background:rgba(5,5,5,.35);border:0;cursor:pointer;transition:opacity .4s}
+/* the film page: just the video. Captions scroll like synced lyrics: the current line is big and bright, its neighbours small and dim */
+.film-hero{position:relative;height:100svh;overflow:hidden;background:#000}
+.film-hero video{width:100%;height:100%;object-fit:cover;filter:contrast(1.05)}
+.play{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;background:rgba(5,5,5,.35);border:0;cursor:pointer;transition:opacity .4s}
 .play svg{width:clamp(5rem,9vw,7.5rem);overflow:visible}
 .play polygon{fill:rgba(5,5,5,.3);stroke:var(--fg);stroke-width:2.5;stroke-linejoin:miter;vector-effect:non-scaling-stroke;transition:fill .25s,stroke .25s}
 .play:hover polygon{fill:var(--red);stroke:var(--red)}
-.play span{font-family:'Anton';letter-spacing:.2em;font-size:clamp(.9rem,1.4vw,1.2rem);text-transform:uppercase;color:var(--fg)}
 .play.off{opacity:0;pointer-events:none}
-.film-c{color:rgba(240,240,240,.7)}
-/* film format: cinema bars, vignette, timed captions, progress */
-.film-hero video{filter:contrast(1.05)}
 .film-vig{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
-.film-bar{position:absolute;left:0;right:0;z-index:4;height:11svh;display:flex;align-items:center;justify-content:center;padding:0 var(--pad);background:#000;font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(240,240,240,.7);pointer-events:none}
-.film-top{top:0}.film-top i{font-style:normal;color:var(--red);margin:0 .4em}
-.film-top #ftc{font-weight:400;font-variant-numeric:tabular-nums}
-.film-bot{bottom:0;flex-direction:column;align-items:flex-start;justify-content:center;gap:1rem}
-.film-bot .film-c{margin:0}.film-bot .film-c i{font-style:normal;color:var(--red)}
-.film-prog{width:100%;height:2px;background:rgba(240,240,240,.18)}
-.film-prog b{display:block;height:100%;width:0;background:var(--red)}
-.film-caps{position:absolute;inset:11svh 0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.cap{position:absolute;margin:0;padding:0 var(--pad);text-align:center;font-family:'Anton';text-transform:uppercase;line-height:.92;font-size:clamp(5rem,17vw,19rem);color:#fff;text-shadow:0 .04em .5em rgba(0,0,0,.65);opacity:0;transform:translateY(.12em) scale(.94);transition:opacity .07s linear,transform .28s cubic-bezier(.2,.9,.2,1)}
-.cap[data-a]{width:100%;max-width:none}
-.cap[data-a=l]{text-align:left}.cap[data-a=r]{text-align:right}
-.cap[data-s=s]{font-size:clamp(3.2rem,10vw,11rem);letter-spacing:.02em}
-.cap[data-s=m]{font-size:clamp(3.4rem,12vw,14rem)}
 .film-grain{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:fgr .5s steps(2) infinite}
 @keyframes fgr{0%{transform:translate(0,0)}50%{transform:translate(-3%,2%)}100%{transform:translate(2%,-3%)}}
-@media(max-width:700px) and (orientation:portrait){.film-hero video{object-fit:contain}.cap{font-size:15vw;hyphens:manual}.cap[data-s=s]{font-size:10.5vw}.cap[data-s=m]{font-size:14.5vw}}
+.film-prog{position:absolute;left:0;right:0;bottom:0;z-index:4;height:3px;background:rgba(240,240,240,.14);pointer-events:none}
+.film-prog b{display:block;height:100%;width:0;background:var(--red)}
+.film-caps{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
+.film-lines{position:absolute;left:var(--pad);right:var(--pad);top:50%;transition:transform .4s cubic-bezier(.2,.8,.2,1);will-change:transform}
+.cap{margin:0 0 .1em;font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.9;font-size:clamp(4.5rem,13vw,15rem);color:#fff;text-shadow:0 .04em .5em rgba(0,0,0,.6);opacity:0;filter:blur(10px);transform:scale(.5);transform-origin:0 50%;transition:opacity .4s ease,filter .4s ease,transform .4s cubic-bezier(.2,.8,.2,1)}
 .cap em{font-style:normal;color:var(--red)}
-.cap.on{opacity:1;transform:none}
-.film-hero.idle .cap{opacity:0}
+.cap.prev,.cap.next{opacity:.2;filter:blur(3px)}
+.cap.on{opacity:1;filter:none;transform:none}
+.film-lines.end .cap{opacity:0!important}
+.film-hero.idle .film-caps{opacity:0}
+@media(max-width:700px) and (orientation:portrait){.film-hero video{object-fit:contain}.cap{font-size:14vw}}
+@media(prefers-reduced-motion:reduce){.film-lines,.cap{transition:none}.film-grain{animation:none}}
 @media(prefers-reduced-motion:reduce){.cap{transform:none;transition:opacity .2s}}
 .fw{display:flex;align-items:center;justify-content:center;text-align:center;min-height:78svh;padding:10vh var(--pad);border-bottom:1px solid var(--rule)}
 .fw h2{font-size:clamp(3rem,10vw,10rem)}

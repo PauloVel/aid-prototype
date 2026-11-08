@@ -39,73 +39,55 @@
  <video id="filmvid" src="assets/film.mp4" poster="assets/film_poster.jpg" loop playsinline preload="metadata"></video>
  <div class="film-vig" aria-hidden="true"></div>
  <div class="film-grain" aria-hidden="true"></div>
- <div class="film-bar film-top" aria-hidden="true"><span>The film <i>/</i> <b id="ftc">00:00</b></span></div>
- <div class="film-caps" aria-live="off">
-  <p class="cap" data-t="0" data-a="c" data-s="s">They said</p>
-  <p class="cap" data-t="0.7" data-a="l">slow down.</p>
-  <p class="cap" data-t="1.8" data-a="c" data-s="s">We said</p>
-  <p class="cap" data-t="2.5" data-a="r"><em>no.</em></p>
-  <p class="cap" data-t="3.4" data-a="c">Fear<br>is loud.</p>
-  <p class="cap" data-t="4.6" data-a="l">Go<br>anyway.</p>
-  <p class="cap" data-t="5.8" data-a="c">Heart<br>in throat.</p>
-  <p class="cap" data-t="6.7" data-a="l">Hands<br>steady.</p>
-  <p class="cap" data-t="7.6" data-a="c">No net.</p>
-  <p class="cap" data-t="8.5" data-a="r">No<br>applause.</p>
-  <p class="cap" data-t="9.4" data-a="c">No<br>permission.</p>
-  <p class="cap" data-t="10.3" data-a="l" data-s="s">Just</p>
-  <p class="cap" data-t="11.1" data-a="c">the <em>rush.</em></p>
-  <p class="cap" data-t="12.4" data-a="l" data-s="s">We live</p>
-  <p class="cap" data-t="13.2" data-a="c">for it.</p>
-  <p class="cap" data-t="13.8" data-a="r">AID</p>
-  <p class="cap" data-t="14.3" data-a="c" data-s="s">turns it</p>
-  <p class="cap" data-t="15.3" data-a="l">into posters.</p>
-  <p class="cap" data-t="16.3" data-a="c" data-s="s">Into things</p>
-  <p class="cap" data-t="17.1" data-a="l" data-s="s">you can</p>
-  <p class="cap" data-t="17.7" data-a="c">feel.</p>
-  <p class="cap" data-t="18.6" data-a="r" data-s="s">Not for</p>
-  <p class="cap" data-t="19.9" data-a="c">everyone.</p>
-  <p class="cap" data-t="21.4" data-a="l" data-s="s">Only for</p>
-  <p class="cap" data-t="22.6" data-a="c" data-s="s">the ones</p>
-  <p class="cap" data-t="23.6" data-a="l">who go<br>first.</p>
-  <p class="cap" data-t="24.6" data-a="c" data-s="s">Be</p>
-  <p class="cap" data-t="25.3" data-a="r" data-s="m"><em>unmistakable.</em></p>
-  <p class="cap" data-t="27.7" data-a="c">Brands.</p>
-  <p class="cap" data-t="28.7" data-a="l">Campaigns.</p>
-  <p class="cap" data-t="29.6" data-a="c">Screens.</p>
-  <p class="cap" data-t="30.4" data-a="l">Objects.</p>
-  <p class="cap" data-t="31.1" data-a="c" data-s="s">All of it</p>
-  <p class="cap" data-t="31.7" data-a="r">one voice.</p>
-  <p class="cap" data-t="32.5" data-a="c">Never<br>a copy.</p>
-  <p class="cap" data-t="34.4" data-a="l">Never<br>safe.</p>
-  <p class="cap" data-t="36.2" data-a="c">Never<br>quiet.</p>
-  <p class="cap" data-t="37.9" data-a="l">Be one</p>
-  <p class="cap" data-t="38.4" data-a="c">of one.</p>
-  <p class="cap" data-t="39.3" data-a="r">Go<br><em>first.</em></p>
-  <p class="cap" data-t="40.6" data-a="c" aria-hidden="true"></p>
- </div>
+ <div class="film-caps" aria-live="off"><div class="film-lines" id="flines">
+   <p class="cap" data-t="0">They said</p>
+   <p class="cap" data-t="0.7">slow down.</p>
+   <p class="cap" data-t="1.8">We said</p>
+   <p class="cap" data-t="2.5"><em>no.</em></p>
+   <p class="cap" data-t="3.4">Fear<br>is loud.</p>
+   <p class="cap" data-t="4.6">Go<br>anyway.</p>
+   <p class="cap" data-t="5.8">Heart<br>in throat.</p>
+   <p class="cap" data-t="6.7">Hands<br>steady.</p>
+   <p class="cap" data-t="7.6">No net.</p>
+   <p class="cap" data-t="8.5">No<br>applause.</p>
+   <p class="cap" data-t="9.4">No<br>permission.</p>
+   <p class="cap" data-t="10.3">Just</p>
+   <p class="cap" data-t="11.1">the <em>rush.</em></p>
+   <p class="cap" data-t="12.4">We live</p>
+   <p class="cap" data-t="13.2">for it.</p>
+   <p class="cap" data-t="13.8">AID</p>
+   <p class="cap" data-t="14.3">turns it</p>
+   <p class="cap" data-t="15.3">into posters.</p>
+   <p class="cap" data-t="16.3">Into things</p>
+   <p class="cap" data-t="17.1">you can</p>
+   <p class="cap" data-t="17.7">feel.</p>
+   <p class="cap" data-t="18.6">Not for</p>
+   <p class="cap" data-t="19.9">everyone.</p>
+   <p class="cap" data-t="21.4">Only for</p>
+   <p class="cap" data-t="22.6">the ones</p>
+   <p class="cap" data-t="23.6">who go<br>first.</p>
+   <p class="cap" data-t="24.6">Be</p>
+   <p class="cap" data-t="25.3"><em>unmistakable.</em></p>
+   <p class="cap" data-t="27.7">Brands.</p>
+   <p class="cap" data-t="28.7">Campaigns.</p>
+   <p class="cap" data-t="29.6">Screens.</p>
+   <p class="cap" data-t="30.4">Objects.</p>
+   <p class="cap" data-t="31.1">All of it</p>
+   <p class="cap" data-t="31.7">one voice.</p>
+   <p class="cap" data-t="32.5">Never<br>a copy.</p>
+   <p class="cap" data-t="34.4">Never<br>safe.</p>
+   <p class="cap" data-t="36.2">Never<br>quiet.</p>
+   <p class="cap" data-t="37.9">Be one</p>
+   <p class="cap" data-t="38.4">of one.</p>
+   <p class="cap" data-t="39.3">Go<br><em>first.</em></p>
+   <p class="cap" data-t="40.6" data-end="1" aria-hidden="true"></p>
+ </div></div>
  <button class="play" id="play" type="button" aria-label="Play the film with sound">
   <svg viewBox="0 0 100 90" aria-hidden="true"><polygon points="50,6 94,84 6,84"/></svg>
-  <span>Play it loud</span>
  </button>
- <div class="film-bar film-bot"><p class="credit film-c">Sound on <i>·</i> Tap video to pause</p><div class="film-prog" aria-hidden="true"><b id="fprog"></b></div></div>
-</section>
-<section class="fw"><div class="rv"><p class="kicker">Who this is for</p><h2>This is for the ones<br>who move first.</h2></div></section>
-<section class="fw"><h2 class="rv">Not for <em class="red">pussies.</em></h2></section>
-<section class="fw"><h2 class="rv">Be <em class="hollow">great.</em></h2></section>
-<section class="fw"><h2 class="rv">Show <em class="red">it.</em></h2></section>
-<section class="bb" aria-labelledby="fdbb">
- <p class="kicker rv">AID</p>
- <h2 class="rv" id="fdbb">Made to be<br><em class="hollow">remembered.</em></h2>
- <div class="btns rv"><a class="btn" href="design.html">Studio</a><a class="btn" href="design.html#contact">Start a project</a></div>
+ <div class="film-prog" aria-hidden="true"><b id="fprog"></b></div>
 </section>
 </main>
-<footer class="foot">
- <div class="big" aria-hidden="true">AID</div>
- <div class="row">
-  <nav class="links" aria-label="Footer"><a href="design.html">Studio</a><a href="lab.html">Abrasive</a><a href="https://www.instagram.com/abrasivetmt" rel="noopener">Instagram</a><a href="shop.html">Shop</a></nav>
-  <p>Software developer partner: <a href="https://evrabo.com" rel="noopener">EVRABO</a></p>
- </div>
-</footer>
 <div class="cursor" aria-hidden="true"></div><div class="cursor-f" aria-hidden="true"></div>
 <script src="assets/site.js"></script>
 </body>
