@@ -8,6 +8,25 @@ body.studio .noise{opacity:.05;animation:none}
 .sx-js .sx-hero{height:300svh}.sx-js .sx-camp{height:340svh}.sx-js .sx-ui{height:420svh}.sx-js .sx-prod{height:460svh}
 .sx-k{position:absolute;z-index:5;left:var(--pad);top:6rem;margin:0;color:var(--fg)}
 
+/* story scaffolding: every chapter says what it is in one line; a rail shows where you are */
+.sx-k p{margin:0}
+.sx-k .kicker{margin-bottom:.9rem;color:var(--fg)}
+.sx-cl,.sx-lines{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.05rem,1.7vw,1.6rem);line-height:1.25;max-width:21em;color:#f0f0f0;text-shadow:0 0 1.4rem rgba(0,0,0,.8)}
+.sx-cl b{color:var(--red);font-weight:500}
+.sx-js .sx-ch{opacity:0}
+.sx-lines{display:grid}.sx-lines span{grid-area:1/1}
+.sx-js .sx-lines span{opacity:0}
+html:not(.sx-js) .sx-lines span:not(:last-child){display:none}
+.sx-end{position:absolute;z-index:4;right:var(--pad);bottom:clamp(2rem,5vw,4rem);margin:0;text-align:right;font-size:clamp(.9rem,1.3vw,1.2rem);line-height:1.4;color:#d8d8d8;text-shadow:0 0 1.2rem #000}
+.sx-end b{color:#fff;font-family:'Anton',sans-serif;font-weight:400;font-size:1.6em;letter-spacing:.02em;text-transform:uppercase;display:block;margin-top:.3rem}
+.sx-js .sx-end{opacity:0}
+.sx-rail{position:fixed;z-index:30;right:var(--pad);top:50%;transform:translateY(-50%);list-style:none;margin:0;padding:0;display:none;flex-direction:column;gap:.9rem;align-items:flex-end;font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;pointer-events:none}
+.sx-js .sx-rail{display:flex;opacity:0;transition:opacity .4s}
+.sx-rail.on{opacity:1}
+.sx-rail li{display:flex;align-items:center;gap:.7rem;color:rgba(240,240,240,.35);transition:color .3s}
+.sx-rail li::after{content:'';width:1.2rem;height:1px;background:currentColor;transition:width .3s,background .3s}
+.sx-rail li.on{color:#fff}.sx-rail li.on::after{width:2.4rem;background:var(--red)}
+
 /* 1: a field of identical tiles; the one that is you grows until it is the whole screen */
 .sx-gw{position:absolute;inset:0;overflow:hidden;background:#050505}
 .sx-g{position:absolute;left:50%;top:50%;display:grid;gap:2vh 2vw;grid-template-columns:repeat(9,16vw);grid-template-rows:repeat(7,16vh);transform:translate(-50%,-50%);transform-origin:50% 50%}
@@ -20,7 +39,7 @@ body.studio .noise{opacity:.05;animation:none}
 .sx-h1{position:absolute;z-index:3;left:var(--pad);right:var(--pad);bottom:clamp(2.5rem,7vw,6rem);display:flex;flex-direction:column;font-size:clamp(6rem,25vw,28rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase}
 .sx-h1 span{display:block}
 .sx-h1 span:last-child{font-size:.5em;padding-left:.1em}
-.sx-cue{position:absolute;z-index:3;left:var(--pad);top:6rem;font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#d0d0d0;margin:0}
+.sx-cue{position:absolute;z-index:3;right:var(--pad);top:6rem;font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#d0d0d0;margin:0}
 .sx-js .sx-hdim{opacity:0}
 
 /* 2: a ring of posters, the page turns it */
@@ -66,6 +85,9 @@ html:not(.sx-js) .sx-cc{display:none}
 html:not(.sx-js) .sx-prod .sx-st{height:70svh}
 
 @media(max-width:700px){
+ .sx-rail{display:none!important}
+ .sx-k{top:5rem;right:var(--pad)}
+ .sx-end{left:var(--pad);right:var(--pad);text-align:left;bottom:calc(5svh + 26vw)}
  .sx-h1{bottom:20svh;font-size:36vw;line-height:.9}
  .sx-h1 span:last-child{font-size:.62em;padding-left:.04em}
  .sx-g{grid-template-columns:repeat(9,22vw);grid-template-rows:repeat(7,22vh)}
