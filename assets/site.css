@@ -70,7 +70,23 @@ h1,h2,h3{font-family:'Anton',sans-serif;text-transform:uppercase;line-height:.9;
 .play:hover polygon{fill:var(--red);stroke:var(--red)}
 .play span{font-family:'Anton';letter-spacing:.2em;font-size:clamp(.9rem,1.4vw,1.2rem);text-transform:uppercase;color:var(--fg)}
 .play.off{opacity:0;pointer-events:none}
-.film-c{position:absolute;left:var(--pad);bottom:1.8rem;z-index:2;color:rgba(240,240,240,.75)}
+.film-c{color:rgba(240,240,240,.7)}
+/* film format: cinema bars, vignette, timed captions, progress */
+.film-hero video{filter:contrast(1.05)}
+.film-vig{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+.film-bar{position:absolute;left:0;right:0;z-index:4;height:11svh;display:flex;align-items:center;justify-content:center;padding:0 var(--pad);background:#000;font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(240,240,240,.7);pointer-events:none}
+.film-top{top:0}.film-top i{font-style:normal;color:var(--red);margin:0 .4em}
+.film-top #ftc{font-weight:400;font-variant-numeric:tabular-nums}
+.film-bot{bottom:0;flex-direction:column;align-items:flex-start;justify-content:center;gap:1rem}
+.film-bot .film-c{margin:0}.film-bot .film-c i{font-style:normal;color:var(--red)}
+.film-prog{width:100%;height:2px;background:rgba(240,240,240,.18)}
+.film-prog b{display:block;height:100%;width:0;background:var(--red)}
+.film-caps{position:absolute;inset:11svh 0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.cap{position:absolute;margin:0;padding:0 var(--pad);text-align:center;font-family:'Anton';text-transform:uppercase;line-height:.92;font-size:clamp(3rem,10vw,10rem);color:#fff;text-shadow:0 .04em .5em rgba(0,0,0,.6);opacity:0;transform:translateY(.25em) scale(.98);transition:opacity .35s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.cap em{font-style:normal;color:var(--red)}
+.cap.on{opacity:1;transform:none}
+.film-hero.idle .cap{opacity:0}
+@media(prefers-reduced-motion:reduce){.cap{transform:none;transition:opacity .2s}}
 .fw{display:flex;align-items:center;justify-content:center;text-align:center;min-height:78svh;padding:10vh var(--pad);border-bottom:1px solid var(--rule)}
 .fw h2{font-size:clamp(3rem,10vw,10rem)}
 

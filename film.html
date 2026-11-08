@@ -35,13 +35,22 @@
 </header>
 <main id="main">
 <h1 class="sr">AID — The film</h1>
-<section class="film-hero">
- <video id="filmvid" src="assets/hero.mp4" loop playsinline preload="metadata"></video>
+<section class="film-hero idle" id="filmhero">
+ <video id="filmvid" src="assets/film.mp4" poster="assets/film_poster.jpg" loop playsinline preload="metadata"></video>
+ <div class="film-vig" aria-hidden="true"></div>
+ <div class="film-bar film-top" aria-hidden="true"><span>The film <i>/</i> <b id="ftc">00:00</b></span></div>
+ <div class="film-caps" aria-live="off">
+  <p class="cap" data-t="0">Safe is<br><em>invisible.</em></p>
+  <p class="cap" data-t="2.5">Move <em>first.</em></p>
+  <p class="cap" data-t="4.5">Be one<br>of <em>one.</em></p>
+  <p class="cap" data-t="7.5">Do it <em>loud.</em></p>
+  <p class="cap" data-t="9.5">Be<br><em>unmistakable.</em></p>
+ </div>
  <button class="play" id="play" type="button" aria-label="Play the film with sound">
   <svg viewBox="0 0 100 90" aria-hidden="true"><polygon points="50,6 94,84 6,84"/></svg>
   <span>Play it loud</span>
  </button>
- <p class="credit film-c">AID / The film <i>·</i> Sound on <i>·</i> Tap video to pause</p>
+ <div class="film-bar film-bot"><p class="credit film-c">Sound on <i>·</i> Tap video to pause</p><div class="film-prog" aria-hidden="true"><b id="fprog"></b></div></div>
 </section>
 <section class="fw"><div class="rv"><p class="kicker">Who this is for</p><h2>This is for the ones<br>who move first.</h2></div></section>
 <section class="fw"><h2 class="rv">Not for <em class="red">pussies.</em></h2></section>

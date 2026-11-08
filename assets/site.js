@@ -242,11 +242,24 @@
   // the film page: sound on, tap video to pause/play
   var fv=document.getElementById('filmvid'),pb=document.getElementById('play');
   if(fv&&pb){
-    var showPlay=function(on){pb.classList.toggle('off',!on)};
+    var fh=document.getElementById('filmhero');var showPlay=function(on){pb.classList.toggle('off',!on);fh.classList.toggle('idle',on)};
     pb.addEventListener('click',function(){fv.play().catch(function(){})});
     fv.addEventListener('click',function(){if(fv.paused)fv.play().catch(function(){});else fv.pause()});
     fv.addEventListener('play',function(){showPlay(false)});
     fv.addEventListener('pause',function(){showPlay(true)});
+    // timed captions, timecode and progress follow the film
+    var caps=[].slice.call(document.querySelectorAll('.cap')),ftc=document.getElementById('ftc'),fp=document.getElementById('fprog'),cur=-1;
+    var tick=function(){
+      var t=fv.currentTime,d=fv.duration||1,k=-1;
+      caps.forEach(function(c,i){if(t>=parseFloat(c.dataset.t))k=i});
+      if(k!==cur){caps.forEach(function(c,i){c.classList.toggle('on',i===k)});cur=k}
+      ftc.textContent=('0'+Math.floor(t/60)).slice(-2)+':'+('0'+Math.floor(t%60)).slice(-2);
+      fp.style.width=(t/d*100).toFixed(2)+'%';
+      if(!fv.paused)requestAnimationFrame(tick);
+    };
+    fv.addEventListener('play',function(){requestAnimationFrame(tick)});
+    fv.addEventListener('seeked',tick);
+    fv.addEventListener('loadedmetadata',tick);
   }
 
   // work filters
