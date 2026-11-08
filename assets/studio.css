@@ -1,31 +1,27 @@
-/* Studio, reimagined (dark). One pinned story per discipline, each with its own mechanism; the 3D helmet is the product.
-   1) Be unmistakable: the photo pushes in, the two words tear apart, black.  2) Campaigns: posters fan out like a hand of cards.
-   3) Interface: a phone in 3D whose screen scrolls with the page.  4) Product: the helmet turns with the scroll and can be dragged; "Add spice." slams in.
+/* Studio (dark). One continuous story told with footage and objects, no copy:
+   a moment (footage seen through the headline) -> frozen into a poster frame -> that poster joins a ring of campaigns -> the same footage lives on a phone -> the phone opens onto the 3D helmet.
    Pinned only when JS runs (html.sx-js). Performance (notes.md): transforms/opacity only, eased progress. */
 body.studio .noise{opacity:.05;animation:none}
 .sx-st{position:relative;height:100svh;overflow:hidden;background:#000;color:#f0f0f0}
 .sx-js .sx-st{position:sticky;top:0}
-.sx-js .sx-hero{height:300svh}.sx-js .sx-camp{height:340svh}.sx-js .sx-ui{height:420svh}.sx-js .sx-prod{height:460svh}
+.sx-js .sx-hero{height:820svh}.sx-js .sx-camp{display:none}.sx-js .sx-ui{height:430svh}.sx-js .sx-prod{height:460svh}
 .sx-k{position:absolute;z-index:5;left:var(--pad);top:6rem;margin:0;color:var(--fg)}
 
-/* 1: a field of identical tiles; the one that is you grows until it is the whole screen */
-.sx-gw{position:absolute;inset:0;overflow:hidden;background:#050505}
-.sx-g{position:absolute;left:50%;top:50%;display:grid;gap:2vh 2vw;grid-template-columns:repeat(9,16vw);grid-template-rows:repeat(7,16vh);transform:translate(-50%,-50%);transform-origin:50% 50%}
-.sx-t{background:#151515;box-shadow:inset 0 0 0 1px rgba(240,240,240,.07)}
-.sx-t.me{position:relative;background:#000 center/cover no-repeat;box-shadow:0 0 0 2px #ff1e1e}
-.sx-full{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.sx-js .sx-full{opacity:0}
-.sx-hdim{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72),rgba(0,0,0,0) 60%);pointer-events:none}
-.sx-fade{position:absolute;inset:0;z-index:4;background:#000;opacity:0;pointer-events:none}
+/* 1: the moment. Footage is only visible through the letters; the page zooms into a letter until the footage is the whole screen, then it is framed as a poster */
+.sx-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000;filter:brightness(1.25) contrast(1.08);transform-origin:50% 50%;will-change:transform,clip-path}
+.sx-mask{position:absolute;inset:0;z-index:3}
+.sx-js .sx-mask{background:#000;mix-blend-mode:multiply;will-change:transform}
 .sx-h1{position:absolute;z-index:3;left:var(--pad);right:var(--pad);bottom:clamp(2.5rem,7vw,6rem);display:flex;flex-direction:column;font-size:clamp(6rem,25vw,28rem);line-height:.82;letter-spacing:-.02em;color:#fff;margin-left:-.03em;font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase}
 .sx-h1 span{display:block}
 .sx-h1 span:last-child{font-size:.5em;padding-left:.1em}
-.sx-cue{position:absolute;z-index:3;left:var(--pad);top:6rem;font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#d0d0d0;margin:0}
-.sx-js .sx-hdim{opacity:0}
+.sx-cue{position:absolute;z-index:4;left:var(--pad);top:6rem;font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:#d0d0d0;margin:0}
+html:not(.sx-js) .sx-hero .sx-st{height:100svh}
+html:not(.sx-js) .sx-mask{background:linear-gradient(to top,rgba(0,0,0,.7),rgba(0,0,0,0) 60%)}
 
 /* 2: a ring of posters, the page turns it */
 .sx-ring{position:absolute;inset:0;perspective:1900px;perspective-origin:50% 42%}
 .sx-rot{position:absolute;left:50%;top:44%;width:0;height:0;transform-style:preserve-3d;will-change:transform}
+.sx-cv{aspect-ratio:787/1400;object-fit:cover;filter:brightness(1.25) contrast(1.08)}
 .sx-c{position:absolute;left:calc(var(--cw)/-2);top:0;width:var(--cw);max-width:none;height:auto;display:block;backface-visibility:hidden;box-shadow:0 30px 60px -25px rgba(0,0,0,.95);background:#111;translate:0 -50%;will-change:transform,opacity}
 .sx-ring{--cw:min(25vw,20rem)}
 .sx-cc{position:absolute;z-index:5;left:0;right:0;bottom:2.4rem;margin:0;text-align:center;font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
@@ -41,10 +37,12 @@ html:not(.sx-js) .sx-cc{display:none}
 .sx-dw{position:absolute;inset:0;display:grid;place-items:center;perspective:1500px}
 .sx-dev{width:min(27vw,19rem);aspect-ratio:9/19;border-radius:2.2rem;background:#0a0a0a;border:3px solid #2a2a2a;padding:.55rem;box-shadow:0 60px 90px -40px rgba(0,0,0,.95),0 0 0 1px rgba(240,240,240,.08);will-change:transform;transform-style:preserve-3d}
 .sx-scr{position:relative;width:100%;height:100%;border-radius:1.7rem;overflow:hidden;background:#f4f4f1;color:#0a0a0a}
-.sx-in{will-change:transform;padding-bottom:1rem}
+.sx-in{will-change:transform;padding-bottom:62%}
 .sx-bar{display:flex;justify-content:space-between;align-items:center;padding:.9rem 1rem;border-bottom:1px solid rgba(0,0,0,.12)}
 .sx-bar b{font-family:'Anton',sans-serif;font-weight:400;font-size:1.1rem}
 .sx-bar i{font-style:normal;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase}
+.sx-pv{display:block;width:84%;aspect-ratio:4/5;object-fit:cover;margin:1rem auto .8rem;box-shadow:0 18px 30px -18px rgba(0,0,0,.5);background:#111}
+.sx-in .sx-ph{aspect-ratio:4/3;object-fit:cover;background:#111}
 .sx-in img{display:block;width:84%;height:auto;margin:1rem auto .8rem;box-shadow:0 18px 30px -18px rgba(0,0,0,.5)}
 .sx-in h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:1.25rem;line-height:1;margin:0 1rem .2rem;letter-spacing:.01em}
 .sx-in p{margin:0 1rem .7rem;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#55554f}
@@ -68,7 +66,6 @@ html:not(.sx-js) .sx-prod .sx-st{height:70svh}
 @media(max-width:700px){
  .sx-h1{bottom:20svh;font-size:36vw;line-height:.9}
  .sx-h1 span:last-child{font-size:.62em;padding-left:.04em}
- .sx-g{grid-template-columns:repeat(9,22vw);grid-template-rows:repeat(7,22vh)}
  .sx-ring{--cw:44vw}
  .sx-dev{width:62vw}
  .sx-spice{font-size:30vw;bottom:5svh}
